@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V3 - IMAGE WATERMARKS INTEGRATED)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V3.2 - CENTERED LOTUS & ENLARGED TYPO)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -22,7 +22,7 @@ html.dhp-active, body.dhp-active {
   flex-direction: column !important;
   align-items: center !important;
   justify-content: space-between !important;
-  padding: 12px 10px 18px 10px !important;
+  padding: 10px 10px 16px 10px !important;
   box-sizing: border-box !important;
   font-family: 'Times New Roman', Times, serif !important;
 }
@@ -64,10 +64,10 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🌸 TÍCH HỢP 2 WATERMARK ẢNH GỐC (SỬ DỤNG MIX-BLEND-MODE MULTIPLY LỌC NỀN)
+   🌸 WATERMARK CHUẨN: HOA SEN CANH GIỮA CHÍNH XÁC CỘT CHỮ (CỘT PHẢI)
    ========================================================================== */
 
-/* WATERMARK 1: ĐỨC PHẬT TỌA THIỀN (CHO TRANG BÌA PHẨM) */
+/* WATERMARK 1: ĐỨC PHẬT TỌA THIỀN (CHO TRANG BÌA PHẨM - CANH GIỮA TRANG) */
 #dhp-master-workspace .dhp-bg-buddha {
   position: relative !important;
 }
@@ -77,42 +77,43 @@ html.dhp-active, body.dhp-active {
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
-  width: 480px !important;
-  height: 480px !important;
+  width: 460px !important;
+  height: 460px !important;
   background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen01.webp") !important; 
   background-position: center !important;
   background-repeat: no-repeat !important;
   background-size: contain !important;
-  opacity: 0.15 !important; /* Mờ 15% tinh tế */
-  mix-blend-mode: multiply !important; /* Triệt tiêu hoàn toàn nền trắng của ảnh */
-  pointer-events: none !important;
-  z-index: 0 !important;
-}
-
-/* WATERMARK 2: HOA SEN VÀNG (CHO TRANG BÀI KỆ) */
-#dhp-master-workspace .dhp-bg-lotus {
-  position: relative !important;
-}
-#dhp-master-workspace .dhp-bg-lotus::before {
-  content: "" !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  width: 360px !important;
-  height: 360px !important;
-  background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
-  background-position: center !important;
-  background-repeat: no-repeat !important;
-  background-size: contain !important;
-  opacity: 0.1 !important; /* Mờ 10% để không đè chữ */
+  opacity: 0.14 !important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 0 !important;
 }
 
-/* Đảm bảo toàn bộ chữ và hình ảnh nổi lên trên Watermark */
-#dhp-master-workspace .dhp-inner-card > * {
+/* WATERMARK 2: HOA SEN VÀNG (CANH CHÍNH GIỮA CỘT VĂN BẢN 380px) */
+#dhp-master-workspace .dhp-text-col {
+  position: relative !important;
+}
+#dhp-master-workspace .dhp-text-col::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 320px !important;
+  height: 320px !important;
+  background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  opacity: 0.13 !important;
+  mix-blend-mode: multiply !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* Đảm bảo toàn bộ chữ và hình ảnh luôn nổi lên trên Watermark */
+#dhp-master-workspace .dhp-inner-card > *,
+#dhp-master-workspace .dhp-text-col > * {
   position: relative !important;
   z-index: 10 !important;
 }
@@ -165,7 +166,7 @@ html.dhp-active, body.dhp-active {
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
-  padding: 2px 0 2px 5px !important;
+  padding: 0 2px !important;
   box-sizing: border-box !important;
   flex-shrink: 0 !important;
 }
@@ -174,7 +175,7 @@ html.dhp-active, body.dhp-active {
 #dhp-master-workspace .dhp-pali-box {
   background-color: #fff8e7 !important;
   border-left: 3.5px solid #d97706 !important;
-  padding: 6px 10px !important;
+  padding: 6px 12px !important;
   border-radius: 0 4px 4px 0 !important;
   margin-bottom: 6px !important;
 }
