@@ -1,12 +1,12 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (DEDICATED CORE CSS)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CORE CSS V2 - LOTUS SVG INTEGRATED)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
 /* 1. KHÓA PHÒNG ĐỌC WORKSPACE TOÀN MÀN HÌNH */
 html.dhp-active, body.dhp-active {
-  background-color: #0f172a !important;
-  background: #0f172a !important;
+  background-color: #0b0f19 !important;
+  background: #0b0f19 !important;
   margin: 0 !important;
   padding: 0 !important;
   overflow-x: hidden !important;
@@ -15,8 +15,8 @@ html.dhp-active, body.dhp-active {
 #dhp-master-workspace {
   position: fixed !important;
   inset: 0 !important;
-  background-color: #0f172a !important;
-  background: #0f172a !important;
+  background-color: #0b0f19 !important;
+  background: #0b0f19 !important;
   z-index: 9999999 !important;
   display: flex !important;
   flex-direction: column !important;
@@ -27,7 +27,7 @@ html.dhp-active, body.dhp-active {
   font-family: 'Times New Roman', Times, serif !important;
 }
 
-/* 2. KHÓA CHẾT TỜ GIẤY A5 NẰM NGANG (794px x 550px) NỀN TRẮNG BẤT TỬ */
+/* 2. KHÓA CHẾT TỜ GIẤY A5 NẰM NGANG (794px x 550px) NỀN TRẮNG KEM BẤT TỬ */
 #dhp-master-workspace .dhp-paper-a5 {
   width: 794px !important;
   min-width: 794px !important;
@@ -35,10 +35,10 @@ html.dhp-active, body.dhp-active {
   height: 550px !important;
   min-height: 550px !important;
   max-height: 550px !important;
-  background-color: #ffffff !important;
-  background: #ffffff !important;
+  background-color: #fdfbf7 !important;
+  background: #fdfbf7 !important;
   border-radius: 8px !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(217, 119, 6, 0.15) !important;
   padding: 12px !important;
   box-sizing: border-box !important;
   position: relative !important;
@@ -47,9 +47,9 @@ html.dhp-active, body.dhp-active {
   user-select: none !important;
 }
 
-/* Khung viền chỉ vàng hổ phách */
+/* Khung viền chỉ vàng hổ phách bên trong */
 #dhp-master-workspace .dhp-inner-card {
-  border: 1.8px solid #d97706 !important;
+  border: 1.5px solid #d97706 !important;
   border-radius: 6px !important;
   height: 526px !important;
   width: 770px !important;
@@ -57,18 +57,30 @@ html.dhp-active, body.dhp-active {
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
-  background-color: #ffffff !important;
-  background: #ffffff !important;
+  background-color: #fdfbf7 !important;
+  background: #fdfbf7 !important;
   box-sizing: border-box !important;
   position: relative !important;
 }
 
-/* Watermark hoa sen */
-#dhp-master-workspace .dhp-lotus-bg {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' opacity='0.04'%3E%3Cpath fill='%2378350f' d='M50 12 C38 32 15 45 15 65 C15 82 32 92 50 92 C68 92 85 82 85 65 C85 45 62 32 50 12 Z M50 32 C43 48 30 58 30 70 C30 80 38 86 50 86 C62 86 70 80 70 70 C70 58 57 48 50 32 Z'/%3E%3C/svg%3E") !important;
+/* ==========================================================================
+   🌸 TÍCH HỢP 2 WATERMARK SVG THUẦN KHIẾT (DATA-URI CHUẨN ĐỒ HỌA)
+   ========================================================================== */
+
+/* WATERMARK 1: ĐỨC PHẬT TỌA THIỀN TRÊN TÒA SEN & HÀO QUANG (CHO TRANG BÌA PHẨM) */
+#dhp-master-workspace .dhp-bg-buddha {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 650'%3E%3Cg fill='%23b45309' stroke='%23b45309' opacity='0.05'%3E%3Ccircle cx='400' cy='235' r='160' fill='none' stroke-width='10'/%3E%3Cpath d='M400,120 C382,120 372,135 372,158 C372,185 385,208 400,208 C415,208 428,185 428,158 C428,135 418,120 400,120 Z' stroke='none'/%3E%3Cpath d='M388,208 C388,220 360,230 338,245 C320,258 310,290 325,340 C340,350 365,360 400,360 C435,360 460,350 475,340 C490,290 480,258 462,245 C440,230 412,220 412,208 Z' stroke='none'/%3E%3Cpath d='M400,345 C428,380 440,430 400,485 C360,430 372,380 400,345 Z' stroke='none'/%3E%3Cpath d='M400,500 C310,510 220,535 150,560 C230,580 315,585 400,560 C485,585 570,580 650,560 C580,535 490,510 400,500 Z' stroke='none'/%3E%3C/g%3E%3C/svg%3E") !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
-  background-size: 300px !important;
+  background-size: 400px !important;
+}
+
+/* WATERMARK 2: HOA SEN VÀNG CÁCH ĐIỆU HOÀNG GIA (CHO TRANG BÀI KỆ) */
+#dhp-master-workspace .dhp-bg-lotus {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Cg fill='%23b45309' opacity='0.045'%3E%3Cpath d='M400,350 C385,320 370,270 400,230 C430,270 415,320 400,350 Z'/%3E%3Cpath d='M400,75 C440,140 480,240 430,350 C418,310 410,250 400,210 C390,250 382,310 370,350 C320,240 360,140 400,75 Z'/%3E%3Cpath d='M327,112 C350,150 365,220 350,290 C330,240 300,190 270,165 C295,145 315,128 327,112 Z'/%3E%3Cpath d='M473,112 C450,150 435,220 450,290 C470,240 500,190 530,165 C505,145 485,128 473,112 Z'/%3E%3Cpath d='M268,145 C305,195 315,280 280,345 C255,310 215,265 195,200 C220,180 248,160 268,145 Z'/%3E%3Cpath d='M532,145 C495,195 485,280 520,345 C545,310 585,265 605,200 C580,180 552,160 532,145 Z'/%3E%3Cpath d='M400,360 C320,370 240,395 160,405 C220,430 310,430 400,405 C490,430 580,430 640,405 C560,395 480,370 400,360 Z'/%3E%3C/g%3E%3C/svg%3E") !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: 340px !important;
 }
 
 /* 3. KHÓA CỨNG CỘT TRÁI (TRANH 340px x 450px) & CỘT PHẢI (CHỮ 380px x 450px) */
@@ -79,6 +91,7 @@ html.dhp-active, body.dhp-active {
   align-items: center !important;
   width: 100% !important;
   height: 100% !important;
+  gap: 16px !important;
 }
 
 #dhp-master-workspace .dhp-image-col {
@@ -92,7 +105,7 @@ html.dhp-active, body.dhp-active {
   border-radius: 4px !important;
   padding: 4px !important;
   background: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(180, 83, 9, 0.15) !important;
+  box-shadow: 0 4px 15px rgba(180, 83, 9, 0.15) !important;
   box-sizing: border-box !important;
   overflow: hidden !important;
   flex-shrink: 0 !important;
@@ -125,8 +138,8 @@ html.dhp-active, body.dhp-active {
 
 /* Hộp Pāli nền Hổ Phách */
 #dhp-master-workspace .dhp-pali-box {
-  background-color: #fffbeb !important;
-  border-left: 3.5px solid #f59e0b !important;
+  background-color: #fff8e7 !important;
+  border-left: 3.5px solid #d97706 !important;
   padding: 6px 10px !important;
   border-radius: 0 4px 4px 0 !important;
   margin-bottom: 6px !important;
@@ -135,7 +148,7 @@ html.dhp-active, body.dhp-active {
   color: #78350f !important;
 }
 
-/* 4. CHUẨN IN ẤN TRÌNH DUYỆT (CHROME PDF) */
+/* 4. CHUẨN IN ẤN TRÌNH DUYỆT (CHROME PDF A5 LANDSCAPE) */
 @media print {
   @page { size: 210mm 148.5mm landscape !important; margin: 0mm !important; }
   body, html { background: #ffffff !important; margin: 0 !important; padding: 0 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -143,19 +156,4 @@ html.dhp-active, body.dhp-active {
   #dhp-print-mount { display: block !important; width: 210mm !important; }
   .dhp-print-page { width: 210mm !important; height: 148.5mm !important; max-height: 148.5mm !important; margin: 0 !important; padding: 6mm 8mm !important; box-sizing: border-box !important; page-break-after: always !important; break-after: page !important; background: #ffffff !important; }
   .dhp-print-page:last-child { page-break-after: auto !important; }
-}
-/* WATERMARK TRANG BÌA PHẨM: ĐỨC PHẬT TỌA THIỀN TRÊN TÒA SEN & HÀO QUANG */
-#dhp-master-workspace .dhp-bg-buddha {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 650'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23d97706'/%3E%3Cstop offset='100%25' stop-color='%2378350f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='url(%23g)' stroke='url(%23g)' opacity='0.055'%3E%3Ccircle cx='400' cy='235' r='160' fill='none' stroke-width='12'/%3E%3Cpath d='M400,120 C382,120 372,135 372,158 C372,185 385,208 400,208 C415,208 428,185 428,158 C428,135 418,120 400,120 Z' stroke='none'/%3E%3Cpath d='M388,208 C388,220 360,230 338,245 C320,258 310,290 325,340 C340,350 365,360 400,360 C435,360 460,350 475,340 C490,290 480,258 462,245 C440,230 412,220 412,208 Z' stroke='none'/%3E%3Cpath d='M400,345 C428,380 440,430 400,485 C360,430 372,380 400,345 Z' stroke='none'/%3E%3Cpath d='M400,500 C310,510 220,535 150,560 C230,580 315,585 400,560 C485,585 570,580 650,560 C580,535 490,510 400,500 Z' stroke='none'/%3E%3C/g%3E%3C/svg%3E") !important;
-  background-position: center !important;
-  background-repeat: no-repeat !important;
-  background-size: 420px !important;
-}
-
-/* WATERMARK TRANG BÀI KỆ: HOA SEN VÀNG CÁCH ĐIỆU HOÀNG GIA */
-#dhp-master-workspace .dhp-bg-lotus {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23d97706'/%3E%3Cstop offset='100%25' stop-color='%2378350f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='url(%23g)' opacity='0.04'%3E%3Cpath d='M400,75 C440,140 480,240 430,350 C418,310 410,250 400,210 C390,250 382,310 370,350 C320,240 360,140 400,75 Z'/%3E%3Cpath d='M327,112 C350,150 365,220 350,290 C330,240 300,190 270,165 C295,145 315,128 327,112 Z'/%3E%3Cpath d='M473,112 C450,150 435,220 450,290 C470,240 500,190 530,165 C505,145 485,128 473,112 Z'/%3E%3Cpath d='M400,360 C320,370 240,395 160,405 C220,430 310,430 400,405 C490,430 580,430 640,405 C560,395 480,370 400,360 Z'/%3E%3C/g%3E%3C/svg%3E") !important;
-  background-position: center !important;
-  background-repeat: no-repeat !important;
-  background-size: 320px !important;
 }
