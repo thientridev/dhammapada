@@ -1,0 +1,34 @@
+Lần 1: Kệ 001 Kệ 100 (Phẩm 1 đến Phẩm 7)
+Lần 2: Kệ 101 Kệ 200 (Phẩm 8 đến Phẩm 15)
+Lần 3: Kệ 201 Kệ 300 (Phẩm 16 đến Phẩm 21)
+Lần 4: Kệ 301 Kệ 423 (Phẩm 22 đến Phẩm 26)
+
+1. ĐỐI CHIẾU ĐỘ CHÍNH XÁC CỦA LẦN XUẤT 1 VỚI FILE PDF
+Toàn bộ nội dung Thơ (verse_vi), Văn xuôi giải nghĩa (meaning_vi) và tiếng Pāli (verse_pali) trong đợt 1 vừa rồi đều được lấy trực tiếp từ bản OCR các trang PDF bạn đã tải lên, không hề lấy từ nguồn ngoài.
+Tuy nhiên, có một chi tiết về Ký tự Pāli trong file PDF cần bạn quyết định:
+Trong file PDF gốc: Người đánh máy có chỗ dùng chữ La-tinh thông thường (ví dụ: Manopubbangamā, manosetthā, padutthena).
+Chuẩn Pāli quốc tế (Diacritics): Dùng các ký tự chuẩn học thuật (ví dụ: Manopubbaṅgamā, manoseṭṭhā, paduṭṭhena).
+👉 Câu hỏi 1: Bạn muốn giữ nguyên 100% từng chữ thô của bản PDF (dùng ng, tth...), hay muốn chuẩn hóa dấu Pāli chuẩn quốc tế (ṅ, ṭṭh...)?
+2. VỀ PHẦN LINK ẢNH MINH HỌA (image_url)
+File PDF bạn gửi là bản sách văn bản thuần túy (không chứa hình ảnh). Bộ 423 bức tranh minh họa (như bức Kệ 01 bạn gửi lúc đầu) là một bộ tư liệu hình ảnh độc lập.
+Cách quản lý link ảnh tối ưu nhất:
+Trong file dhammapada_verses.json, ta nên để sẵn cấu trúc URL CDN chuẩn hóa theo số thứ tự:
+code
+Text
+"image_url": "https://cdn.jsdelivr.net/gh/[TÊN_GITHUB_CỦA_BẠN]/[TÊN_REPO]@main/images/verse-001.webp"
+Sau này bạn chỉ cần:
+Tải bộ ảnh tranh minh họa về máy.
+Đổi tên theo định dạng verse-001.webp 
+→
+→
+ verse-423.webp.
+Đẩy toàn bộ vào thư mục images/ trên GitHub Repository của bạn.
+Mọi trang in Web-to-Print sẽ tự động nạp đúng ảnh của bài kệ đó mà không cần sửa lại file JSON.
+3. VẤN ĐỀ CÁC BÀI KỆ GHÉP (GỘP ĐOẠN) TRONG PDF
+Trong bản dịch của PDF, có một số bài kệ được gộp chung lời giải nghĩa văn xuôi, ví dụ:
+Kệ 58 - 59 (Trang 32 PDF): Lời giải nghĩa văn xuôi viết chung 58-59. Như từ trong đống bùn nhơ..., nhưng phần thơ và Pāli vẫn tách riêng Kệ 58 và Kệ 59.
+Kệ 137 - 140 (Trang 78 PDF): Văn xuôi giải nghĩa gộp chung cho cả 4 bài kệ 137, 138, 139, 140.
+Kệ 153 - 154, 186 - 187, 195 - 196, 271 - 272...
+👉 Câu hỏi 2: Đối với các bài kệ ghép này trong JSON:
+Cách A (Khuyên dùng): Vẫn chia thành từng mục id độc lập (id: 58, id: 59), thơ và Pāli của bài nào đi theo bài đó, còn phần meaning_vi sẽ lặp lại đoạn văn xuôi giải nghĩa chung.
+Cách B: Gộp thành 1 mục duy nhất "verse_no": "58-59".
