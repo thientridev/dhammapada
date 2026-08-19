@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V3.2 - CENTERED LOTUS & ENLARGED TYPO)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V3.3 - TRANSPARENT PALI & LARGE MEANING)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -67,7 +67,7 @@ html.dhp-active, body.dhp-active {
    🌸 WATERMARK CHUẨN: HOA SEN CANH GIỮA CHÍNH XÁC CỘT CHỮ (CỘT PHẢI)
    ========================================================================== */
 
-/* WATERMARK 1: ĐỨC PHẬT TỌA THIỀN (CHO TRANG BÌA PHẨM - CANH GIỮA TRANG) */
+/* WATERMARK 1: ĐỨC PHẬT TỌA THIỀN (CHO TRANG BÀI PHẨM) */
 #dhp-master-workspace .dhp-bg-buddha {
   position: relative !important;
 }
@@ -105,7 +105,7 @@ html.dhp-active, body.dhp-active {
   background-position: center !important;
   background-repeat: no-repeat !important;
   background-size: contain !important;
-  opacity: 0.13 !important;
+  opacity: 0.16 !important; /* Độ rõ vừa vặn xuyên thấu qua Pāli */
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 0 !important;
@@ -171,16 +171,16 @@ html.dhp-active, body.dhp-active {
   flex-shrink: 0 !important;
 }
 
-/* Hộp Pāli nền Hổ Phách */
+/* Hộp Pāli TRONG SUỐT HOÀN TOÀN - XUYÊN THẤU HÌNH NỀN HOA SEN */
 #dhp-master-workspace .dhp-pali-box {
-  background-color: #fff8e7 !important;
+  background: transparent !important;
+  background-color: transparent !important;
   border-left: 3.5px solid #d97706 !important;
-  padding: 6px 12px !important;
-  border-radius: 0 4px 4px 0 !important;
+  padding: 3px 0 3px 12px !important;
   margin-bottom: 6px !important;
 }
 #dhp-master-workspace .dhp-pali-box * {
-  color: #78350f !important;
+  color: #92400e !important;
 }
 
 /* 4. CHUẨN IN ẤN TRÌNH DUYỆT (CHROME PDF A5 LANDSCAPE) */

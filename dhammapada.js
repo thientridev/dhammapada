@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V3.2 - TYPOGRAPHY UPGRADE)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V3.3 - TRANSPARENT PALI & LARGE MEANING)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -162,28 +162,28 @@
               <img src="${v.image_url}" alt="Kệ ${v.verse_no}" loading="lazy" />
             </div>
 
-            <!-- CỘT PHẢI: VĂN BẢN & WATERMARK SEN VÀNG CANH GIỮA -->
+            <!-- CỘT PHẢI: VĂN BẢN & WATERMARK HOA SEN NỀN TRONG SUỐT -->
             <div class="dhp-text-col">
               <div>
-                <!-- TIÊU ĐỀ KỆ SỐ (TO - RÕ - ĐẬM) -->
+                <!-- TIÊU ĐỀ KỆ SỐ -->
                 <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 4px; margin-bottom: 8px; font-family: system-ui, sans-serif;">
                   <span style="font-size: 17px; font-weight: 900; color: #b45309; letter-spacing: 0.5px;">KỆ SỐ ${cleanText(v.verse_no)}</span>
                   <span style="font-size: 12.5px; color: #64748b; font-style: italic; font-weight: 600;">${cleanText(chap.chapter_vi)}</span>
                 </div>
 
-                <!-- THƠ LỤC BÁT (CHỮ TO 16PX - NÉT ĐẬM TRANG NHÃ) -->
+                <!-- THƠ LỤC BÁT (CHỮ TO 16PX) -->
                 <div style="font-size: 16px; line-height: 1.6; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 8px;">${cleanText(v.verse_vi)}</div>
 
-                <!-- HỘP PĀLI (CHỮ 13PX) -->
+                <!-- HỘP PĀLI NỀN TRONG SUỐT (NHÌN RÕ HOA SEN BÊN DƯỚI) -->
                 <div class="dhp-pali-box">
-                  <div style="font-size: 13px; line-height: 1.5; font-style: italic; white-space: pre-line; font-weight: 500;">${cleanText(v.verse_pali)}</div>
+                  <div style="font-size: 13.5px; line-height: 1.5; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
                 </div>
               </div>
 
               <div>
-                <!-- PHẦN DỊCH NGHĨA (CHỮ TO 13PX DỄ ĐỌC) -->
-                <div style="font-size: 13px; line-height: 1.55; color: #1e293b; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 6px;">
-                  <b style="color: #0f172a;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
+                <!-- PHẦN DỊCH NGHĨA (CHỮ TO 14.5PX - RÕ RÀNG SẮC NÉT) -->
+                <div style="font-size: 14.5px; line-height: 1.6; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 8px;">
+                  <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                 </div>
 
                 <!-- FOOTER CARD -->
