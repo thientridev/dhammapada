@@ -155,29 +155,40 @@
     } else {
       const v = page.data;
       const chap = page.chapter;
-      // Dùng class dhp-bg-lotus cho Trang Bài Kệ
+      // Trang Bài Kệ: Bỏ dhp-bg-lotus ở thẻ ngoài cùng
       canvas.innerHTML = `
-        <div class="dhp-inner-card dhp-bg-lotus">
+        <div class="dhp-inner-card">
           <div class="dhp-grid-container">
+            <!-- Cột trái: Ảnh minh họa -->
             <div class="dhp-image-col">
               <img src="${v.image_url}" alt="Kệ ${v.verse_no}" loading="lazy" />
             </div>
-            <div class="dhp-text-col">
+
+            <!-- Cột phải: Vùng chứa Chữ (Gắn Watermark Hoa Sen vào vùng này) -->
+            <div class="dhp-text-col dhp-bg-lotus">
               <div>
-                <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 4px; margin-bottom: 8px; font-family: system-ui, sans-serif;">
-                  <span style="font-size: 15px; font-weight: 900; color: #b45309; letter-spacing: 0.5px;">KỆ SỐ ${cleanText(v.verse_no)}</span>
-                  <span style="font-size: 11.5px; color: #64748b; font-style: italic;">${cleanText(chap.chapter_vi)}</span>
+                <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1.5px solid #fed7aa; padding-bottom: 6px; margin-bottom: 10px; font-family: system-ui, sans-serif;">
+                  <span style="font-size: 16.5px; font-weight: 900; color: #b45309; letter-spacing: 0.5px;">KỆ SỐ ${cleanText(v.verse_no)}</span>
+                  <span style="font-size: 13px; color: #64748b; font-style: italic;">${cleanText(chap.chapter_vi)}</span>
                 </div>
-                <div style="font-size: 13.5px; line-height: 1.55; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 8px;">${cleanText(v.verse_vi)}</div>
-                <div class="dhp-pali-box">
-                  <div style="font-size: 11.5px; line-height: 1.45; font-style: italic; white-space: pre-line;">${cleanText(v.verse_pali)}</div>
+
+                <!-- Thơ Lục Bát (Size 15px, line-height 1.6) -->
+                <div style="font-size: 15px; line-height: 1.6; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 12px; padding-left: 5px;">${cleanText(v.verse_vi)}</div>
+
+                <!-- Hộp Pāli (Size 13px, line-height 1.5) -->
+                <div class="dhp-pali-box" style="margin-bottom: 10px;">
+                  <div style="font-size: 13px; line-height: 1.5; font-style: italic; white-space: pre-line;">${cleanText(v.verse_pali)}</div>
                 </div>
               </div>
+              
               <div>
-                <div style="font-size: 11.5px; line-height: 1.45; color: #334155; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 6px;">
+                <!-- Dịch Nghĩa (Size 12.5px, line-height 1.5) -->
+                <div style="font-size: 12.5px; line-height: 1.5; color: #334155; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 8px;">
                   <b>Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 9.5px; font-family: system-ui, sans-serif; border-top: 1px solid #e2e8f0; padding-top: 4px; margin-top: 6px; color: #94a3b8;">
+
+                <!-- Footer của bài kệ -->
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; font-family: system-ui, sans-serif; border-top: 1px solid #e2e8f0; padding-top: 6px; margin-top: 8px; color: #94a3b8;">
                   <span>Dhammapada Verse ${cleanText(v.verse_no)}</span>
                   <span>${cleanText(chap.chapter_vi)}</span>
                 </div>
@@ -187,7 +198,6 @@
         </div>
       `;
     }
-  }
 
   document.addEventListener("DOMContentLoaded", function() {
     setupWorkspace();
