@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V3.5 - MOBILE DYNAMIC SCROLL & DESKTOP A5)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V3.6 - FULL PORTRAIT ARTWORK ON MOBILE)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -193,7 +193,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   📱 4. ĐỘNG CƠ RESPONSIVE CHO ĐIỆN THOẠI (< 820px) - TỰ ĐỘNG CUỘN ĐỌC HẾT BÀI
+   📱 4. ĐỘNG CƠ RESPONSIVE MOBILE (< 820px) - GIỮ NGUYÊN TỈ LỆ TRANH DỌC GỐC
    ========================================================================== */
 @media screen and (max-width: 820px) {
   #dhp-master-workspace {
@@ -209,17 +209,16 @@ html.dhp-active, body.dhp-active {
     flex-shrink: 0 !important;
   }
 
-  /* KHUNG GIỮA TỰ ĐỘNG CUỘN MƯỢT KHI NỘI DUNG DÀI */
+  /* KHUNG GIỮA CUỘN DỌC TỰ NHIÊN TRÊN MOBILE */
   #dhp-canvas-container {
     flex: 1 1 auto !important;
     height: 100% !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
     display: block !important;
-    padding: 2px 0 10px 0 !important;
+    padding: 2px 0 12px 0 !important;
   }
 
-  /* Thanh cuộn ẩn nhẹ nhàng trên mobile */
   #dhp-canvas-container::-webkit-scrollbar {
     width: 4px;
   }
@@ -228,7 +227,7 @@ html.dhp-active, body.dhp-active {
     border-radius: 4px;
   }
 
-  /* TỜ GIẤY TỰ CO GIÃN THEO CHIỀU CAO NỘI DUNG */
+  /* TỜ GIẤY TỰ CO GIÃN CHIỀU CAO */
   #dhp-master-workspace .dhp-paper-a5 {
     width: 100% !important;
     min-width: 0 !important;
@@ -249,27 +248,42 @@ html.dhp-active, body.dhp-active {
     max-height: none !important;
     padding: 10px 10px 14px 10px !important;
     overflow: visible !important;
-    gap: 12px !important;
+    gap: 14px !important;
   }
 
-  /* CHUYỂN THÀNH 1 CỘT DỌC */
   #dhp-master-workspace .dhp-grid-container {
     flex-direction: column !important;
-    gap: 12px !important;
+    gap: 14px !important;
     height: auto !important;
   }
 
-  /* ẢNH GỌN GÀNG 210PX */
+  /* ⭐ GIỮ NGUYÊN KHUNG TRANH DỌC CHUẨN (TỈ LỆ 340 : 450) - KHÔNG CẮT XÉN ẢNH */
   #dhp-master-workspace .dhp-image-col {
     width: 100% !important;
     min-width: 0 !important;
-    max-width: 100% !important;
-    height: 210px !important;
-    min-height: 210px !important;
-    max-height: 220px !important;
+    max-width: 320px !important; /* Canh chuẩn bề ngang để tranh hiển thị trọn vẹn */
+    height: auto !important;
+    min-height: unset !important;
+    max-height: none !important;
+    aspect-ratio: 340 / 450 !important; /* Khóa cứng tỉ lệ dọc của tranh gốc */
+    margin: 0 auto !important; /* Căn giữa màn hình điện thoại */
+    border: 1.5px solid #d97706 !important;
+    border-radius: 6px !important;
+    padding: 4px !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(180, 83, 9, 0.15) !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
   }
 
-  /* CỘT CHỮ MỞ RỘNG TOÀN DIỆN */
+  #dhp-master-workspace .dhp-image-col img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  /* CỘT VĂN BẢN XẾP NGAY DƯỚI ẢNH */
   #dhp-master-workspace .dhp-text-col {
     width: 100% !important;
     min-width: 0 !important;
@@ -280,7 +294,6 @@ html.dhp-active, body.dhp-active {
     gap: 10px !important;
   }
 
-  /* WATERMARK TRÊN MOBILE */
   #dhp-master-workspace .dhp-text-col::before {
     width: 240px !important;
     height: 240px !important;

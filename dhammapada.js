@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V3.5 - MOBILE SMART SCROLL & SWIPE)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V3.6 - FULL PORTRAIT ARTWORK ON MOBILE)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -119,7 +119,6 @@
     function handleSmartSwipe() {
       const deltaX = touchEndX - touchStartX;
       const deltaY = touchEndY - touchStartY;
-      // Chỉ kích hoạt lật trang khi cử chỉ theo phương ngang lớn hơn nhiều so với phương dọc
       if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
         if (deltaX < 0) next();
         else prev();
@@ -155,7 +154,7 @@
     const page = pages[currentIndex];
     if (!page || !paperBox) return;
 
-    // Tự động cuộn lên đầu khi lật sang trang mới
+    // Tự động cuộn lên đầu bức tranh khi lật sang trang mới
     if (scrollContainer) scrollContainer.scrollTop = 0;
 
     document.getElementById('dhp-page-num').textContent = `${currentIndex + 1}/${pages.length}`;
@@ -193,7 +192,7 @@
       paperBox.innerHTML = `
         <div class="dhp-inner-card">
           <div class="dhp-grid-container">
-            <!-- TRANH MINH HỌA -->
+            <!-- TRANH MINH HỌA (KHUNG DỌC NGUYÊN BẢN TOÀN DIỆN) -->
             <div class="dhp-image-col">
               <img src="${v.image_url}" alt="Kệ ${v.verse_no}" loading="lazy" />
             </div>
@@ -217,7 +216,7 @@
               </div>
 
               <div>
-                <!-- DỊCH NGHĨA (CHỮ TO 14.5PX - KHÔNG BAO GIỜ BỊ CẮT XÉN) -->
+                <!-- DỊCH NGHĨA (CHỮ TO 14.5PX - ĐẦY ĐỦ NỘI DUNG) -->
                 <div style="font-size: 14.5px; line-height: 1.55; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 6px;">
                   <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                 </div>
