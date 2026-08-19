@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V3.8 - PERFECT A5 LANDSCAPE PRINT)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V3.9 - MASTER COVER & A5 PDF EXPORT)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -192,7 +192,7 @@ html.dhp-active, body.dhp-active {
   box-shadow: 0 10px 25px rgba(0,0,0,0.5);
   display: flex;
   flex-direction: column;
-  min-width: 200px;
+  min-width: 220px;
   z-index: 99999;
   overflow: hidden;
 }
@@ -200,7 +200,7 @@ html.dhp-active, body.dhp-active {
   display: none !important;
 }
 .dhp-dropdown-item {
-  padding: 9px 14px;
+  padding: 10px 14px;
   font-size: 11.5px;
   color: #fde68a;
   cursor: pointer;
@@ -323,13 +323,12 @@ html.dhp-active, body.dhp-active {
 }
 
 @media print {
-  /* ÉP TRÌNH DUYỆT CHỌN ĐÚNG KHỔ A5 NẰM NGANG */
+  /* ÉP BUỘC KHỔ A5 NẰM NGANG 100% CHUẨN XÁC */
   @page {
     size: 210mm 148.5mm landscape !important;
     margin: 0mm !important;
   }
 
-  /* 1. Triệt tiêu 100% toàn bộ Blog, Header, Footer & Workspace */
   header, footer, aside, nav, .sidebar, #header, #footer,
   .post-header, .post-body, .author-profile, .no-print, .pdf-toolbar,
   #dhp-master-workspace,
@@ -354,7 +353,6 @@ html.dhp-active, body.dhp-active {
     print-color-adjust: exact !important;
   }
 
-  /* 2. Kích hoạt vùng in tuyệt đối */
   #dhp-print-mount {
     display: block !important;
     visibility: visible !important;
@@ -368,7 +366,6 @@ html.dhp-active, body.dhp-active {
     background: #ffffff !important;
   }
 
-  /* 3. Từng tờ A5 Ngang xuất bản (Khóa chết 210mm x 148.5mm) */
   .dhp-print-page {
     display: block !important;
     width: 210mm !important;
@@ -396,7 +393,6 @@ html.dhp-active, body.dhp-active {
     break-after: auto !important;
   }
 
-  /* Khung viền chỉ vàng trong trang in */
   .dhp-print-page .dhp-inner-card {
     border: 1.2px solid #d97706 !important;
     border-radius: 4px !important;
@@ -422,7 +418,6 @@ html.dhp-active, body.dhp-active {
     gap: 6mm !important;
   }
 
-  /* Cột tranh in: 88mm x 122mm chuẩn tỉ lệ */
   .dhp-print-page .dhp-image-col {
     width: 88mm !important;
     min-width: 88mm !important;
@@ -446,7 +441,6 @@ html.dhp-active, body.dhp-active {
     display: block !important;
   }
 
-  /* Cột văn bản in: 92mm x 122mm */
   .dhp-print-page .dhp-text-col {
     width: 92mm !important;
     min-width: 92mm !important;
@@ -462,7 +456,6 @@ html.dhp-active, body.dhp-active {
     flex-shrink: 0 !important;
   }
 
-  /* Watermark trang in */
   .dhp-print-page .dhp-bg-buddha::before {
     width: 110mm !important;
     height: 110mm !important;
