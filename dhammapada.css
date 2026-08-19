@@ -1,0 +1,146 @@
+/* ==========================================================================
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (DEDICATED CORE CSS)
+   REPOSITORY: thientridev/dhammapada
+   ========================================================================== */
+
+/* 1. KHÓA PHÒNG ĐỌC WORKSPACE TOÀN MÀN HÌNH */
+html.dhp-active, body.dhp-active {
+  background-color: #0f172a !important;
+  background: #0f172a !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+
+#dhp-master-workspace {
+  position: fixed !important;
+  inset: 0 !important;
+  background-color: #0f172a !important;
+  background: #0f172a !important;
+  z-index: 9999999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 12px 10px 18px 10px !important;
+  box-sizing: border-box !important;
+  font-family: 'Times New Roman', Times, serif !important;
+}
+
+/* 2. KHÓA CHẾT TỜ GIẤY A5 NẰM NGANG (794px x 550px) NỀN TRẮNG BẤT TỬ */
+#dhp-master-workspace .dhp-paper-a5 {
+  width: 794px !important;
+  min-width: 794px !important;
+  max-width: 794px !important;
+  height: 550px !important;
+  min-height: 550px !important;
+  max-height: 550px !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85) !important;
+  padding: 12px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: block !important;
+  user-select: none !important;
+}
+
+/* Khung viền chỉ vàng hổ phách */
+#dhp-master-workspace .dhp-inner-card {
+  border: 1.8px solid #d97706 !important;
+  border-radius: 6px !important;
+  height: 526px !important;
+  width: 770px !important;
+  padding: 12px 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+}
+
+/* Watermark hoa sen */
+#dhp-master-workspace .dhp-lotus-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' opacity='0.04'%3E%3Cpath fill='%2378350f' d='M50 12 C38 32 15 45 15 65 C15 82 32 92 50 92 C68 92 85 82 85 65 C85 45 62 32 50 12 Z M50 32 C43 48 30 58 30 70 C30 80 38 86 50 86 C62 86 70 80 70 70 C70 58 57 48 50 32 Z'/%3E%3C/svg%3E") !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: 300px !important;
+}
+
+/* 3. KHÓA CỨNG CỘT TRÁI (TRANH 340px x 450px) & CỘT PHẢI (CHỮ 380px x 450px) */
+#dhp-master-workspace .dhp-grid-container {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#dhp-master-workspace .dhp-image-col {
+  width: 340px !important;
+  min-width: 340px !important;
+  max-width: 340px !important;
+  height: 450px !important;
+  min-height: 450px !important;
+  max-height: 450px !important;
+  border: 1.5px solid #d97706 !important;
+  border-radius: 4px !important;
+  padding: 4px !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(180, 83, 9, 0.15) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+}
+
+#dhp-master-workspace .dhp-image-col img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 2px !important;
+  display: block !important;
+}
+
+#dhp-master-workspace .dhp-text-col {
+  width: 380px !important;
+  min-width: 380px !important;
+  max-width: 380px !important;
+  height: 450px !important;
+  min-height: 450px !important;
+  max-height: 450px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  padding: 2px 0 2px 5px !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+}
+
+/* Hộp Pāli nền Hổ Phách */
+#dhp-master-workspace .dhp-pali-box {
+  background-color: #fffbeb !important;
+  border-left: 3.5px solid #f59e0b !important;
+  padding: 6px 10px !important;
+  border-radius: 0 4px 4px 0 !important;
+  margin-bottom: 6px !important;
+}
+#dhp-master-workspace .dhp-pali-box * {
+  color: #78350f !important;
+}
+
+/* 4. CHUẨN IN ẤN TRÌNH DUYỆT (CHROME PDF) */
+@media print {
+  @page { size: 210mm 148.5mm landscape !important; margin: 0mm !important; }
+  body, html { background: #ffffff !important; margin: 0 !important; padding: 0 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  #dhp-master-workspace, header, footer, aside, nav, .no-print, .sidebar { display: none !important; }
+  #dhp-print-mount { display: block !important; width: 210mm !important; }
+  .dhp-print-page { width: 210mm !important; height: 148.5mm !important; max-height: 148.5mm !important; margin: 0 !important; padding: 6mm 8mm !important; box-sizing: border-box !important; page-break-after: always !important; break-after: page !important; background: #ffffff !important; }
+  .dhp-print-page:last-child { page-break-after: auto !important; }
+}
