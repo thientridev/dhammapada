@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V3.9 - MASTER COVER & A5 PDF EXPORT)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V4.0 - MASTER COVER & A5 LANDSCAPE FIX)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -72,8 +72,32 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🌸 WATERMARK CHUẨN (MULTIPLY BLENDING LỌC NỀN)
+   🌸 BỘ 3 WATERMARK NGHỆ THUẬT (MULTIPLY BLENDING LỌC NỀN TRẮNG)
    ========================================================================== */
+
+/* 1. WATERMARK CHO BÌA CHÍNH TOÀN SÁCH (HOA SEN NẰM THẤP DƯỚI LÀM ĐÀI SEN) */
+.dhp-bg-cover-lotus {
+  position: relative !important;
+}
+.dhp-bg-cover-lotus::before {
+  content: "" !important;
+  position: absolute !important;
+  bottom: 15px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 380px !important;
+  height: 280px !important;
+  background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
+  background-position: bottom center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  opacity: 0.18 !important;
+  mix-blend-mode: multiply !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* 2. WATERMARK ĐỨC PHẬT (TRANG BÌA 26 PHẨM) */
 .dhp-bg-buddha {
   position: relative !important;
 }
@@ -95,6 +119,7 @@ html.dhp-active, body.dhp-active {
   z-index: 0 !important;
 }
 
+/* 3. WATERMARK HOA SEN CỘT VĂN BẢN BÀI KỆ */
 .dhp-text-col {
   position: relative !important;
 }
@@ -316,14 +341,19 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🖨️ 5. ĐỘNG CƠ IN ẤN CHUẨN XUẤT BẢN A5 LANDSCAPE (TRIỆT TIÊU KHOẢNG TRẮNG)
+   🖨️ 5. ĐỘNG CƠ IN ẤN CHUẨN XUẤT BẢN A5 LANDSCAPE (NAMED PAGE OVERRIDE)
    ========================================================================== */
 #dhp-print-mount {
   display: none;
 }
 
+/* KHAI BÁO NAMED PAGE KHÓA CHẾT A5 NẰM NGANG */
+@page dhp-a5-landscape {
+  size: 210mm 148.5mm landscape !important;
+  margin: 0mm !important;
+}
+
 @media print {
-  /* ÉP BUỘC KHỔ A5 NẰM NGANG 100% CHUẨN XÁC */
   @page {
     size: 210mm 148.5mm landscape !important;
     margin: 0mm !important;
@@ -367,6 +397,7 @@ html.dhp-active, body.dhp-active {
   }
 
   .dhp-print-page {
+    page: dhp-a5-landscape !important; /* GẮN NAMED PAGE */
     display: block !important;
     width: 210mm !important;
     height: 148.5mm !important;
@@ -466,5 +497,12 @@ html.dhp-active, body.dhp-active {
     width: 75mm !important;
     height: 75mm !important;
     opacity: 0.16 !important;
+  }
+
+  .dhp-print-page .dhp-bg-cover-lotus::before {
+    width: 90mm !important;
+    height: 65mm !important;
+    opacity: 0.18 !important;
+    bottom: 5mm !important;
   }
 }

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V3.9 - MASTER COVER & A5 PDF EXPORT)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V4.0 - MASTER COVER & A5 LANDSCAPE FIX)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -14,6 +14,29 @@
 
   function cleanText(str) {
     return (str || '').normalize('NFC').trim();
+  }
+
+  // Ép buộc trình duyệt nạp đè Style in A5 Ngang ưu tiên cao nhất
+  function forceA5LandscapePrint() {
+    let style = document.getElementById('dhp-force-print-landscape');
+    if (!style) {
+      style = document.createElement('style');
+      style.id = 'dhp-force-print-landscape';
+      document.head.appendChild(style);
+    }
+    style.innerHTML = `
+      @page {
+        size: 210mm 148.5mm landscape !important;
+        margin: 0mm !important;
+      }
+      @page dhp-a5-landscape {
+        size: 210mm 148.5mm landscape !important;
+        margin: 0mm !important;
+      }
+      .dhp-print-page {
+        page: dhp-a5-landscape !important;
+      }
+    `;
   }
 
   function setupWorkspace() {
@@ -93,24 +116,23 @@
     bindEvents();
   }
 
-  // Tạo HTML cho 1 trang in xuất bản A5 chuẩn từng mm
   function buildPrintPageHtml(p) {
     if (p.type === 'main_cover') {
       return `
         <div class="dhp-print-page">
-          <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center; justify-content: center;">
-            <div style="border: 1px solid #d97706; padding: 20px 30px; border-radius: 6px; background: rgba(253, 251, 247, 0.85);">
-              <div style="font-size: 12px; letter-spacing: 5px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 6px;">DHAMMAPADA</div>
-              <div style="font-size: 28px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">KINH PHÁP CÚ</div>
-              <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0;">
-                <div style="height: 1.5px; width: 60px; background: #b45309;"></div>
+          <div class="dhp-inner-card dhp-bg-cover-lotus" style="align-items: center; text-align: center; justify-content: center;">
+            <div style="padding: 10mm 15mm;">
+              <div style="font-size: 12px; letter-spacing: 6px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 4mm;">DHAMMAPADA</div>
+              <div style="font-size: 30px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4mm;">KINH PHÁP CÚ</div>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 4mm 0;">
+                <div style="height: 1.2px; width: 50px; background: #b45309;"></div>
                 <span style="color: #d97706; font-size: 16px;">☸</span>
-                <div style="height: 1.5px; width: 60px; background: #b45309;"></div>
+                <div style="height: 1.2px; width: 50px; background: #b45309;"></div>
               </div>
-              <div style="font-size: 12px; font-weight: bold; color: #78350f; letter-spacing: 1px; text-transform: uppercase;">
+              <div style="font-size: 12.5px; font-weight: bold; color: #78350f; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6mm;">
                 TUYỂN TẬP 423 BÀI KỆ TRANH MINH HỌA MÀU
               </div>
-              <div style="margin-top: 15px; font-size: 11.5px; line-height: 1.6; color: #334155; font-style: italic; max-width: 140mm;">
+              <div style="font-size: 12px; line-height: 1.65; color: #334155; font-style: italic; max-width: 140mm; margin: 0 auto;">
                 “Tâm dẫn đầu mọi pháp, Tâm làm chủ, tâm tạo;<br/>Nếu với tâm thanh tịnh, Nói lên hay hành động,<br/>An lạc bước theo sau, Như bóng không rời hình.”
               </div>
             </div>
@@ -216,6 +238,7 @@
 
     // 1. In 1 Trang Hiện Tại
     document.getElementById('dhp-print-current-btn').onclick = () => {
+      forceA5LandscapePrint();
       const pm = document.getElementById('dhp-print-mount');
       pm.innerHTML = buildPrintPageHtml(pages[currentIndex]);
       setTimeout(() => window.print(), 100);
@@ -223,6 +246,7 @@
 
     // 2. In Phẩm Hiện Tại
     document.getElementById('dhp-print-chapter-btn').onclick = () => {
+      forceA5LandscapePrint();
       const cur = pages[currentIndex];
       let targetChapterId = 1;
       if (cur.type === 'verse') targetChapterId = cur.chapter.chapter_id;
@@ -236,6 +260,7 @@
 
     // 3. In Toàn Bộ 450 Trang Sách
     document.getElementById('dhp-print-all-btn').onclick = () => {
+      forceA5LandscapePrint();
       const pm = document.getElementById('dhp-print-mount');
       pm.innerHTML = `<div style="text-align:center; padding: 20px; font-weight:bold; color:#d97706; font-size:16px;">Đang kết xuất 450 trang in A5...</div>`;
       
@@ -279,7 +304,6 @@
       chapters = await cRes.json();
       verses = await vRes.json();
 
-      // Trang 0: Bìa Sách Chính
       pages = [{ type: 'main_cover' }];
 
       chapters.forEach(chap => {
@@ -312,21 +336,21 @@
     document.getElementById('dhp-slider').max = pages.length - 1;
 
     if (page.type === 'main_cover') {
-      // 🌸 RENDER BÌA CHÍNH TOÀN SÁCH (ĐÃ BỎ CHÂN TRANG)
+      // 🌸 BÌA CHÍNH SÁCH VỚI HOA SEN ĐẶT THẤP LÀM ĐÀI SEN TUYỆT ĐẸP
       paperBox.innerHTML = `
-        <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center; justify-content: center;">
-          <div style="border: 1.5px solid #d97706; padding: 25px 35px; border-radius: 8px; background: rgba(253, 251, 247, 0.88); box-shadow: 0 4px 20px rgba(217, 119, 6, 0.1);">
+        <div class="dhp-inner-card dhp-bg-cover-lotus" style="align-items: center; text-align: center; justify-content: center;">
+          <div style="padding: 20px 30px;">
             <div style="font-size: 13px; letter-spacing: 6px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 8px;">DHAMMAPADA</div>
-            <div style="font-size: 34px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">KINH PHÁP CÚ</div>
+            <div style="font-size: 36px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">KINH PHÁP CÚ</div>
             <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0;">
               <div style="height: 1.5px; width: 70px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
-              <span style="color: #d97706; font-size: 18px;">☸</span>
+              <span style="color: #d97706; font-size: 20px;">☸</span>
               <div style="height: 1.5px; width: 70px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
             </div>
-            <div style="font-size: 13.5px; font-weight: bold; color: #78350f; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 15px;">
+            <div style="font-size: 14px; font-weight: bold; color: #78350f; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 18px;">
               TUYỂN TẬP 423 BÀI KỆ TRANH MINH HỌA MÀU
             </div>
-            <div style="font-size: 13px; line-height: 1.7; color: #334155; font-style: italic; max-width: 520px; margin: 0 auto;">
+            <div style="font-size: 13.5px; line-height: 1.7; color: #334155; font-style: italic; max-width: 540px; margin: 0 auto;">
               “Tâm dẫn đầu mọi pháp, Tâm làm chủ, tâm tạo;<br/>Nếu với tâm thanh tịnh, Nói lên hay hành động,<br/>An lạc bước theo sau, Như bóng không rời hình.”
             </div>
           </div>
