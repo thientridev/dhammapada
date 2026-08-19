@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CORE JS V2 - LOTUS SVG INTEGRATED)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V3 - IMAGE WATERMARKS INTEGRATED)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -12,10 +12,12 @@
   let pages = [];
   let currentIndex = 0;
 
+  // Khử sạch lỗi dấu tiếng Việt (NFD -> NFC)
   function cleanText(str) {
     return (str || '').normalize('NFC').trim();
   }
 
+  // Khởi tạo phòng đọc toàn màn hình
   function setupWorkspace() {
     let ws = document.getElementById('dhp-master-workspace');
     if (!ws) {
@@ -27,6 +29,7 @@
     document.documentElement.classList.add('dhp-active');
     document.body.classList.add('dhp-active');
 
+    // Ẩn toàn bộ các thẻ khác của Blogger
     Array.from(document.body.children).forEach((child) => {
       if (child.id !== 'dhp-master-workspace' && child.id !== 'dhp-print-mount' && !['SCRIPT', 'STYLE', 'LINK'].includes(child.tagName)) {
         child.style.display = 'none';
@@ -50,7 +53,7 @@
         </div>
       </div>
 
-      <!-- TỜ GIẤY A5 NẰM NGANG NỀN KEM NỔI BẬT -->
+      <!-- TỜ GIẤY A5 NẰM NGANG -->
       <div class="dhp-paper-a5" id="dhp-canvas-container">
         <div style="padding: 40px; text-align: center; color: #d97706; font-size: 14px; font-family: sans-serif; font-weight: bold;">
           Đang nạp 423 bài kệ từ GitHub CDN...
@@ -125,6 +128,7 @@
 
     if (page.type === 'cover') {
       const c = page.data;
+      // Dùng class dhp-bg-buddha cho Trang Bìa
       canvas.innerHTML = `
         <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center;">
           <div style="padding-top: 15px;">
@@ -151,11 +155,12 @@
     } else {
       const v = page.data;
       const chap = page.chapter;
+      // Dùng class dhp-bg-lotus cho Trang Bài Kệ
       canvas.innerHTML = `
         <div class="dhp-inner-card dhp-bg-lotus">
           <div class="dhp-grid-container">
             <div class="dhp-image-col">
-              <img src="${v.image_url}" alt="Kệ ${v.verse_no}" />
+              <img src="${v.image_url}" alt="Kệ ${v.verse_no}" loading="lazy" />
             </div>
             <div class="dhp-text-col">
               <div>
