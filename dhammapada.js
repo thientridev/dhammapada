@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V3.3 - TRANSPARENT PALI & LARGE MEANING)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V3.4 - MOBILE TOUCH SWIPE & RESPONSIVE)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -38,22 +38,22 @@
 
     ws.innerHTML = `
       <!-- HEADER CONTROLLER -->
-      <div style="width: 794px; max-width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 7px 16px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(217, 119, 6, 0.4); border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <span style="background: #d97706; color: #fff; padding: 2px 8px; border-radius: 6px; font-weight: 900; font-size: 11px;">EDEVX</span>
-          <span style="font-weight: bold; color: #fde68a; font-size: 13px;">KINH PHÁP CÚ TRANH MINH HỌA</span>
+      <div class="dhp-ctrl-bar" style="width: 794px; max-width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 7px 14px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(217, 119, 6, 0.4); border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); flex-shrink: 0;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <span style="background: #d97706; color: #fff; padding: 2px 7px; border-radius: 6px; font-weight: 900; font-size: 11px;">EDEVX</span>
+          <span class="dhp-hide-mobile" style="font-weight: bold; color: #fde68a; font-size: 12.5px;">KINH PHÁP CÚ</span>
         </div>
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <select id="dhp-chapter-select" style="background: #0f172a; color: #fde68a; border: 1px solid #d97706; border-radius: 8px; padding: 4px 8px; font-size: 12px; outline: none; cursor: pointer;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <select id="dhp-chapter-select" style="background: #0f172a; color: #fde68a; border: 1px solid #d97706; border-radius: 8px; padding: 4px 6px; font-size: 11.5px; outline: none; cursor: pointer; max-width: 175px;">
             <option>Đang nạp 26 phẩm...</option>
           </select>
-          <button id="dhp-print-btn" style="background: linear-gradient(135deg, #d97706, #b45309); color: #fff; font-weight: bold; border: none; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 11.5px;">
-            🖨️ IN PDF A5
+          <button id="dhp-print-btn" style="background: linear-gradient(135deg, #d97706, #b45309); color: #fff; font-weight: bold; border: none; padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 11px; white-space: nowrap;">
+            🖨️ <span class="dhp-hide-mobile">IN PDF</span>
           </button>
         </div>
       </div>
 
-      <!-- TỜ GIẤY A5 NẰM NGANG -->
+      <!-- TỜ GIẤY A5 -->
       <div class="dhp-paper-a5" id="dhp-canvas-container">
         <div style="padding: 40px; text-align: center; color: #d97706; font-size: 14px; font-family: sans-serif; font-weight: bold;">
           Đang nạp 423 bài kệ từ GitHub CDN...
@@ -61,16 +61,16 @@
       </div>
 
       <!-- FOOTER PAGINATION -->
-      <div style="width: 794px; max-width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 7px 16px; background: rgba(30, 41, 59, 0.95); border: 1px solid #334155; border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12px;">
-        <button id="dhp-prev-btn" style="background: #0f172a; color: #fde68a; border: 1px solid #475569; padding: 4px 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px;">
-          ⬅ Trang Trước
+      <div class="dhp-ctrl-bar" style="width: 794px; max-width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 7px 14px; background: rgba(30, 41, 59, 0.95); border: 1px solid #334155; border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12px; flex-shrink: 0;">
+        <button id="dhp-prev-btn" style="background: #0f172a; color: #fde68a; border: 1px solid #475569; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 11.5px; white-space: nowrap;">
+          ⬅ <span class="dhp-hide-mobile">Trước</span>
         </button>
-        <div style="display: flex; align-items: center; gap: 10px; flex-grow: 1; max-width: 350px; margin: 0 15px;">
+        <div style="display: flex; align-items: center; gap: 8px; flex-grow: 1; max-width: 350px; margin: 0 10px;">
           <input type="range" id="dhp-slider" min="0" max="448" value="0" style="width: 100%; accent-color: #d97706; cursor: pointer;" />
-          <span id="dhp-page-num" style="font-family: monospace; font-weight: bold; color: #fde68a; min-width: 65px; text-align: right; font-size: 13px;">1 / 449</span>
+          <span id="dhp-page-num" style="font-family: monospace; font-weight: bold; color: #fde68a; min-width: 55px; text-align: right; font-size: 12px;">1/449</span>
         </div>
-        <button id="dhp-next-btn" style="background: #0f172a; color: #fde68a; border: 1px solid #475569; padding: 4px 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px;">
-          Trang Sau ➡
+        <button id="dhp-next-btn" style="background: #0f172a; color: #fde68a; border: 1px solid #475569; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 11.5px; white-space: nowrap;">
+          <span class="dhp-hide-mobile">Sau</span> ➡
         </button>
       </div>
     `;
@@ -79,8 +79,11 @@
   }
 
   function bindEvents() {
-    document.getElementById('dhp-prev-btn').onclick = () => { if (currentIndex > 0) { currentIndex--; renderPage(); } };
-    document.getElementById('dhp-next-btn').onclick = () => { if (currentIndex < pages.length - 1) { currentIndex++; renderPage(); } };
+    const prev = () => { if (currentIndex > 0) { currentIndex--; renderPage(); } };
+    const next = () => { if (currentIndex < pages.length - 1) { currentIndex++; renderPage(); } };
+
+    document.getElementById('dhp-prev-btn').onclick = prev;
+    document.getElementById('dhp-next-btn').onclick = next;
     document.getElementById('dhp-slider').oninput = (e) => { currentIndex = parseInt(e.target.value, 10); renderPage(); };
     document.getElementById('dhp-chapter-select').onchange = (e) => {
       const cId = parseInt(e.target.value, 10);
@@ -89,10 +92,31 @@
     };
     document.getElementById('dhp-print-btn').onclick = () => window.print();
 
+    // Bàn phím Desktop
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === ' ') { if (currentIndex < pages.length - 1) { currentIndex++; renderPage(); } }
-      if (e.key === 'ArrowLeft') { if (currentIndex > 0) { currentIndex--; renderPage(); } }
+      if (e.key === 'ArrowRight' || e.key === ' ') { next(); }
+      if (e.key === 'ArrowLeft') { prev(); }
     });
+
+    // Cử chỉ vuốt chạm trên Điện thoại (Touch Swipe)
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const canvas = document.getElementById('dhp-canvas-container');
+
+    canvas.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    canvas.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeDistance = touchEndX - touchStartX;
+      if (swipeDistance < -45) { next(); } // Vuốt trái -> Trang sau
+      if (swipeDistance > 45) { prev(); }  // Vuốt phải -> Trang trước
+    }
   }
 
   async function loadData() {
@@ -122,7 +146,7 @@
     const page = pages[currentIndex];
     if (!page || !canvas) return;
 
-    document.getElementById('dhp-page-num').textContent = `${currentIndex + 1} / ${pages.length}`;
+    document.getElementById('dhp-page-num').textContent = `${currentIndex + 1}/${pages.length}`;
     document.getElementById('dhp-slider').value = currentIndex;
     document.getElementById('dhp-slider').max = pages.length - 1;
 
@@ -130,24 +154,24 @@
       const c = page.data;
       canvas.innerHTML = `
         <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center;">
-          <div style="padding-top: 20px;">
-            <div style="font-size: 13px; letter-spacing: 6px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 6px;">${cleanText(c.chapter_pali)}</div>
-            <div style="font-size: 28px; font-weight: bold; color: #0f172a; text-transform: uppercase; letter-spacing: 1.5px;">${cleanText(c.chapter_roman)}. ${cleanText(c.chapter_vi)}</div>
-            <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0;">
-              <div style="height: 1.5px; width: 70px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
-              <span style="color: #d97706; font-size: 16px;">☸</span>
-              <div style="height: 1.5px; width: 70px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
+          <div style="padding-top: 15px;">
+            <div style="font-size: 13px; letter-spacing: 4px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 6px;">${cleanText(c.chapter_pali)}</div>
+            <div style="font-size: 24px; font-weight: bold; color: #0f172a; text-transform: uppercase; letter-spacing: 1px;">${cleanText(c.chapter_roman)}. ${cleanText(c.chapter_vi)}</div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0;">
+              <div style="height: 1.5px; width: 50px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
+              <span style="color: #d97706; font-size: 15px;">☸</span>
+              <div style="height: 1.5px; width: 50px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
             </div>
           </div>
-          <div style="padding: 0 30px; max-width: 600px; font-size: 15px; line-height: 1.7; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center;">
+          <div style="padding: 0 15px; max-width: 580px; font-size: 14.5px; line-height: 1.65; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center;">
             “${cleanText(c.intro_vi)}”
           </div>
-          <div style="padding-bottom: 6px; width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(217, 119, 6, 0.3); padding-top: 8px; font-family: system-ui, sans-serif; font-size: 11.5px; color: #64748b;">
-            <span>🌸 <i>Kinh Pháp Cú Tranh Minh Họa</i></span>
-            <span style="background: #fffbeb; color: #92400e; border: 1px solid #fde68a; font-weight: bold; padding: 3px 14px; border-radius: 99px; font-size: 12px;">
-              Gồm ${c.verse_count} Bài Kệ: Kệ ${c.verse_range}
+          <div style="padding-bottom: 4px; width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(217, 119, 6, 0.3); padding-top: 8px; font-family: system-ui, sans-serif; font-size: 11px; color: #64748b;">
+            <span>🌸 <i>Kinh Pháp Cú</i></span>
+            <span style="background: #fffbeb; color: #92400e; border: 1px solid #fde68a; font-weight: bold; padding: 2px 10px; border-radius: 99px; font-size: 11.5px;">
+              ${c.verse_count} Bài Kệ: Kệ ${c.verse_range}
             </span>
-            <span>Trang Bìa Phẩm ${c.chapter_roman}</span>
+            <span>Phẩm ${c.chapter_roman}</span>
           </div>
         </div>
       `;
@@ -157,37 +181,37 @@
       canvas.innerHTML = `
         <div class="dhp-inner-card">
           <div class="dhp-grid-container">
-            <!-- CỘT TRÁI: TRANH MINH HỌA -->
+            <!-- TRANH MINH HỌA -->
             <div class="dhp-image-col">
               <img src="${v.image_url}" alt="Kệ ${v.verse_no}" loading="lazy" />
             </div>
 
-            <!-- CỘT PHẢI: VĂN BẢN & WATERMARK HOA SEN NỀN TRONG SUỐT -->
+            <!-- VĂN BẢN & HOA SEN WATERMARK -->
             <div class="dhp-text-col">
               <div>
                 <!-- TIÊU ĐỀ KỆ SỐ -->
-                <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 4px; margin-bottom: 8px; font-family: system-ui, sans-serif;">
-                  <span style="font-size: 17px; font-weight: 900; color: #b45309; letter-spacing: 0.5px;">KỆ SỐ ${cleanText(v.verse_no)}</span>
-                  <span style="font-size: 12.5px; color: #64748b; font-style: italic; font-weight: 600;">${cleanText(chap.chapter_vi)}</span>
+                <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 4px; margin-bottom: 6px; font-family: system-ui, sans-serif;">
+                  <span style="font-size: 16.5px; font-weight: 900; color: #b45309; letter-spacing: 0.5px;">KỆ SỐ ${cleanText(v.verse_no)}</span>
+                  <span style="font-size: 12px; color: #64748b; font-style: italic; font-weight: 600;">${cleanText(chap.chapter_vi)}</span>
                 </div>
 
                 <!-- THƠ LỤC BÁT (CHỮ TO 16PX) -->
-                <div style="font-size: 16px; line-height: 1.6; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 8px;">${cleanText(v.verse_vi)}</div>
+                <div style="font-size: 16px; line-height: 1.55; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 8px;">${cleanText(v.verse_vi)}</div>
 
-                <!-- HỘP PĀLI NỀN TRONG SUỐT (NHÌN RÕ HOA SEN BÊN DƯỚI) -->
+                <!-- HỘP PĀLI TRONG SUỐT -->
                 <div class="dhp-pali-box">
                   <div style="font-size: 13.5px; line-height: 1.5; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
                 </div>
               </div>
 
               <div>
-                <!-- PHẦN DỊCH NGHĨA (CHỮ TO 14.5PX - RÕ RÀNG SẮC NÉT) -->
-                <div style="font-size: 14.5px; line-height: 1.6; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 8px;">
+                <!-- DỊCH NGHĨA (CHỮ TO 14.5PX) -->
+                <div style="font-size: 14.5px; line-height: 1.55; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 6px;">
                   <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                 </div>
 
                 <!-- FOOTER CARD -->
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; font-family: system-ui, sans-serif; border-top: 1px solid #e2e8f0; padding-top: 4px; margin-top: 6px; color: #94a3b8;">
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-family: system-ui, sans-serif; border-top: 1px solid #e2e8f0; padding-top: 4px; margin-top: 6px; color: #94a3b8;">
                   <span>Dhammapada Verse ${cleanText(v.verse_no)}</span>
                   <span>${cleanText(chap.chapter_vi)}</span>
                 </div>
