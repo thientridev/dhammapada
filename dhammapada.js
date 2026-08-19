@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V3.6 - FULL PORTRAIT ARTWORK ON MOBILE)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V3.7 - DUAL PRINT & SMART CONTROLLER)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -12,12 +12,11 @@
   let pages = [];
   let currentIndex = 0;
 
-  // Khử sạch lỗi dấu tiếng Việt (NFD -> NFC)
   function cleanText(str) {
     return (str || '').normalize('NFC').trim();
   }
 
-  // Khởi tạo phòng đọc toàn màn hình
+  // Khởi tạo phòng đọc và vùng in
   function setupWorkspace() {
     let ws = document.getElementById('dhp-master-workspace');
     if (!ws) {
@@ -26,10 +25,17 @@
       document.body.appendChild(ws);
     }
 
+    let pm = document.getElementById('dhp-print-mount');
+    if (!pm) {
+      pm = document.createElement('div');
+      pm.id = 'dhp-print-mount';
+      document.body.appendChild(pm);
+    }
+
     document.documentElement.classList.add('dhp-active');
     document.body.classList.add('dhp-active');
 
-    // Ẩn toàn bộ các thẻ khác của Blogger
+    // Ẩn các thẻ khác của Blogger
     Array.from(document.body.children).forEach((child) => {
       if (child.id !== 'dhp-master-workspace' && child.id !== 'dhp-print-mount' && !['SCRIPT', 'STYLE', 'LINK'].includes(child.tagName)) {
         child.style.display = 'none';
@@ -38,22 +44,30 @@
 
     ws.innerHTML = `
       <!-- HEADER CONTROLLER -->
-      <div class="dhp-ctrl-bar" style="width: 794px; max-width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 7px 14px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(217, 119, 6, 0.4); border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); flex-shrink: 0;">
+      <div class="dhp-ctrl-bar" style="width: 794px; max-width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 7px 14px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(217, 119, 6, 0.4); border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); flex-shrink: 0; position: relative;">
         <div style="display: flex; align-items: center; gap: 6px;">
           <span style="background: #d97706; color: #fff; padding: 2px 7px; border-radius: 6px; font-weight: 900; font-size: 11px;">EDEVX</span>
           <span class="dhp-hide-mobile" style="font-weight: bold; color: #fde68a; font-size: 12.5px;">KINH PHÁP CÚ</span>
         </div>
-        <div style="display: flex; align-items: center; gap: 6px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
           <select id="dhp-chapter-select" style="background: #0f172a; color: #fde68a; border: 1px solid #d97706; border-radius: 8px; padding: 4px 6px; font-size: 11.5px; outline: none; cursor: pointer; max-width: 175px;">
             <option>Đang nạp 26 phẩm...</option>
           </select>
-          <button id="dhp-print-btn" style="background: linear-gradient(135deg, #d97706, #b45309); color: #fff; font-weight: bold; border: none; padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 11px; white-space: nowrap;">
-            🖨️ <span class="dhp-hide-mobile">IN PDF</span>
-          </button>
+          
+          <!-- MENU IN THÔNG MINH (ẨN TRÊN MOBILE) -->
+          <div id="dhp-print-menu-container" style="position: relative;">
+            <button id="dhp-print-menu-btn" style="background: linear-gradient(135deg, #d97706, #b45309); color: #fff; font-weight: bold; border: none; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; white-space: nowrap; display: flex; align-items: center; gap: 4px;">
+              🖨️ <span>IN A5</span> <span style="font-size: 9px;">▼</span>
+            </button>
+            <div id="dhp-print-dropdown" class="dhp-dropdown-menu hidden">
+              <div id="dhp-print-current-btn" class="dhp-dropdown-item">📄 In Trang Này (1 trang A5)</div>
+              <div id="dhp-print-all-btn" class="dhp-dropdown-item">📚 In Cả Bộ (449 trang A5)</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- TỜ GIẤY CHỨA NỘI DUNG (CUỘN THÔNG MINH TRÊN MOBILE) -->
+      <!-- TỜ GIẤY CHỨA NỘI DUNG -->
       <div id="dhp-canvas-container">
         <div class="dhp-paper-a5" id="dhp-paper-box">
           <div style="padding: 40px; text-align: center; color: #d97706; font-size: 14px; font-family: sans-serif; font-weight: bold;">
@@ -80,6 +94,73 @@
     bindEvents();
   }
 
+  // Tạo HTML cho 1 trang in hoàn chỉnh
+  function buildPageHtml(p) {
+    if (p.type === 'cover') {
+      const c = p.data;
+      return `
+        <div class="dhp-print-page">
+          <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center;">
+            <div style="padding-top: 15px;">
+              <div style="font-size: 12px; letter-spacing: 4px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 4px;">${cleanText(c.chapter_pali)}</div>
+              <div style="font-size: 24px; font-weight: bold; color: #0f172a; text-transform: uppercase; letter-spacing: 1px;">${cleanText(c.chapter_roman)}. ${cleanText(c.chapter_vi)}</div>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 8px 0;">
+                <div style="height: 1px; width: 50px; background: #b45309;"></div>
+                <span style="color: #d97706; font-size: 14px;">☸</span>
+                <div style="height: 1px; width: 50px; background: #b45309;"></div>
+              </div>
+            </div>
+            <div style="padding: 0 25px; max-width: 560px; font-size: 14px; line-height: 1.6; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center;">
+              “${cleanText(c.intro_vi)}”
+            </div>
+            <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(217, 119, 6, 0.3); padding-top: 6px; font-family: system-ui, sans-serif; font-size: 10.5px; color: #64748b;">
+              <span>🌸 <i>Kinh Pháp Cú</i></span>
+              <span style="border: 1px solid #d97706; color: #92400e; font-weight: bold; padding: 2px 8px; border-radius: 99px;">
+                ${c.verse_count} Bài Kệ: Kệ ${c.verse_range}
+              </span>
+              <span>Phẩm ${c.chapter_roman}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      const v = p.data;
+      const chap = p.chapter;
+      return `
+        <div class="dhp-print-page">
+          <div class="dhp-inner-card">
+            <div class="dhp-grid-container">
+              <div class="dhp-image-col">
+                <img src="${v.image_url}" alt="Kệ ${v.verse_no}" />
+              </div>
+              <div class="dhp-text-col">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 3px; margin-bottom: 5px; font-family: system-ui, sans-serif;">
+                    <span style="font-size: 15px; font-weight: 900; color: #b45309;">KỆ SỐ ${cleanText(v.verse_no)}</span>
+                    <span style="font-size: 11px; color: #64748b; font-style: italic;">${cleanText(chap.chapter_vi)}</span>
+                  </div>
+                  <div style="font-size: 14.5px; line-height: 1.5; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 6px;">${cleanText(v.verse_vi)}</div>
+                  <div class="dhp-pali-box">
+                    <div style="font-size: 12.5px; line-height: 1.45; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size: 12.5px; line-height: 1.5; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 5px;">
+                    <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
+                  </div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; font-size: 9.5px; font-family: system-ui, sans-serif; border-top: 1px solid #e2e8f0; padding-top: 3px; margin-top: 4px; color: #94a3b8;">
+                    <span>Dhammapada Verse ${cleanText(v.verse_no)}</span>
+                    <span>${cleanText(chap.chapter_vi)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
   function bindEvents() {
     const prev = () => { if (currentIndex > 0) { currentIndex--; renderPage(); } };
     const next = () => { if (currentIndex < pages.length - 1) { currentIndex++; renderPage(); } };
@@ -92,7 +173,36 @@
       const target = pages.findIndex(p => p.type === 'cover' && p.data.chapter_id === cId);
       if (target !== -1) { currentIndex = target; renderPage(); }
     };
-    document.getElementById('dhp-print-btn').onclick = () => window.print();
+
+    // Toggle Dropdown In
+    const printMenuBtn = document.getElementById('dhp-print-menu-btn');
+    const printDropdown = document.getElementById('dhp-print-dropdown');
+
+    if (printMenuBtn && printDropdown) {
+      printMenuBtn.onclick = (e) => {
+        e.stopPropagation();
+        printDropdown.classList.toggle('hidden');
+      };
+      document.addEventListener('click', () => printDropdown.classList.add('hidden'));
+    }
+
+    // 1. In 1 Trang Hiện Tại
+    document.getElementById('dhp-print-current-btn').onclick = () => {
+      const pm = document.getElementById('dhp-print-mount');
+      pm.innerHTML = buildPageHtml(pages[currentIndex]);
+      setTimeout(() => window.print(), 100);
+    };
+
+    // 2. In Trọn Bộ 449 Trang
+    document.getElementById('dhp-print-all-btn').onclick = () => {
+      const pm = document.getElementById('dhp-print-mount');
+      pm.innerHTML = `<div style="text-align:center; padding: 20px; font-weight:bold; color:#d97706;">Đang kết xuất 449 trang in...</div>`;
+      
+      setTimeout(() => {
+        pm.innerHTML = pages.map(p => buildPageHtml(p)).join('');
+        setTimeout(() => window.print(), 300);
+      }, 50);
+    };
 
     // Bàn phím Desktop
     window.addEventListener('keydown', (e) => {
@@ -100,7 +210,7 @@
       if (e.key === 'ArrowLeft') { prev(); }
     });
 
-    // Cử chỉ vuốt chạm thông minh (Phân biệt vuốt ngang lật trang và cuộn dọc đọc bài)
+    // Vuốt Chạm Mobile
     let touchStartX = 0, touchStartY = 0;
     let touchEndX = 0, touchEndY = 0;
     const scrollContainer = document.getElementById('dhp-canvas-container');
@@ -113,17 +223,13 @@
     scrollContainer.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
       touchEndY = e.changedTouches[0].screenY;
-      handleSmartSwipe();
-    }, { passive: true });
-
-    function handleSmartSwipe() {
       const deltaX = touchEndX - touchStartX;
       const deltaY = touchEndY - touchStartY;
       if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
         if (deltaX < 0) next();
         else prev();
       }
-    }
+    }, { passive: true });
   }
 
   async function loadData() {
@@ -154,7 +260,6 @@
     const page = pages[currentIndex];
     if (!page || !paperBox) return;
 
-    // Tự động cuộn lên đầu bức tranh khi lật sang trang mới
     if (scrollContainer) scrollContainer.scrollTop = 0;
 
     document.getElementById('dhp-page-num').textContent = `${currentIndex + 1}/${pages.length}`;
@@ -192,36 +297,24 @@
       paperBox.innerHTML = `
         <div class="dhp-inner-card">
           <div class="dhp-grid-container">
-            <!-- TRANH MINH HỌA (KHUNG DỌC NGUYÊN BẢN TOÀN DIỆN) -->
             <div class="dhp-image-col">
               <img src="${v.image_url}" alt="Kệ ${v.verse_no}" loading="lazy" />
             </div>
-
-            <!-- VĂN BẢN & HOA SEN WATERMARK -->
             <div class="dhp-text-col">
               <div>
-                <!-- TIÊU ĐỀ KỆ SỐ -->
                 <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 4px; margin-bottom: 6px; font-family: system-ui, sans-serif;">
                   <span style="font-size: 16.5px; font-weight: 900; color: #b45309; letter-spacing: 0.5px;">KỆ SỐ ${cleanText(v.verse_no)}</span>
                   <span style="font-size: 12px; color: #64748b; font-style: italic; font-weight: 600;">${cleanText(chap.chapter_vi)}</span>
                 </div>
-
-                <!-- THƠ LỤC BÁT (CHỮ TO 16PX) -->
                 <div style="font-size: 16px; line-height: 1.55; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 8px;">${cleanText(v.verse_vi)}</div>
-
-                <!-- HỘP PĀLI TRONG SUỐT -->
                 <div class="dhp-pali-box">
                   <div style="font-size: 13.5px; line-height: 1.5; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
                 </div>
               </div>
-
               <div>
-                <!-- DỊCH NGHĨA (CHỮ TO 14.5PX - ĐẦY ĐỦ NỘI DUNG) -->
                 <div style="font-size: 14.5px; line-height: 1.55; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 6px;">
                   <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                 </div>
-
-                <!-- FOOTER CARD -->
                 <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-family: system-ui, sans-serif; border-top: 1px solid #e2e8f0; padding-top: 4px; margin-top: 6px; color: #94a3b8;">
                   <span>Dhammapada Verse ${cleanText(v.verse_no)}</span>
                   <span>${cleanText(chap.chapter_vi)}</span>
