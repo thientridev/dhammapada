@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V4.0 - MASTER COVER & A5 LANDSCAPE FIX)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V4.1 - PURE W3C A5 LANDSCAPE FIX)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -16,8 +16,23 @@
     return (str || '').normalize('NFC').trim();
   }
 
-  // Ép buộc trình duyệt nạp đè Style in A5 Ngang ưu tiên cao nhất
+  // Triệt tiêu 100% mọi lệnh in A4 Portrait của theme edevx và nạp chuẩn A5 Landscape
   function forceA5LandscapePrint() {
+    try {
+      Array.from(document.styleSheets).forEach(sheet => {
+        try {
+          const rules = sheet.cssRules || sheet.rules;
+          if (rules) {
+            for (let i = rules.length - 1; i >= 0; i--) {
+              if (rules[i].type === CSSRule.PAGE_RULE || (rules[i].cssText && rules[i].cssText.includes('@page'))) {
+                sheet.deleteRule(i);
+              }
+            }
+          }
+        } catch(e) {}
+      });
+    } catch(e) {}
+
     let style = document.getElementById('dhp-force-print-landscape');
     if (!style) {
       style = document.createElement('style');
@@ -26,15 +41,8 @@
     }
     style.innerHTML = `
       @page {
-        size: 210mm 148.5mm landscape !important;
+        size: a5 landscape !important;
         margin: 0mm !important;
-      }
-      @page dhp-a5-landscape {
-        size: 210mm 148.5mm landscape !important;
-        margin: 0mm !important;
-      }
-      .dhp-print-page {
-        page: dhp-a5-landscape !important;
       }
     `;
   }
@@ -123,7 +131,7 @@
           <div class="dhp-inner-card dhp-bg-cover-lotus" style="align-items: center; text-align: center; justify-content: center;">
             <div style="padding: 10mm 15mm;">
               <div style="font-size: 12px; letter-spacing: 6px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 4mm;">DHAMMAPADA</div>
-              <div style="font-size: 30px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4mm;">KINH PHÁP CÚ</div>
+              <div style="font-size: 32px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4mm;">KINH PHÁP CÚ</div>
               <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 4mm 0;">
                 <div style="height: 1.2px; width: 50px; background: #b45309;"></div>
                 <span style="color: #d97706; font-size: 16px;">☸</span>
@@ -224,7 +232,6 @@
       renderPage();
     };
 
-    // Bật tắt Dropdown In
     const printMenuBtn = document.getElementById('dhp-print-menu-btn');
     const printDropdown = document.getElementById('dhp-print-dropdown');
 
@@ -270,13 +277,11 @@
       }, 50);
     };
 
-    // Bàn phím Desktop
     window.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === ' ') { next(); }
       if (e.key === 'ArrowLeft') { prev(); }
     });
 
-    // Vuốt Chạm Mobile
     let touchStartX = 0, touchStartY = 0;
     let touchEndX = 0, touchEndY = 0;
     const scrollContainer = document.getElementById('dhp-canvas-container');
@@ -336,7 +341,6 @@
     document.getElementById('dhp-slider').max = pages.length - 1;
 
     if (page.type === 'main_cover') {
-      // 🌸 BÌA CHÍNH SÁCH VỚI HOA SEN ĐẶT THẤP LÀM ĐÀI SEN TUYỆT ĐẸP
       paperBox.innerHTML = `
         <div class="dhp-inner-card dhp-bg-cover-lotus" style="align-items: center; text-align: center; justify-content: center;">
           <div style="padding: 20px 30px;">
@@ -387,11 +391,9 @@
       paperBox.innerHTML = `
         <div class="dhp-inner-card">
           <div class="dhp-grid-container">
-            <!-- TRANH MINH HỌA -->
             <div class="dhp-image-col">
               <img src="${v.image_url}" alt="Kệ ${v.verse_no}" loading="lazy" />
             </div>
-            <!-- VĂN BẢN & HOA SEN WATERMARK -->
             <div class="dhp-text-col">
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 4px; margin-bottom: 6px; font-family: system-ui, sans-serif;">
