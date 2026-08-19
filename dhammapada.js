@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V3.4 - MOBILE TOUCH SWIPE & RESPONSIVE)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V3.5 - MOBILE SMART SCROLL & SWIPE)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -53,10 +53,12 @@
         </div>
       </div>
 
-      <!-- TỜ GIẤY A5 -->
-      <div class="dhp-paper-a5" id="dhp-canvas-container">
-        <div style="padding: 40px; text-align: center; color: #d97706; font-size: 14px; font-family: sans-serif; font-weight: bold;">
-          Đang nạp 423 bài kệ từ GitHub CDN...
+      <!-- TỜ GIẤY CHỨA NỘI DUNG (CUỘN THÔNG MINH TRÊN MOBILE) -->
+      <div id="dhp-canvas-container">
+        <div class="dhp-paper-a5" id="dhp-paper-box">
+          <div style="padding: 40px; text-align: center; color: #d97706; font-size: 14px; font-family: sans-serif; font-weight: bold;">
+            Đang nạp 423 bài kệ từ GitHub CDN...
+          </div>
         </div>
       </div>
 
@@ -98,24 +100,30 @@
       if (e.key === 'ArrowLeft') { prev(); }
     });
 
-    // Cử chỉ vuốt chạm trên Điện thoại (Touch Swipe)
-    let touchStartX = 0;
-    let touchEndX = 0;
-    const canvas = document.getElementById('dhp-canvas-container');
+    // Cử chỉ vuốt chạm thông minh (Phân biệt vuốt ngang lật trang và cuộn dọc đọc bài)
+    let touchStartX = 0, touchStartY = 0;
+    let touchEndX = 0, touchEndY = 0;
+    const scrollContainer = document.getElementById('dhp-canvas-container');
 
-    canvas.addEventListener('touchstart', (e) => {
+    scrollContainer.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
     }, { passive: true });
 
-    canvas.addEventListener('touchend', (e) => {
+    scrollContainer.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
+      touchEndY = e.changedTouches[0].screenY;
+      handleSmartSwipe();
     }, { passive: true });
 
-    function handleSwipe() {
-      const swipeDistance = touchEndX - touchStartX;
-      if (swipeDistance < -45) { next(); } // Vuốt trái -> Trang sau
-      if (swipeDistance > 45) { prev(); }  // Vuốt phải -> Trang trước
+    function handleSmartSwipe() {
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+      // Chỉ kích hoạt lật trang khi cử chỉ theo phương ngang lớn hơn nhiều so với phương dọc
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        if (deltaX < 0) next();
+        else prev();
+      }
     }
   }
 
@@ -142,9 +150,13 @@
   }
 
   function renderPage() {
-    const canvas = document.getElementById('dhp-canvas-container');
+    const paperBox = document.getElementById('dhp-paper-box');
+    const scrollContainer = document.getElementById('dhp-canvas-container');
     const page = pages[currentIndex];
-    if (!page || !canvas) return;
+    if (!page || !paperBox) return;
+
+    // Tự động cuộn lên đầu khi lật sang trang mới
+    if (scrollContainer) scrollContainer.scrollTop = 0;
 
     document.getElementById('dhp-page-num').textContent = `${currentIndex + 1}/${pages.length}`;
     document.getElementById('dhp-slider').value = currentIndex;
@@ -152,7 +164,7 @@
 
     if (page.type === 'cover') {
       const c = page.data;
-      canvas.innerHTML = `
+      paperBox.innerHTML = `
         <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center;">
           <div style="padding-top: 15px;">
             <div style="font-size: 13px; letter-spacing: 4px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 6px;">${cleanText(c.chapter_pali)}</div>
@@ -178,7 +190,7 @@
     } else {
       const v = page.data;
       const chap = page.chapter;
-      canvas.innerHTML = `
+      paperBox.innerHTML = `
         <div class="dhp-inner-card">
           <div class="dhp-grid-container">
             <!-- TRANH MINH HỌA -->
@@ -205,7 +217,7 @@
               </div>
 
               <div>
-                <!-- DỊCH NGHĨA (CHỮ TO 14.5PX) -->
+                <!-- DỊCH NGHĨA (CHỮ TO 14.5PX - KHÔNG BAO GIỜ BỊ CẮT XÉN) -->
                 <div style="font-size: 14.5px; line-height: 1.55; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 6px;">
                   <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                 </div>
