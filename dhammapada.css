@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V4.1 - PURE W3C A5 LANDSCAPE FIX)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V4.2 - PERFECT TYPOGRAPHY & SPACING)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -194,7 +194,7 @@ html.dhp-active, body.dhp-active {
   background: transparent !important;
   background-color: transparent !important;
   border-left: 3.5px solid #d97706 !important;
-  padding: 3px 0 3px 12px !important;
+  padding: 4px 0 4px 12px !important;
   margin-bottom: 6px !important;
 }
 .dhp-pali-box * {
@@ -341,7 +341,6 @@ html.dhp-active, body.dhp-active {
   display: none;
 }
 
-/* KHAI BÁO CHUẨN W3C: SIZE A5 LANDSCAPE */
 @page {
   size: a5 landscape !important;
   margin: 0mm !important;
