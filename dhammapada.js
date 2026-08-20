@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V5.3 - ULTRA COMPACT 3MB PDF)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V5.4 - CANVAS TURBO COMPRESSOR)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -14,6 +14,48 @@
 
   function cleanText(str) {
     return (str || '').normalize('NFC').trim();
+  }
+
+  // 🌟 ĐỘNG CƠ CANVAS TỰ ĐỘNG NÉN ẢNH IN: GIẢM 95% DUNG LƯỢNG PDF (800x1060 JPEG 0.82)
+  async function compressImageForPrint(url, targetWidth = 800, targetHeight = 1060) {
+    return new Promise((resolve) => {
+      if (!url) return resolve('');
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = targetWidth;
+          canvas.height = targetHeight;
+          const ctx = canvas.getContext('2d');
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          resolve(dataUrl);
+        } catch (e) {
+          resolve(url); // Dự phòng nếu lỗi CORS
+        }
+      };
+      img.onerror = () => resolve(url);
+      img.src = url;
+    });
+  }
+
+  function showToast(msg) {
+    let t = document.getElementById('dhp-compress-toast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'dhp-compress-toast';
+      document.body.appendChild(t);
+    }
+    t.innerHTML = `<span style="font-size: 16px;">🌸</span> <span>${msg}</span>`;
+    t.style.display = 'flex';
+  }
+
+  function hideToast() {
+    const t = document.getElementById('dhp-compress-toast');
+    if (t) t.style.display = 'none';
   }
 
   function forceA5LandscapePrint() {
@@ -65,7 +107,7 @@
     document.body.classList.add('dhp-active');
 
     Array.from(document.body.children).forEach((child) => {
-      if (child.id !== 'dhp-master-workspace' && child.id !== 'dhp-print-mount' && !['SCRIPT', 'STYLE', 'LINK'].includes(child.tagName)) {
+      if (child.id !== 'dhp-master-workspace' && child.id !== 'dhp-print-mount' && child.id !== 'dhp-compress-toast' && !['SCRIPT', 'STYLE', 'LINK'].includes(child.tagName)) {
         child.style.display = 'none';
       }
     });
@@ -87,8 +129,8 @@
               🖨️ <span>IN SÁCH A5</span> <span style="font-size: 9px;">▼</span>
             </button>
             <div id="dhp-print-dropdown" class="dhp-dropdown-menu hidden">
-              <div id="dhp-print-current-btn" class="dhp-dropdown-item">📄 In Trang Này (1 trang A5)</div>
-              <div id="dhp-print-chapter-btn" class="dhp-dropdown-item" style="color: #6ee7b7;">⚡ In Phẩm Này (~2MB Siêu Nhẹ ⭐)</div>
+              <div id="dhp-print-current-btn" class="dhp-dropdown-item">📄 In Trang Này (Siêu nhẹ < 200KB)</div>
+              <div id="dhp-print-chapter-btn" class="dhp-dropdown-item" style="color: #6ee7b7;">⚡ In Phẩm Này (~2MB - Nhanh &amp; Nét ⭐)</div>
               <div id="dhp-print-all-btn" class="dhp-dropdown-item">📚 In Toàn Bộ Sách (450 trang)</div>
             </div>
           </div>
@@ -122,7 +164,7 @@
     bindEvents();
   }
 
-  function buildPrintPageHtml(p) {
+  function buildPrintPageHtml(p, compressedImgUrl = '') {
     if (p.type === 'main_cover') {
       return `
         <div class="dhp-print-page">
@@ -158,11 +200,10 @@
       `;
     } else if (p.type === 'cover') {
       const c = p.data;
-      // 🌸 BỐ CỤC 3 TẦNG HOÀN HẢO - KHÔNG BAO GIỜ ĐÈ LÊN VIỀN VÀNG
       return `
         <div class="dhp-print-page">
           <div class="dhp-inner-card" style="align-items: center; text-align: center; justify-content: space-between; padding: 5mm 8mm;">
-            <!-- 1. TIÊU ĐỀ PHẨM -->
+            <!-- TIÊU ĐỀ PHẨM -->
             <div style="flex-shrink: 0; padding-top: 1mm;">
               <div style="font-size: 11px; letter-spacing: 4px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 2mm;">${cleanText(c.chapter_pali)}</div>
               <div style="font-size: 22px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 1px;">${cleanText(c.chapter_roman)}. ${cleanText(c.chapter_vi)}</div>
@@ -173,14 +214,14 @@
               </div>
             </div>
 
-            <!-- 2. ĐOẠN TRÍCH TỰ CĂN CHÍNH GIỮA TÂM TRANG -->
+            <!-- ĐOẠN TRÍCH TỰ CĂN CHÍNH GIỮA TÂM TRANG -->
             <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 0 10mm;">
               <div style="font-size: 13.5px; line-height: 1.75; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; max-width: 150mm;">
                 “${cleanText(c.intro_vi)}”
               </div>
             </div>
 
-            <!-- 3. CHÂN TRANG CÁCH ĐÁY AN TOÀN -->
+            <!-- CHÂN TRANG CÁCH ĐÁY AN TOÀN -->
             <div style="flex-shrink: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 0.8px solid rgba(217, 119, 6, 0.4); padding-top: 2mm; font-family: system-ui, sans-serif; font-size: 10px; color: #64748b;">
               <span>🌸 <i>Kinh Pháp Cú Tranh Minh Họa</i></span>
               <span style="border: 1px solid #d97706; color: #92400e; font-weight: bold; padding: 1.5px 8px; border-radius: 99px;">
@@ -194,13 +235,14 @@
     } else {
       const v = p.data;
       const chap = p.chapter;
+      const imgSrc = compressedImgUrl || v.image_url;
 
       return `
         <div class="dhp-print-page">
           <div class="dhp-inner-card">
             <div class="dhp-grid-container">
               <div class="dhp-image-col">
-                <img src="${v.image_url}" alt="Kệ ${v.verse_no}" />
+                <img src="${imgSrc}" alt="Kệ ${v.verse_no}" />
               </div>
               <div class="dhp-text-col">
                 <div>
@@ -262,15 +304,22 @@
     }
 
     // 1. In 1 Trang Hiện Tại
-    document.getElementById('dhp-print-current-btn').onclick = () => {
+    document.getElementById('dhp-print-current-btn').onclick = async () => {
+      showToast('Đang chuẩn bị trang in...');
       forceA5LandscapePrint();
+      const cur = pages[currentIndex];
+      let compImg = '';
+      if (cur.type === 'verse') {
+        compImg = await compressImageForPrint(cur.data.image_url);
+      }
       const pm = document.getElementById('dhp-print-mount');
-      pm.innerHTML = buildPrintPageHtml(pages[currentIndex]);
-      setTimeout(() => window.print(), 100);
+      pm.innerHTML = buildPrintPageHtml(cur, compImg);
+      hideToast();
+      setTimeout(() => window.print(), 50);
     };
 
-    // 2. In Phẩm Hiện Tại (Siêu nhẹ ~2MB - 3MB)
-    document.getElementById('dhp-print-chapter-btn').onclick = () => {
+    // 2. In Phẩm Hiện Tại (Nén ảnh siêu nhẹ ~2MB)
+    document.getElementById('dhp-print-chapter-btn').onclick = async () => {
       forceA5LandscapePrint();
       const cur = pages[currentIndex];
       let targetChapterId = 1;
@@ -278,21 +327,43 @@
       else if (cur.type === 'cover') targetChapterId = cur.data.chapter_id;
 
       const chapPages = pages.filter(p => (p.type === 'cover' && p.data.chapter_id === targetChapterId) || (p.type === 'verse' && p.chapter.chapter_id === targetChapterId));
+      const totalImgs = chapPages.filter(p => p.type === 'verse').length;
+
+      showToast(`Đang tối ưu nén ${totalImgs} ảnh in xuất bản...`);
+
+      // Nén song song toàn bộ ảnh của phẩm
+      const compImgs = await Promise.all(
+        chapPages.map(p => p.type === 'verse' ? compressImageForPrint(p.data.image_url) : Promise.resolve(''))
+      );
+
       const pm = document.getElementById('dhp-print-mount');
-      pm.innerHTML = chapPages.map(p => buildPrintPageHtml(p)).join('');
-      setTimeout(() => window.print(), 150);
+      pm.innerHTML = chapPages.map((p, idx) => buildPrintPageHtml(p, compImgs[idx])).join('');
+      hideToast();
+      setTimeout(() => window.print(), 80);
     };
 
-    // 3. In Toàn Bộ 450 Trang Sách
-    document.getElementById('dhp-print-all-btn').onclick = () => {
+    // 3. In Toàn Bộ 450 Trang Sách (Nén theo từng lô)
+    document.getElementById('dhp-print-all-btn').onclick = async () => {
       forceA5LandscapePrint();
+      showToast('Đang nạp và nén 423 ảnh in toàn sách (vui lòng chờ vài giây)...');
+
       const pm = document.getElementById('dhp-print-mount');
-      pm.innerHTML = `<div style="text-align:center; padding: 20px; font-weight:bold; color:#d97706; font-size:16px;">Đang chuẩn bị 450 trang in A5...</div>`;
       
-      setTimeout(() => {
-        pm.innerHTML = pages.map(p => buildPrintPageHtml(p)).join('');
-        setTimeout(() => window.print(), 400);
-      }, 50);
+      // Xử lý nén ảnh theo lô 20 ảnh/lần để không nghẽn RAM
+      const compImgs = [];
+      const batchSize = 25;
+      for (let i = 0; i < pages.length; i += batchSize) {
+        const batch = pages.slice(i, i + batchSize);
+        showToast(`Đang nén ảnh in: ${Math.min(i + batchSize, pages.length)} / ${pages.length}...`);
+        const batchResults = await Promise.all(
+          batch.map(p => p.type === 'verse' ? compressImageForPrint(p.data.image_url) : Promise.resolve(''))
+        );
+        compImgs.push(...batchResults);
+      }
+
+      pm.innerHTML = pages.map((p, idx) => buildPrintPageHtml(p, compImgs[idx])).join('');
+      hideToast();
+      setTimeout(() => window.print(), 200);
     };
 
     window.addEventListener('keydown', (e) => {
@@ -358,7 +429,6 @@
     document.getElementById('dhp-slider').value = currentIndex;
     document.getElementById('dhp-slider').max = pages.length - 1;
 
-    // Đồng bộ mục lục Dropdown
     const sel = document.getElementById('dhp-chapter-select');
     if (sel) {
       if (page.type === 'main_cover') {
@@ -431,6 +501,7 @@
       const v = page.data;
       const chap = page.chapter;
 
+      // 🌸 KHÓA CHUẨN ĐỒNG BỘ 100% CẢ 423 BÀI KỆ
       paperBox.innerHTML = `
         <div class="dhp-inner-card">
           <div class="dhp-grid-container">

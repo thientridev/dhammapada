@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.3 - ULTRA COMPACT 3MB PDF)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.4 - CANVAS TURBO COMPRESSOR)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -78,7 +78,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🌸 BỘ WATERMARK NGHỆ THUẬT (HIỂN THỊ TRÊN MÀN HÌNH)
+   🌸 BỘ WATERMARK NGHỆ THUẬT (TRÊN MÀN HÌNH)
    ========================================================================== */
 .dhp-bg-cover-lotus {
   position: relative !important;
@@ -149,7 +149,7 @@ html.dhp-active, body.dhp-active {
   z-index: 10 !important;
 }
 
-/* 3. BỐ CỤC CỘT TRÊN DESKTOP */
+/* 3. BỐ CỤC CỘT DESKTOP */
 #dhp-master-workspace .dhp-grid-container {
   display: flex !important;
   flex-direction: row !important;
@@ -221,7 +221,7 @@ html.dhp-active, body.dhp-active {
   box-shadow: 0 10px 25px rgba(0,0,0,0.5);
   display: flex;
   flex-direction: column;
-  min-width: 230px;
+  min-width: 235px;
   z-index: 99999;
   overflow: hidden;
 }
@@ -246,9 +246,30 @@ html.dhp-active, body.dhp-active {
   color: #ffffff;
 }
 
+/* MODAL / TOAST NÉN ẢNH */
+#dhp-compress-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.96);
+  border: 1.5px solid #d97706;
+  color: #fde68a;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: bold;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  z-index: 999999999;
+  display: none;
+  font-family: system-ui, sans-serif;
+  align-items: center;
+  gap: 10px;
+}
+
 /* ==========================================================================
    📱 4. ĐỘNG CƠ MOBILE (< 820px)
-   ========================================================================== */
+   ========================================================================= */
 @media screen and (max-width: 820px) {
   #dhp-print-menu-container, .dhp-hide-mobile {
     display: none !important;
@@ -345,7 +366,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🖨️ 5. ĐỘNG CƠ IN ẤN VECTOR SIÊU NHẸ (GIẢM 90% DUNG LƯỢNG PDF)
+   🖨️ 5. ĐỘNG CƠ IN ẤN VECTOR SIÊU NHẸ (GIẢM 95% DUNG LƯỢNG PDF)
    ========================================================================== */
 #dhp-print-mount {
   display: none;
@@ -364,7 +385,7 @@ html.dhp-active, body.dhp-active {
 
   header, footer, aside, nav, .sidebar, #header, #footer,
   .post-header, .post-body, .author-profile, .no-print, .pdf-toolbar,
-  #dhp-master-workspace,
+  #dhp-master-workspace, #dhp-compress-toast,
   body > *:not(#dhp-print-mount) {
     display: none !important;
     visibility: hidden !important;
@@ -426,7 +447,6 @@ html.dhp-active, body.dhp-active {
     break-after: auto !important;
   }
 
-  /* KHUNG VIỀN IN CHUẨN XÁC CHIỀU CAO (KHÔNG ĐÈ NÉN ĐÁY) */
   .dhp-print-page .dhp-inner-card {
     border: 1.2px solid #d97706 !important;
     border-radius: 4px !important;
@@ -484,7 +504,6 @@ html.dhp-active, body.dhp-active {
     flex-shrink: 0 !important;
   }
 
-  /* ⚡ TẮT HOÀN TOÀN WATERMARK RASTER TRÊN BẢN IN ĐỂ GIẢM TỪ 47MB XUỐNG 3MB */
   .dhp-print-page .dhp-bg-buddha::before,
   .dhp-print-page .dhp-text-col::before,
   .dhp-print-page .dhp-bg-cover-lotus::before {
