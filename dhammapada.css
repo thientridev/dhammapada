@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V6.0 - REAL DOM WATERMARK FIX)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.9 - A5 LANDSCAPE AUTO-LOCK)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -27,7 +27,7 @@ html.dhp-active, body.dhp-active {
   font-family: 'Times New Roman', Times, serif !important;
 }
 
-/* 2. KHỔ GIẤY A5 TRÊN MÀN HÌNH (794px x 550px) */
+/* 2. KHỔ GIẤY TRÊN MÀN HÌNH MÁY TÍNH (794px x 550px) */
 #dhp-canvas-container {
   display: flex !important;
   justify-content: center !important;
@@ -374,30 +374,22 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🖨️ 5. ĐỘNG CƠ IN VECTOR SIÊU NHẸ (KHỬ SẠCH VỆT TRẮNG - REAL DOM IMAGE)
+   🖨️ 5. ĐỘNG CƠ IN ẤN VECTOR SIÊU NHẸ (KHÓA CHUẨN A5 LANDSCAPE BẤT TỬ)
    ========================================================================== */
 #dhp-print-mount {
   display: none;
 }
 
+/* ⚡ BẮT BUỘC CHROME NHẬN DIỆN KHỔ GIẤY A5 NẰM NGANG NGAY LẬP TỨC */
 @page {
-  size: a5 landscape !important;
+  size: 210mm 148.5mm !important;
   margin: 0mm !important;
 }
 
 @media print {
   @page {
-    size: a5 landscape !important;
+    size: 210mm 148.5mm !important;
     margin: 0mm !important;
-  }
-
-  /* TẮT SẠCH CÁC WATERMARK BẰNG CSS ĐỂ TRÁNH LỖI BỘ DỰNG PDF CHROME */
-  .dhp-bg-cover-lotus::before,
-  .dhp-bg-buddha::before,
-  .dhp-text-col::before {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
   }
 
   header, footer, aside, nav, .sidebar, #header, #footer,
@@ -419,7 +411,7 @@ html.dhp-active, body.dhp-active {
     margin: 0 !important;
     padding: 0 !important;
     width: 210mm !important;
-    height: 147mm !important;
+    height: 148.5mm !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
@@ -437,13 +429,12 @@ html.dhp-active, body.dhp-active {
     background: #ffffff !important;
   }
 
-  /* TỜ IN A5 147MM KHÔNG BAO GIỜ BỊ ĐẺ TRANG TRẮNG */
   .dhp-print-page {
     display: block !important;
     width: 210mm !important;
-    height: 147mm !important;
-    max-height: 147mm !important;
-    min-height: 147mm !important;
+    height: 148.5mm !important;
+    max-height: 148.5mm !important;
+    min-height: 148.5mm !important;
     margin: 0 !important;
     padding: 5mm 6mm !important;
     box-sizing: border-box !important;
@@ -465,14 +456,14 @@ html.dhp-active, body.dhp-active {
     break-after: auto !important;
   }
 
-  /* KHUNG VIỀN IN KHÓA 136MM - CÁCH ĐÁY 4MM AN TOÀN */
+  /* KHUNG VIỀN IN KHÓA 138.5MM */
   .dhp-print-page .dhp-inner-card {
     border: 1.2px solid #d97706 !important;
     border-radius: 4px !important;
     width: 198mm !important;
-    height: 136mm !important;
-    max-height: 136mm !important;
-    min-height: 136mm !important;
+    height: 138.5mm !important;
+    max-height: 138.5mm !important;
+    min-height: 138.5mm !important;
     padding: 4mm 6mm 4mm 6mm !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -496,7 +487,7 @@ html.dhp-active, body.dhp-active {
 
   .dhp-print-page .dhp-image-col {
     width: 88mm !important;
-    height: 123mm !important;
+    height: 125mm !important;
     border: 1.2px solid #d97706 !important;
     border-radius: 3px !important;
     padding: 1.5mm !important;
@@ -517,7 +508,7 @@ html.dhp-active, body.dhp-active {
 
   .dhp-print-page .dhp-text-col {
     width: 96mm !important;
-    height: 123mm !important;
+    height: 125mm !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
