@@ -5,7 +5,7 @@
 
 (function() {
   const CHAPTERS_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/dhammapada_chapters.json";
-  const VERSES_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@be4a4a6/dhammapada_verses.json";
+  const VERSES_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@a00d585/dhammapada_verses.json";
 
   let chapters = [];
   let verses = [];
