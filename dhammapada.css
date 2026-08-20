@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V4.4 - AUTO-SYNC & LIGHTWEIGHT PRINT)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V4.5 - UNIFIED GOLDEN TYPOGRAPHY)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -195,6 +195,7 @@ html.dhp-active, body.dhp-active {
   background-color: transparent !important;
   border-left: 3.5px solid #d97706 !important;
   padding: 3px 0 3px 10px !important;
+  margin-bottom: 6px !important;
 }
 .dhp-pali-box * {
   color: #92400e !important;

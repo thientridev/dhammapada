@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V4.4 - AUTO-SYNC & LIGHTWEIGHT PRINT)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V4.5 - UNIFIED GOLDEN TYPOGRAPHY)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -124,67 +124,6 @@
     bindEvents();
   }
 
-  function getAutoFitTypography(v) {
-    const totalChars = (v.verse_vi || '').length + (v.verse_pali || '').length + (v.meaning_vi || '').length;
-    const lineCountVi = (v.verse_vi || '').split('\n').length;
-
-    if (totalChars > 450 || lineCountVi >= 6) {
-      return {
-        verseSize: '13.8px',
-        verseLine: '1.4',
-        verseMargin: '4px',
-        paliSize: '12px',
-        paliLine: '1.35',
-        paliMargin: '4px',
-        meaningSize: '12.8px',
-        meaningLine: '1.42',
-        meaningPadding: '4px',
-        pVerseSize: '12px',
-        pVerseLine: '1.35',
-        pPaliSize: '10.5px',
-        pPaliLine: '1.3',
-        pMeaningSize: '10.5px',
-        pMeaningLine: '1.35'
-      };
-    } else if (totalChars > 320) {
-      return {
-        verseSize: '15px',
-        verseLine: '1.48',
-        verseMargin: '6px',
-        paliSize: '13px',
-        paliLine: '1.42',
-        paliMargin: '5px',
-        meaningSize: '13.8px',
-        meaningLine: '1.5',
-        meaningPadding: '6px',
-        pVerseSize: '13px',
-        pVerseLine: '1.42',
-        pPaliSize: '11.5px',
-        pPaliLine: '1.35',
-        pMeaningSize: '11.5px',
-        pMeaningLine: '1.4'
-      };
-    } else {
-      return {
-        verseSize: '16.5px',
-        verseLine: '1.55',
-        verseMargin: '8px',
-        paliSize: '14px',
-        paliLine: '1.5',
-        paliMargin: '6px',
-        meaningSize: '14.8px',
-        meaningLine: '1.58',
-        meaningPadding: '8px',
-        pVerseSize: '14px',
-        pVerseLine: '1.5',
-        pPaliSize: '12.5px',
-        pPaliLine: '1.45',
-        pMeaningSize: '12.5px',
-        pMeaningLine: '1.5'
-      };
-    }
-  }
-
   function buildPrintPageHtml(p) {
     if (p.type === 'main_cover') {
       return `
@@ -238,7 +177,6 @@
     } else {
       const v = p.data;
       const chap = p.chapter;
-      const t = getAutoFitTypography(v);
 
       return `
         <div class="dhp-print-page">
@@ -253,13 +191,16 @@
                     <span style="font-size: 13.5px; font-weight: 900; color: #b45309;">KỆ SỐ ${cleanText(v.verse_no)}</span>
                     <span style="font-size: 10px; color: #64748b; font-style: italic; font-weight: bold;">${cleanText(chap.chapter_vi)}</span>
                   </div>
-                  <div style="font-size: ${t.pVerseSize}; line-height: ${t.pVerseLine}; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 2mm;">${cleanText(v.verse_vi)}</div>
+                  <!-- CỠ CHỮ THƠ TRÊN BẢN IN ĐỒNG BỘ 13PX -->
+                  <div style="font-size: 13px; line-height: 1.45; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 2mm;">${cleanText(v.verse_vi)}</div>
+                  <!-- CỠ CHỮ PĀLI TRÊN BẢN IN ĐỒNG BỘ 11.5PX -->
                   <div class="dhp-pali-box" style="margin-bottom: 2mm;">
-                    <div style="font-size: ${t.pPaliSize}; line-height: ${t.pPaliLine}; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
+                    <div style="font-size: 11.5px; line-height: 1.4; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
                   </div>
                 </div>
                 <div>
-                  <div style="font-size: ${t.pMeaningSize}; line-height: ${t.pMeaningLine}; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 1.5mm;">
+                  <!-- CỠ CHỮ DỊCH NGHĨA TRÊN BẢN IN ĐỒNG BỘ 11.5PX -->
+                  <div style="font-size: 11.5px; line-height: 1.45; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 1.5mm;">
                     <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                   </div>
                   <div style="display: flex; justify-content: space-between; align-items: center; font-size: 8.5px; font-family: system-ui, sans-serif; border-top: 0.8px solid #e2e8f0; padding-top: 1mm; margin-top: 1.5mm; color: #94a3b8;">
@@ -403,7 +344,7 @@
     document.getElementById('dhp-slider').value = currentIndex;
     document.getElementById('dhp-slider').max = pages.length - 1;
 
-    // 🌸 ĐỒNG BỘ TỰ ĐỘNG MỤC LỤC DROPDOWN THEO PHẨM ĐANG XEM
+    // 🌸 ĐỒNG BỘ TỰ ĐỘNG DROPDOWN THEO PHẨM ĐANG XEM
     const sel = document.getElementById('dhp-chapter-select');
     if (sel) {
       if (page.type === 'main_cover') {
@@ -463,8 +404,8 @@
     } else {
       const v = page.data;
       const chap = page.chapter;
-      const t = getAutoFitTypography(v);
 
+      // 🌸 KHÓA CỨNG 100% CỠ CHỮ ĐỒNG BỘ CHUẨN KỆ 70 CHO TOÀN BỘ SÁCH
       paperBox.innerHTML = `
         <div class="dhp-inner-card">
           <div class="dhp-grid-container">
@@ -473,27 +414,27 @@
               <img src="${v.image_url}" alt="Kệ ${v.verse_no}" loading="lazy" />
             </div>
 
-            <!-- VĂN BẢN (AUTO-FIT VỪA KHÍT 100%) -->
+            <!-- VĂN BẢN (KHÓA CHUẨN ĐỒNG BỘ NHẤT QUÁN 100%) -->
             <div class="dhp-text-col">
               <div>
                 <!-- TIÊU ĐỀ KỆ SỐ -->
-                <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 3px; margin-bottom: 4px; font-family: system-ui, sans-serif;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 3px; margin-bottom: 6px; font-family: system-ui, sans-serif;">
                   <span style="font-size: 16px; font-weight: 900; color: #b45309; letter-spacing: 0.5px;">KỆ SỐ ${cleanText(v.verse_no)}</span>
                   <span style="font-size: 11.5px; color: #64748b; font-style: italic; font-weight: 600;">${cleanText(chap.chapter_vi)}</span>
                 </div>
 
-                <!-- THƠ LỤC BÁT -->
-                <div style="font-size: ${t.verseSize}; line-height: ${t.verseLine}; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: ${t.verseMargin};">${cleanText(v.verse_vi)}</div>
+                <!-- THƠ LỤC BÁT (CỐ ĐỊNH CHUẨN 15PX) -->
+                <div style="font-size: 15px; line-height: 1.5; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 6px;">${cleanText(v.verse_vi)}</div>
 
-                <!-- HỘP PĀLI -->
-                <div class="dhp-pali-box" style="margin-bottom: ${t.paliMargin};">
-                  <div style="font-size: ${t.paliSize}; line-height: ${t.paliLine}; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
+                <!-- HỘP PĀLI (CỐ ĐỊNH CHUẨN 13PX) -->
+                <div class="dhp-pali-box" style="margin-bottom: 6px;">
+                  <div style="font-size: 13px; line-height: 1.45; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
                 </div>
               </div>
 
               <div>
-                <!-- DỊCH NGHĨA -->
-                <div style="font-size: ${t.meaningSize}; line-height: ${t.meaningLine}; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: ${t.meaningPadding};">
+                <!-- DỊCH NGHĨA (CỐ ĐỊNH CHUẨN 13.5PX) -->
+                <div style="font-size: 13.5px; line-height: 1.5; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 6px;">
                   <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                 </div>
 
