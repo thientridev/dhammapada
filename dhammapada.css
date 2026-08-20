@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.5 - HOME CLICK & WATERMARKS RESTORED)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.6 - ZERO OVERLAP & NO WHITE BAR)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -77,7 +77,6 @@ html.dhp-active, body.dhp-active {
   max-width: 100% !important;
 }
 
-/* HIỆU ỨNG RÊ CHUỘT VÀO LOGO VỀ BÌA CHÍNH */
 #dhp-brand-btn {
   cursor: pointer !important;
   transition: opacity 0.2s, transform 0.2s !important;
@@ -88,7 +87,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🌸 BỘ WATERMARK NGHỆ THUẬT (TRÊN MÀN HÌNH DÙNG MULTIPLY)
+   🌸 BỘ WATERMARK NGHỆ THUẬT (MULTIPLY BLENDING LỌC SẠCH NỀN TRẮNG)
    ========================================================================== */
 .dhp-bg-cover-lotus {
   position: relative !important;
@@ -159,7 +158,7 @@ html.dhp-active, body.dhp-active {
   z-index: 10 !important;
 }
 
-/* 3. BỐ CỤC CỘT TRÊN DESKTOP */
+/* 3. BỐ CỤC CỘT DESKTOP */
 #dhp-master-workspace .dhp-grid-container {
   display: flex !important;
   flex-direction: row !important;
@@ -256,7 +255,6 @@ html.dhp-active, body.dhp-active {
   color: #ffffff;
 }
 
-/* MODAL / TOAST NÉN ẢNH */
 #dhp-compress-toast {
   position: fixed;
   top: 20px;
@@ -376,7 +374,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🖨️ 5. ĐỘNG CƠ IN ẤN VECTOR SIÊU NHẸ (PHỤC HỒI WATERMARKS NHẸ NHÀNG)
+   🖨️ 5. ĐỘNG CƠ IN ẤN CHUẨN XUẤT BẢN A5 (KHÓA CHẾT 210mm x 148.5mm TỰ NHIÊN)
    ========================================================================== */
 #dhp-print-mount {
   display: none;
@@ -411,8 +409,8 @@ html.dhp-active, body.dhp-active {
     background: #ffffff !important;
     margin: 0 !important;
     padding: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
+    width: 210mm !important;
+    height: 148.5mm !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
@@ -423,21 +421,22 @@ html.dhp-active, body.dhp-active {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
-    width: 100% !important;
+    width: 210mm !important;
     margin: 0 !important;
     padding: 0 !important;
     z-index: 99999999 !important;
     background: #ffffff !important;
   }
 
+  /* TỜ IN A5 CHUẨN TỪNG MM */
   .dhp-print-page {
     display: block !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    max-height: 100vh !important;
-    min-height: 100vh !important;
+    width: 210mm !important;
+    height: 148.5mm !important;
+    max-height: 148.5mm !important;
+    min-height: 148.5mm !important;
     margin: 0 !important;
-    padding: 5mm 6mm !important;
+    padding: 6mm 8mm !important;
     box-sizing: border-box !important;
     page-break-after: always !important;
     break-after: page !important;
@@ -457,12 +456,14 @@ html.dhp-active, body.dhp-active {
     break-after: auto !important;
   }
 
+  /* KHUNG VIỀN IN KHÓA CỨNG 136.5MM - CÁCH ĐÁY AN TOÀN TUYỆT ĐỐI */
   .dhp-print-page .dhp-inner-card {
     border: 1.2px solid #d97706 !important;
     border-radius: 4px !important;
-    height: calc(100vh - 10mm) !important;
-    max-height: calc(100vh - 10mm) !important;
-    width: 100% !important;
+    width: 194mm !important;
+    height: 136.5mm !important;
+    max-height: 136.5mm !important;
+    min-height: 136.5mm !important;
     padding: 5mm 8mm !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -485,8 +486,8 @@ html.dhp-active, body.dhp-active {
   }
 
   .dhp-print-page .dhp-image-col {
-    width: 46% !important;
-    height: 100% !important;
+    width: 88mm !important;
+    height: 124mm !important;
     border: 1.2px solid #d97706 !important;
     border-radius: 3px !important;
     padding: 1.5mm !important;
@@ -504,8 +505,8 @@ html.dhp-active, body.dhp-active {
   }
 
   .dhp-print-page .dhp-text-col {
-    width: 50% !important;
-    height: 100% !important;
+    width: 92mm !important;
+    height: 124mm !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
@@ -514,7 +515,7 @@ html.dhp-active, body.dhp-active {
     flex-shrink: 0 !important;
   }
 
-  /* 🌸 PHỤC HỒI WATERMARK NHẸ TRÊN BẢN IN (KHÔNG DÙNG MULTIPLY -> GIỮ FILE SIÊU NHẸ) */
+  /* 🌸 BẬT LẠI MULTIPLY TRÊN BẢN IN ĐỂ LỌC NỀN TRẮNG TRIỆT ĐỂ */
   .dhp-print-page .dhp-bg-buddha::before {
     display: block !important;
     content: "" !important;
@@ -528,8 +529,8 @@ html.dhp-active, body.dhp-active {
     background-position: center !important;
     background-repeat: no-repeat !important;
     background-size: contain !important;
-    opacity: 0.11 !important;
-    mix-blend-mode: normal !important;
+    opacity: 0.14 !important;
+    mix-blend-mode: multiply !important;
     pointer-events: none !important;
     z-index: 0 !important;
   }
@@ -547,8 +548,8 @@ html.dhp-active, body.dhp-active {
     background-position: center !important;
     background-repeat: no-repeat !important;
     background-size: contain !important;
-    opacity: 0.12 !important;
-    mix-blend-mode: normal !important;
+    opacity: 0.16 !important;
+    mix-blend-mode: multiply !important;
     pointer-events: none !important;
     z-index: 0 !important;
   }
@@ -566,8 +567,8 @@ html.dhp-active, body.dhp-active {
     background-position: bottom center !important;
     background-repeat: no-repeat !important;
     background-size: contain !important;
-    opacity: 0.13 !important;
-    mix-blend-mode: normal !important;
+    opacity: 0.18 !important;
+    mix-blend-mode: multiply !important;
     pointer-events: none !important;
     z-index: 0 !important;
   }
