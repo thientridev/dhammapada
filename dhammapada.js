@@ -1,12 +1,15 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V6.5 - ELEVATED AUDIO DOCK)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V6.7 - CHAPTER 26 SEAMLESS AUDIO A & B)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
 (function() {
   const CHAPTERS_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@c4046ea/dhammapada_chapters.json";
   const VERSES_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@a00d585/dhammapada_verses.json";
-  const LOI_TUA_AUDIO = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/audio/00LoiTua.mp3";
+  const AUDIO_BASE = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/audio/";
+  const LOI_TUA_AUDIO = AUDIO_BASE + "00LoiTua.mp3";
+  const AUDIO_26A = AUDIO_BASE + "26PhamBaLaMonA.mp3";
+  const AUDIO_26B = AUDIO_BASE + "26PhamBaLaMonB.mp3";
 
   let chapters = [];
   let verses = [];
@@ -29,10 +32,10 @@
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   }
 
-  function toggleAudio(url, title) {
+  function toggleAudio(url, title, forcePlay = false) {
     if (!url) return;
 
-    if (currentAudioUrl === url) {
+    if (currentAudioUrl === url && !forcePlay) {
       if (globalAudio.paused) {
         globalAudio.play();
         isAudioPlaying = true;
@@ -67,6 +70,19 @@
         dock.style.display = 'none';
       }
     }
+
+    // Cập nhật trạng thái nút Phần A / Phần B của Phẩm 26
+    const btnA = document.getElementById('dhp-part-a-btn');
+    const btnB = document.getElementById('dhp-part-b-btn');
+    if (btnA && btnB) {
+      if (currentAudioUrl === AUDIO_26B) {
+        btnA.style.background = '#0f172a';
+        btnB.style.background = '#d97706';
+      } else {
+        btnA.style.background = '#d97706';
+        btnB.style.background = '#0f172a';
+      }
+    }
   }
 
   globalAudio.addEventListener('timeupdate', () => {
@@ -87,7 +103,16 @@
 
   globalAudio.addEventListener('play', () => { isAudioPlaying = true; updateAudioUI(); });
   globalAudio.addEventListener('pause', () => { isAudioPlaying = false; updateAudioUI(); });
-  globalAudio.addEventListener('ended', () => { isAudioPlaying = false; updateAudioUI(); });
+
+  // 🌟 TỰ ĐỘNG NỐI BÀI: KHI HẾT PHẦN A SẼ TỰ ĐỘNG PHÁT TIẾP PHẦN B CỦA PHẨM 26
+  globalAudio.addEventListener('ended', () => {
+    if (currentAudioUrl === AUDIO_26A) {
+      toggleAudio(AUDIO_26B, "Phẩm XXVI (Phần B)", true);
+    } else {
+      isAudioPlaying = false;
+      updateAudioUI();
+    }
+  });
 
   async function compressImageForPrint(url, targetWidth = 800, targetHeight = 1060) {
     return new Promise((resolve) => {
@@ -187,13 +212,13 @@
     ws.innerHTML = `
       <!-- HEADER CONTROLLER -->
       <div class="dhp-ctrl-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 7px 14px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(217, 119, 6, 0.4); border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); flex-shrink: 0; position: relative;">
-        <!-- LOGO & DOCK AUDIO NHỎ GỌN -->
         <div style="display: flex; align-items: center; gap: 8px;">
           <div id="dhp-brand-btn" title="Bấm để về Trang Bìa Sách Chính" style="display: flex; align-items: center; gap: 6px;">
             <span style="background: #d97706; color: #fff; padding: 2px 7px; border-radius: 6px; font-weight: 900; font-size: 11px;">EDEVX</span>
             <span class="dhp-hide-mobile" style="font-weight: bold; color: #fde68a; font-size: 12.5px;">KINH PHÁP CÚ</span>
           </div>
 
+          <!-- MINI DOCK TRÊN HEADER -->
           <div id="dhp-header-audio-dock" title="Đang phát audio">
             <span style="font-size: 11px;">🎧</span>
             <span id="dhp-dock-title" style="font-weight: bold;">Đang nghe...</span>
@@ -215,9 +240,9 @@
               🖨️ <span>IN SÁCH A5</span> <span style="font-size: 9px;">▼</span>
             </button>
             <div id="dhp-print-dropdown" class="dhp-dropdown-menu hidden">
-              <div id="dhp-print-current-btn" class="dhp-dropdown-item">📄 In Trang Này (Siêu nhẹ < 200KB)</div>
-              <div id="dhp-print-chapter-btn" class="dhp-dropdown-item" style="color: #6ee7b7;">⚡ In Phẩm Này (~2MB - Nhanh &amp; Nét ⭐)</div>
-              <div id="dhp-print-all-btn" class="dhp-dropdown-item">📚 In Toàn Bộ Sách (450 trang)</div>
+              <div id="dhp-print-current-btn" class="dhp-dropdown-item">📄 In Trang Này </div>
+              <div id="dhp-print-chapter-btn" class="dhp-dropdown-item" style="color: #6ee7b7;">⚡ In Phẩm Này ⭐ </div>
+              <div id="dhp-print-all-btn" class="dhp-dropdown-item">📚 In Toàn Bộ Sách </div>
             </div>
           </div>
         </div>
@@ -361,7 +386,6 @@
                     <span>${cleanText(chap.chapter_vi)}</span>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -614,7 +638,7 @@
               “Tâm dẫn đầu mọi pháp, Tâm làm chủ, tâm tạo;<br/>Nếu với tâm thanh tịnh, Nói lên hay hành động,<br/>An lạc bước theo sau, Như bóng không rời hình.”
             </div>
 
-            <!-- 🎧 TRÌNH PHÁT AUDIO LỜI TỰA BÌA CHÍNH (NÂNG LÊN GỌN GÀNG) -->
+            <!-- 🎧 TRÌNH PHÁT AUDIO LỜI TỰA BÌA CHÍNH -->
             <div class="dhp-audio-box no-print">
               <button class="dhp-audio-btn" id="dhp-btn-main-audio" title="Nghe Lời Tựa">
                 <span class="dhp-audio-icon">${isAudioPlaying && currentAudioUrl === LOI_TUA_AUDIO ? "⏸" : "▶"}</span>
@@ -649,10 +673,11 @@
 
     } else if (page.type === 'cover') {
       const c = page.data;
+      const isChapter26 = c.chapter_id === 26;
       const audioUrl = c.audio_url || "";
-      const isCurrentPhapAm = currentAudioUrl === audioUrl;
+      const audioUrlB = c.audio_url_b || "";
+      const isCurrentPhapAm = currentAudioUrl === audioUrl || (isChapter26 && currentAudioUrl === audioUrlB);
 
-      // 🌸 NHÓM ĐOẠN TRÍCH VÀ THANH AUDIO THÀNH MỘT KHỐI ĐỂ TỰ ĐỘNG NÂNG LÊN CAO
       paperBox.innerHTML = `
         <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center;">
           <div style="padding-top: 15px;">
@@ -665,13 +690,13 @@
             </div>
           </div>
 
-          <!-- KHỐI TÂM TRANG: ĐOẠN TRÍCH + THANH AUDIO NẰM LIỀN NHAU -->
+          <!-- KHỐI TÂM TRANG: ĐOẠN TRÍCH + THANH AUDIO -->
           <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; margin: auto 0; position: relative; z-index: 10; width: 100%;">
             <div style="padding: 0 20px; max-width: 580px; font-size: 15px; line-height: 1.7; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center;">
               “${cleanText(c.intro_vi)}”
             </div>
 
-            <!-- 🎧 TRÌNH PHÁT AUDIO CHO PHẨM NÀY (ĐÃ ĐƯỢC NÂNG LÊN CAO CÂN XỨNG) -->
+            <!-- 🎧 TRÌNH PHÁT AUDIO (CÓ NÚT PHẦN A / B CHO PHẨM 26) -->
             ${audioUrl ? `
             <div class="dhp-audio-box no-print">
               <button class="dhp-audio-btn" id="dhp-btn-chap-audio" title="Nghe Tụng Phẩm ${c.chapter_roman}">
@@ -679,7 +704,14 @@
               </button>
               <div class="dhp-audio-track">
                 <div class="dhp-audio-meta">
-                  <span class="dhp-audio-title">🎧 Tụng Phẩm ${c.chapter_roman}</span>
+                  <span class="dhp-audio-title">🎧 ${isChapter26 && currentAudioUrl === AUDIO_26B ? "Phẩm XXVI (Phần B)" : `Phẩm ${c.chapter_roman}${isChapter26 ? " (Phần A)" : ""}`}</span>
+                  
+                  ${isChapter26 ? `
+                  <div style="display: flex; gap: 4px; margin-left: auto; margin-right: 8px;">
+                    <button id="dhp-part-a-btn" style="background: ${currentAudioUrl === AUDIO_26B ? '#0f172a' : '#d97706'}; color: #fff; border: 1px solid #d97706; border-radius: 4px; padding: 1px 5px; font-size: 9.5px; cursor: pointer; font-weight: bold;">Phần A</button>
+                    <button id="dhp-part-b-btn" style="background: ${currentAudioUrl === AUDIO_26B ? '#d97706' : '#0f172a'}; color: #fff; border: 1px solid #d97706; border-radius: 4px; padding: 1px 5px; font-size: 9.5px; cursor: pointer; font-weight: bold;">Phần B</button>
+                  </div>` : ''}
+
                   <span class="dhp-audio-time">00:00 / 00:00</span>
                 </div>
                 <input type="range" class="dhp-audio-slider" min="0" max="0" value="0" />
@@ -699,7 +731,23 @@
 
       if (audioUrl) {
         document.getElementById('dhp-btn-chap-audio').onclick = () => {
-          toggleAudio(audioUrl, `Phẩm ${c.chapter_roman}: ${cleanText(c.chapter_vi)}`);
+          if (isChapter26 && currentAudioUrl === AUDIO_26B) {
+            toggleAudio(AUDIO_26B, "Phẩm XXVI (Phần B)");
+          } else {
+            toggleAudio(audioUrl, isChapter26 ? "Phẩm XXVI (Phần A)" : `Phẩm ${c.chapter_roman}: ${cleanText(c.chapter_vi)}`);
+          }
+        };
+      }
+
+      // Xử lý nút bấm chọn Phần A / B riêng biệt cho Phẩm 26
+      if (isChapter26) {
+        document.getElementById('dhp-part-a-btn').onclick = (e) => {
+          e.stopPropagation();
+          toggleAudio(AUDIO_26A, "Phẩm XXVI (Phần A)", true);
+        };
+        document.getElementById('dhp-part-b-btn').onclick = (e) => {
+          e.stopPropagation();
+          toggleAudio(AUDIO_26B, "Phẩm XXVI (Phần B)", true);
         };
       }
 
