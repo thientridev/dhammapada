@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.4 - CANVAS TURBO COMPRESSOR)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.5 - HOME CLICK & WATERMARKS RESTORED)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -77,8 +77,18 @@ html.dhp-active, body.dhp-active {
   max-width: 100% !important;
 }
 
+/* HIỆU ỨNG RÊ CHUỘT VÀO LOGO VỀ BÌA CHÍNH */
+#dhp-brand-btn {
+  cursor: pointer !important;
+  transition: opacity 0.2s, transform 0.2s !important;
+}
+#dhp-brand-btn:hover {
+  opacity: 0.85 !important;
+  transform: scale(1.02) !important;
+}
+
 /* ==========================================================================
-   🌸 BỘ WATERMARK NGHỆ THUẬT (TRÊN MÀN HÌNH)
+   🌸 BỘ WATERMARK NGHỆ THUẬT (TRÊN MÀN HÌNH DÙNG MULTIPLY)
    ========================================================================== */
 .dhp-bg-cover-lotus {
   position: relative !important;
@@ -149,7 +159,7 @@ html.dhp-active, body.dhp-active {
   z-index: 10 !important;
 }
 
-/* 3. BỐ CỤC CỘT DESKTOP */
+/* 3. BỐ CỤC CỘT TRÊN DESKTOP */
 #dhp-master-workspace .dhp-grid-container {
   display: flex !important;
   flex-direction: row !important;
@@ -269,7 +279,7 @@ html.dhp-active, body.dhp-active {
 
 /* ==========================================================================
    📱 4. ĐỘNG CƠ MOBILE (< 820px)
-   ========================================================================= */
+   ========================================================================== */
 @media screen and (max-width: 820px) {
   #dhp-print-menu-container, .dhp-hide-mobile {
     display: none !important;
@@ -366,7 +376,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🖨️ 5. ĐỘNG CƠ IN ẤN VECTOR SIÊU NHẸ (GIẢM 95% DUNG LƯỢNG PDF)
+   🖨️ 5. ĐỘNG CƠ IN ẤN VECTOR SIÊU NHẸ (PHỤC HỒI WATERMARKS NHẸ NHÀNG)
    ========================================================================== */
 #dhp-print-mount {
   display: none;
@@ -504,9 +514,61 @@ html.dhp-active, body.dhp-active {
     flex-shrink: 0 !important;
   }
 
-  .dhp-print-page .dhp-bg-buddha::before,
-  .dhp-print-page .dhp-text-col::before,
+  /* 🌸 PHỤC HỒI WATERMARK NHẸ TRÊN BẢN IN (KHÔNG DÙNG MULTIPLY -> GIỮ FILE SIÊU NHẸ) */
+  .dhp-print-page .dhp-bg-buddha::before {
+    display: block !important;
+    content: "" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 110mm !important;
+    height: 110mm !important;
+    background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen01.webp") !important; 
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    opacity: 0.11 !important;
+    mix-blend-mode: normal !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+  }
+
+  .dhp-print-page .dhp-text-col::before {
+    display: block !important;
+    content: "" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 75mm !important;
+    height: 75mm !important;
+    background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    opacity: 0.12 !important;
+    mix-blend-mode: normal !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+  }
+
   .dhp-print-page .dhp-bg-cover-lotus::before {
-    display: none !important;
+    display: block !important;
+    content: "" !important;
+    position: absolute !important;
+    bottom: 4mm !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 90mm !important;
+    height: 60mm !important;
+    background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
+    background-position: bottom center !important;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    opacity: 0.13 !important;
+    mix-blend-mode: normal !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
   }
 }

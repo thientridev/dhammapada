@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V5.4 - CANVAS TURBO COMPRESSOR)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V5.5 - HOME CLICK & WATERMARKS RESTORED)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -16,7 +16,7 @@
     return (str || '').normalize('NFC').trim();
   }
 
-  // 🌟 ĐỘNG CƠ CANVAS TỰ ĐỘNG NÉN ẢNH IN: GIẢM 95% DUNG LƯỢNG PDF (800x1060 JPEG 0.82)
+  // Động cơ nén Canvas siêu nhẹ
   async function compressImageForPrint(url, targetWidth = 800, targetHeight = 1060) {
     return new Promise((resolve) => {
       if (!url) return resolve('');
@@ -34,7 +34,7 @@
           const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
           resolve(dataUrl);
         } catch (e) {
-          resolve(url); // Dự phòng nếu lỗi CORS
+          resolve(url);
         }
       };
       img.onerror = () => resolve(url);
@@ -115,10 +115,12 @@
     ws.innerHTML = `
       <!-- HEADER CONTROLLER -->
       <div class="dhp-ctrl-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 7px 14px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(217, 119, 6, 0.4); border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); flex-shrink: 0; position: relative;">
-        <div style="display: flex; align-items: center; gap: 6px;">
+        <!-- LOGO & TIÊU ĐỀ CLICK ĐỂ VỀ BÌA CHÍNH -->
+        <div id="dhp-brand-btn" title="Bấm để về Trang Bìa Sách Chính" style="display: flex; align-items: center; gap: 6px;">
           <span style="background: #d97706; color: #fff; padding: 2px 7px; border-radius: 6px; font-weight: 900; font-size: 11px;">EDEVX</span>
           <span class="dhp-hide-mobile" style="font-weight: bold; color: #fde68a; font-size: 12.5px;">KINH PHÁP CÚ</span>
         </div>
+
         <div style="display: flex; align-items: center; gap: 8px;">
           <select id="dhp-chapter-select" style="background: #0f172a; color: #fde68a; border: 1px solid #d97706; border-radius: 8px; padding: 4px 6px; font-size: 11.5px; outline: none; cursor: pointer; max-width: 190px;">
             <option>Đang nạp dữ liệu...</option>
@@ -168,7 +170,7 @@
     if (p.type === 'main_cover') {
       return `
         <div class="dhp-print-page">
-          <div class="dhp-inner-card" style="align-items: center; text-align: center; justify-content: space-between; padding: 6mm 10mm;">
+          <div class="dhp-inner-card dhp-bg-cover-lotus" style="align-items: center; text-align: center; justify-content: space-between; padding: 6mm 10mm;">
             <div style="width: 100%; padding-top: 2mm;">
               <div style="font-size: 12px; letter-spacing: 6px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 2mm;">DHAMMAPADA</div>
               <div style="font-size: 32px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2mm;">KINH PHÁP CÚ</div>
@@ -202,7 +204,7 @@
       const c = p.data;
       return `
         <div class="dhp-print-page">
-          <div class="dhp-inner-card" style="align-items: center; text-align: center; justify-content: space-between; padding: 5mm 8mm;">
+          <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center; justify-content: space-between; padding: 5mm 8mm;">
             <!-- TIÊU ĐỀ PHẨM -->
             <div style="flex-shrink: 0; padding-top: 1mm;">
               <div style="font-size: 11px; letter-spacing: 4px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 2mm;">${cleanText(c.chapter_pali)}</div>
@@ -214,7 +216,7 @@
               </div>
             </div>
 
-            <!-- ĐOẠN TRÍCH TỰ CĂN CHÍNH GIỮA TÂM TRANG -->
+            <!-- ĐOẠN TRÍCH TỰ CĂN CHÍNH GIỮA TÂM TRANG TRÊN NỀN PHẬT -->
             <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 0 10mm;">
               <div style="font-size: 13.5px; line-height: 1.75; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; max-width: 150mm;">
                 “${cleanText(c.intro_vi)}”
@@ -280,6 +282,15 @@
     document.getElementById('dhp-next-btn').onclick = next;
     document.getElementById('dhp-slider').oninput = (e) => { currentIndex = parseInt(e.target.value, 10); renderPage(); };
     
+    // SỰ KIỆN CLICK LOGO ĐỂ VỀ BÌA CHÍNH (TRANG 0)
+    const brandBtn = document.getElementById('dhp-brand-btn');
+    if (brandBtn) {
+      brandBtn.onclick = () => {
+        currentIndex = 0;
+        renderPage();
+      };
+    }
+
     document.getElementById('dhp-chapter-select').onchange = (e) => {
       const val = e.target.value;
       if (val === 'main_cover') {
@@ -318,7 +329,7 @@
       setTimeout(() => window.print(), 50);
     };
 
-    // 2. In Phẩm Hiện Tại (Nén ảnh siêu nhẹ ~2MB)
+    // 2. In Phẩm Hiện Tại (~2MB - Nhanh & Nét)
     document.getElementById('dhp-print-chapter-btn').onclick = async () => {
       forceA5LandscapePrint();
       const cur = pages[currentIndex];
@@ -331,7 +342,6 @@
 
       showToast(`Đang tối ưu nén ${totalImgs} ảnh in xuất bản...`);
 
-      // Nén song song toàn bộ ảnh của phẩm
       const compImgs = await Promise.all(
         chapPages.map(p => p.type === 'verse' ? compressImageForPrint(p.data.image_url) : Promise.resolve(''))
       );
@@ -342,14 +352,12 @@
       setTimeout(() => window.print(), 80);
     };
 
-    // 3. In Toàn Bộ 450 Trang Sách (Nén theo từng lô)
+    // 3. In Toàn Bộ 450 Trang Sách
     document.getElementById('dhp-print-all-btn').onclick = async () => {
       forceA5LandscapePrint();
       showToast('Đang nạp và nén 423 ảnh in toàn sách (vui lòng chờ vài giây)...');
 
       const pm = document.getElementById('dhp-print-mount');
-      
-      // Xử lý nén ảnh theo lô 20 ảnh/lần để không nghẽn RAM
       const compImgs = [];
       const batchSize = 25;
       for (let i = 0; i < pages.length; i += batchSize) {
