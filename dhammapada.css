@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.9 - WHITE BOX ANNIHILATOR)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V6.0 - REAL DOM WATERMARK FIX)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -87,7 +87,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🌸 BỘ WATERMARK NGHỆ THUẬT (TRÊN MÀN HÌNH DÙNG MULTIPLY)
+   🌸 BỘ WATERMARK NGHỆ THUẬT (TRÊN MÀN HÌNH ONLINE)
    ========================================================================== */
 .dhp-bg-cover-lotus {
   position: relative !important;
@@ -374,7 +374,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🖨️ 5. ĐỘNG CƠ IN ẤN VECTOR SIÊU NHẸ (KHỬ SẠCH VỆT TRẮNG)
+   🖨️ 5. ĐỘNG CƠ IN VECTOR SIÊU NHẸ (KHỬ SẠCH VỆT TRẮNG - REAL DOM IMAGE)
    ========================================================================== */
 #dhp-print-mount {
   display: none;
@@ -389,6 +389,15 @@ html.dhp-active, body.dhp-active {
   @page {
     size: a5 landscape !important;
     margin: 0mm !important;
+  }
+
+  /* TẮT SẠCH CÁC WATERMARK BẰNG CSS ĐỂ TRÁNH LỖI BỘ DỰNG PDF CHROME */
+  .dhp-bg-cover-lotus::before,
+  .dhp-bg-buddha::before,
+  .dhp-text-col::before {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
   }
 
   header, footer, aside, nav, .sidebar, #header, #footer,
@@ -428,7 +437,7 @@ html.dhp-active, body.dhp-active {
     background: #ffffff !important;
   }
 
-  /* ⚡ ĐƯA MÀU NỀN TRANG IN VỀ TRẮNG TINH KHIẾT (#FFFFFF) ĐỂ HÒA LÀM MỘT VỚI ẢNH PHẬT */
+  /* TỜ IN A5 147MM KHÔNG BAO GIỜ BỊ ĐẺ TRANG TRẮNG */
   .dhp-print-page {
     display: block !important;
     width: 210mm !important;
@@ -456,7 +465,7 @@ html.dhp-active, body.dhp-active {
     break-after: auto !important;
   }
 
-  /* KHUNG VIỀN IN KHÓA 136MM - NỀN TRẮNG TINH KHIẾT */
+  /* KHUNG VIỀN IN KHÓA 136MM - CÁCH ĐÁY 4MM AN TOÀN */
   .dhp-print-page .dhp-inner-card {
     border: 1.2px solid #d97706 !important;
     border-radius: 4px !important;
@@ -487,7 +496,7 @@ html.dhp-active, body.dhp-active {
 
   .dhp-print-page .dhp-image-col {
     width: 88mm !important;
-    height: 124mm !important;
+    height: 123mm !important;
     border: 1.2px solid #d97706 !important;
     border-radius: 3px !important;
     padding: 1.5mm !important;
@@ -495,6 +504,8 @@ html.dhp-active, body.dhp-active {
     box-sizing: border-box !important;
     flex-shrink: 0 !important;
     overflow: hidden !important;
+    position: relative !important;
+    z-index: 10 !important;
   }
 
   .dhp-print-page .dhp-image-col img {
@@ -506,70 +517,14 @@ html.dhp-active, body.dhp-active {
 
   .dhp-print-page .dhp-text-col {
     width: 96mm !important;
-    height: 124mm !important;
+    height: 123mm !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     padding: 0 !important;
     box-sizing: border-box !important;
     flex-shrink: 0 !important;
-  }
-
-  /* 🌸 WATERMARK TRANG IN DÙNG OPACITY NATIVE (ĐÃ HÒA TAN VÀO NỀN TRẮNG KHÔNG TÌ VẾT) */
-  .dhp-print-page .dhp-bg-buddha::before {
-    display: block !important;
-    content: "" !important;
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: 135mm !important;
-    height: 135mm !important;
-    background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen01.webp") !important; 
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-size: contain !important;
-    opacity: 0.12 !important;
-    mix-blend-mode: normal !important;
-    pointer-events: none !important;
-    z-index: 0 !important;
-  }
-
-  .dhp-print-page .dhp-text-col::before {
-    display: block !important;
-    content: "" !important;
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: 85mm !important;
-    height: 85mm !important;
-    background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-size: contain !important;
-    opacity: 0.14 !important;
-    mix-blend-mode: normal !important;
-    pointer-events: none !important;
-    z-index: 0 !important;
-  }
-
-  .dhp-print-page .dhp-bg-cover-lotus::before {
-    display: block !important;
-    content: "" !important;
-    position: absolute !important;
-    bottom: 4mm !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    width: 100mm !important;
-    height: 70mm !important;
-    background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
-    background-position: bottom center !important;
-    background-repeat: no-repeat !important;
-    background-size: contain !important;
-    opacity: 0.15 !important;
-    mix-blend-mode: normal !important;
-    pointer-events: none !important;
-    z-index: 0 !important;
+    position: relative !important;
+    z-index: 10 !important;
   }
 }
