@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.0 - 125% BENCHMARK STANDARD)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.1 - STANDARD 100% UNIFIED GOLDEN)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -22,12 +22,12 @@ html.dhp-active, body.dhp-active {
   flex-direction: column !important;
   align-items: center !important;
   justify-content: space-between !important;
-  padding: 8px 12px 12px 12px !important;
+  padding: 8px 10px 12px 10px !important;
   box-sizing: border-box !important;
   font-family: 'Times New Roman', Times, serif !important;
 }
 
-/* 2. KHỔ GIẤY A5 CHUẨN 125% (992px x 688px - VỪA KHÍT MÀN HÌNH 24 INCHES) */
+/* 2. KHỔ GIẤY A5 CHUẨN 100% NGUYÊN BẢN (794px x 550px) */
 #dhp-canvas-container {
   display: flex !important;
   justify-content: center !important;
@@ -38,17 +38,17 @@ html.dhp-active, body.dhp-active {
 }
 
 #dhp-master-workspace .dhp-paper-a5 {
-  width: 992px !important;
-  min-width: 992px !important;
-  max-width: 992px !important;
-  height: 688px !important;
-  min-height: 688px !important;
-  max-height: 688px !important;
+  width: 794px !important;
+  min-width: 794px !important;
+  max-width: 794px !important;
+  height: 550px !important;
+  min-height: 550px !important;
+  max-height: 550px !important;
   background-color: #fdfbf7 !important;
   background: #fdfbf7 !important;
-  border-radius: 10px !important;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(217, 119, 6, 0.2) !important;
-  padding: 14px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(217, 119, 6, 0.15) !important;
+  padding: 12px !important;
   box-sizing: border-box !important;
   position: relative !important;
   overflow: hidden !important;
@@ -57,11 +57,11 @@ html.dhp-active, body.dhp-active {
 }
 
 #dhp-master-workspace .dhp-inner-card {
-  border: 1.6px solid #d97706 !important;
+  border: 1.5px solid #d97706 !important;
   border-radius: 6px !important;
-  height: 660px !important;
-  width: 964px !important;
-  padding: 14px 20px !important;
+  height: 526px !important;
+  width: 770px !important;
+  padding: 12px 16px !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
@@ -72,9 +72,9 @@ html.dhp-active, body.dhp-active {
   overflow: hidden !important;
 }
 
-/* THANH ĐIỀU KHIỂN CĂN CHUẨN 992PX */
+/* THANH ĐIỀU KHIỂN KHÓA CHUẨN 794PX */
 .dhp-ctrl-bar {
-  width: 992px !important;
+  width: 794px !important;
   max-width: 100% !important;
 }
 
@@ -87,11 +87,11 @@ html.dhp-active, body.dhp-active {
 .dhp-bg-cover-lotus::before {
   content: "" !important;
   position: absolute !important;
-  bottom: 12px !important;
+  bottom: 10px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  width: 440px !important;
-  height: 300px !important;
+  width: 380px !important;
+  height: 270px !important;
   background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
   background-position: bottom center !important;
   background-repeat: no-repeat !important;
@@ -111,8 +111,8 @@ html.dhp-active, body.dhp-active {
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
-  width: 500px !important;
-  height: 500px !important;
+  width: 460px !important;
+  height: 460px !important;
   background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen01.webp") !important; 
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -132,8 +132,8 @@ html.dhp-active, body.dhp-active {
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
-  width: 360px !important;
-  height: 360px !important;
+  width: 320px !important;
+  height: 320px !important;
   background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -150,7 +150,7 @@ html.dhp-active, body.dhp-active {
   z-index: 10 !important;
 }
 
-/* 3. BỐ CỤC CỘT DESKTOP 125% (CÂN ĐỐI TUYỆT ĐỐI) */
+/* 3. BỐ CỤC CỘT DESKTOP 100% (340px & 380px) */
 #dhp-master-workspace .dhp-grid-container {
   display: flex !important;
   flex-direction: row !important;
@@ -158,16 +158,16 @@ html.dhp-active, body.dhp-active {
   align-items: center !important;
   width: 100% !important;
   height: 100% !important;
-  gap: 20px !important;
+  gap: 16px !important;
 }
 
 #dhp-master-workspace .dhp-image-col {
-  width: 425px !important;
-  min-width: 425px !important;
-  max-width: 425px !important;
-  height: 560px !important;
-  min-height: 560px !important;
-  max-height: 560px !important;
+  width: 340px !important;
+  min-width: 340px !important;
+  max-width: 340px !important;
+  height: 450px !important;
+  min-height: 450px !important;
+  max-height: 450px !important;
   border: 1.5px solid #d97706 !important;
   border-radius: 4px !important;
   padding: 4px !important;
@@ -187,16 +187,16 @@ html.dhp-active, body.dhp-active {
 }
 
 #dhp-master-workspace .dhp-text-col {
-  width: 480px !important;
-  min-width: 480px !important;
-  max-width: 480px !important;
-  height: 560px !important;
-  min-height: 560px !important;
-  max-height: 560px !important;
+  width: 380px !important;
+  min-width: 380px !important;
+  max-width: 380px !important;
+  height: 450px !important;
+  min-height: 450px !important;
+  max-height: 450px !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
-  padding: 0 !important;
+  padding: 0 2px !important;
   box-sizing: border-box !important;
   flex-shrink: 0 !important;
   overflow: hidden !important;
@@ -346,7 +346,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🖨️ 5. ĐỘNG CƠ IN ẤN CHUẨN XUẤT BẢN W3C A5 LANDSCAPE (TỐI ƯU NHẸ & NÉT)
+   🖨️ 5. ĐỘNG CƠ IN ẤN CHUẨN XUẤT BẢN W3C A5 LANDSCAPE
    ========================================================================== */
 #dhp-print-mount {
   display: none;
