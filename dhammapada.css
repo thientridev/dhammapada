@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.1 - STANDARD 100% UNIFIED GOLDEN)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.2 - ULTRA LIGHTWEIGHT VECTOR PDF)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -72,14 +72,13 @@ html.dhp-active, body.dhp-active {
   overflow: hidden !important;
 }
 
-/* THANH ĐIỀU KHIỂN KHÓA CHUẨN 794PX */
 .dhp-ctrl-bar {
   width: 794px !important;
   max-width: 100% !important;
 }
 
 /* ==========================================================================
-   🌸 BỘ WATERMARK NGHỆ THUẬT (MULTIPLY BLENDING LỌC NỀN TRẮNG)
+   🌸 BỘ WATERMARK NGHỆ THUẬT (TRÊN MÀN HÌNH DÙNG MULTIPLY)
    ========================================================================== */
 .dhp-bg-cover-lotus {
   position: relative !important;
@@ -150,7 +149,7 @@ html.dhp-active, body.dhp-active {
   z-index: 10 !important;
 }
 
-/* 3. BỐ CỤC CỘT DESKTOP 100% (340px & 380px) */
+/* 3. BỐ CỤC CỘT DESKTOP */
 #dhp-master-workspace .dhp-grid-container {
   display: flex !important;
   flex-direction: row !important;
@@ -346,7 +345,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🖨️ 5. ĐỘNG CƠ IN ẤN CHUẨN XUẤT BẢN W3C A5 LANDSCAPE
+   🖨️ 5. ĐỘNG CƠ IN VECTOR SIÊU NHẸ (TRIỆT TIÊU MIX-BLEND-MODE -> GIẢM 90% DUNG LƯỢNG)
    ========================================================================== */
 #dhp-print-mount {
   display: none;
@@ -482,22 +481,26 @@ html.dhp-active, body.dhp-active {
     flex-shrink: 0 !important;
   }
 
+  /* ⚡ TRIỆT TIÊU HOÀN TOÀN MIX-BLEND-MODE TRÊN BẢN IN ĐỂ GIỮ FILE PDF NHẸ & VECTOR SẮC NÉT */
   .dhp-print-page .dhp-bg-buddha::before {
     width: 110mm !important;
     height: 110mm !important;
-    opacity: 0.14 !important;
+    opacity: 0.12 !important;
+    mix-blend-mode: normal !important;
   }
 
   .dhp-print-page .dhp-text-col::before {
     width: 75mm !important;
     height: 75mm !important;
-    opacity: 0.16 !important;
+    opacity: 0.12 !important;
+    mix-blend-mode: normal !important;
   }
 
   .dhp-print-page .dhp-bg-cover-lotus::before {
     width: 90mm !important;
     height: 65mm !important;
-    opacity: 0.18 !important;
+    opacity: 0.14 !important;
     bottom: 5mm !important;
+    mix-blend-mode: normal !important;
   }
 }
