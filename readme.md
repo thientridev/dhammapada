@@ -101,12 +101,12 @@ const AUDIO_BASE = "https://cdn.jsdelivr.net/gh/tai-khoan-cua-ban/dhammapada@mai
 
 ## 🙏 CÔNG ĐỨC & TRI ÂN NGUỒN TÀI LIỆU
 
-Dự án thành tựu nhờ vào sự cống hiến và tư liệu quý báu của chư tôn đức và các nghệ sĩ:
+Dự án thành tựu nhờ vào sự cống hiến và tư liệu quý báu của chư tôn đức:
 
 * ✍️ **Việt Dịch**: Trưởng lão Hòa thượng **Thích Minh Châu** (Bản dịch Việt văn kinh điển từ nguyên tác Pāli).
 * 🎨 **Tranh Minh Họa Màu**: Họa sĩ **Mr. Piyadhasa Wickramanayake** (Sri Lanka).
-* 🎙️ **Giọng Tụng / Đọc Audio**: Trưởng lão Hòa thượng **Thích Minh Châu**.
-* ⚙️ **Nền tảng Kỹ thuật & UI/UX**: Đội ngũ phát triển **Education DevX (EDEVX Engine)**.
+* 🎙️ **Giọng Tụng / Đọc Audio**:  [Nguồn ở đây](https://archive.org/details/KinhPhapCu-HtMinhChauDichViet)
+* ⚙️ **Nền tảng Kỹ thuật & UI/UX**: Đội ngũ phát triển [**Education DevX (EDEVX Engine)**] (https://edevx.blogspot.com/p/kinhphapcu.html)
 
 ---
 
