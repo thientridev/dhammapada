@@ -4,8 +4,8 @@
    ========================================================================== */
 
 (function() {
-  const CHAPTERS_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/dhammapada_chapters.json";
-  const VERSES_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/dhammapada_verses.json";
+  const CHAPTERS_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@c4046ea/dhammapada_chapters.json";
+  const VERSES_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@a00d585/dhammapada_verses.json";
   const LOI_TUA_AUDIO = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/audio/00LoiTua.mp3";
 
   let chapters = [];
