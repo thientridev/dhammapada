@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V6.3 - FULLSCREEN & QUICK JUMP & FADE)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V6.4 - REFINED MOBILE AUDIO UI)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -187,26 +187,28 @@
     ws.innerHTML = `
       <!-- HEADER CONTROLLER -->
       <div class="dhp-ctrl-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 7px 14px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(217, 119, 6, 0.4); border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); flex-shrink: 0; position: relative;">
-        <!-- LOGO VỀ BÌA SÁCH CHÍNH -->
-        <div style="display: flex; align-items: center; gap: 10px;">
+        <!-- LOGO & DOCK AUDIO NHỎ GỌN -->
+        <div style="display: flex; align-items: center; gap: 8px;">
           <div id="dhp-brand-btn" title="Bấm để về Trang Bìa Sách Chính" style="display: flex; align-items: center; gap: 6px;">
             <span style="background: #d97706; color: #fff; padding: 2px 7px; border-radius: 6px; font-weight: 900; font-size: 11px;">EDEVX</span>
             <span class="dhp-hide-mobile" style="font-weight: bold; color: #fde68a; font-size: 12.5px;">KINH PHÁP CÚ</span>
           </div>
 
-          <div id="dhp-header-audio-dock">
+          <!-- 🌟 HUY HIỆU AUDIO MINI (TỰ ẨN CHỮ DÀI TRÊN MOBILE) -->
+          <div id="dhp-header-audio-dock" title="Đang phát audio">
+            <span style="font-size: 11px;">🎧</span>
             <span id="dhp-dock-title" style="font-weight: bold;">Đang nghe...</span>
-            <button id="dhp-dock-toggle" style="background: #d97706; border: none; color: #fff; border-radius: 50%; width: 20px; height: 20px; font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center;">⏸</button>
+            <button id="dhp-dock-toggle" style="background: #d97706; border: none; color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">⏸</button>
           </div>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <select id="dhp-chapter-select" style="background: #0f172a; color: #fde68a; border: 1px solid #d97706; border-radius: 8px; padding: 4px 6px; font-size: 11.5px; outline: none; cursor: pointer; max-width: 180px;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <select id="dhp-chapter-select" style="background: #0f172a; color: #fde68a; border: 1px solid #d97706; border-radius: 8px; padding: 4px 6px; font-size: 11.5px; outline: none; cursor: pointer; max-width: 175px;">
             <option>Đang nạp dữ liệu...</option>
           </select>
 
-          <!-- 🌸 1. NÚT TOÀN MÀN HÌNH (FULLSCREEN MODE) -->
-          <button id="dhp-fullscreen-btn" style="background: #1e293b; color: #fde68a; border: 1px solid #475569; padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px;" title="Bật/Tắt Toàn Màn Hình">
+          <!-- NÚT TOÀN MÀN HÌNH -->
+          <button id="dhp-fullscreen-btn" style="background: #1e293b; color: #fde68a; border: 1px solid #475569; padding: 5px 8px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px;" title="Bật/Tắt Toàn Màn Hình">
             ⛶ <span class="dhp-hide-mobile">Toàn màn</span>
           </button>
           
@@ -243,9 +245,8 @@
           <input type="range" id="dhp-slider" min="0" max="449" value="0" style="width: 100%; accent-color: #d97706; cursor: pointer;" />
           <span id="dhp-page-num" style="font-family: monospace; font-weight: bold; color: #fde68a; min-width: 55px; text-align: right; font-size: 12px;">1/450</span>
           
-          <!-- 🌸 2. Ô NHẬP NHẢY ĐẾN SỐ KỆ NHANH (QUICK JUMP INPUT) -->
           <div style="display: flex; align-items: center; gap: 4px; border-left: 1px solid #475569; padding-left: 8px;">
-            <input type="number" id="dhp-jump-input" placeholder="Kệ..." min="1" max="423" style="width: 50px; background: #0f172a; border: 1px solid #d97706; color: #fde68a; border-radius: 6px; padding: 3px 4px; font-size: 11px; text-align: center; outline: none;" title="Gõ số Kệ (1 - 423) rồi bấm Enter" />
+            <input type="number" id="dhp-jump-input" placeholder="Kệ..." min="1" max="423" style="width: 48px; background: #0f172a; border: 1px solid #d97706; color: #fde68a; border-radius: 6px; padding: 3px 4px; font-size: 11px; text-align: center; outline: none;" title="Gõ số Kệ (1 - 423) rồi bấm Enter" />
           </div>
         </div>
 
@@ -380,7 +381,6 @@
     document.getElementById('dhp-next-btn').onclick = next;
     document.getElementById('dhp-slider').oninput = (e) => { currentIndex = parseInt(e.target.value, 10); renderPage(); };
     
-    // CLICK LOGO VỀ BÌA SÁCH CHÍNH
     const brandBtn = document.getElementById('dhp-brand-btn');
     if (brandBtn) {
       brandBtn.onclick = () => {
@@ -389,7 +389,6 @@
       };
     }
 
-    // 🌸 1. SỰ KIỆN NÚT TOÀN MÀN HÌNH (FULLSCREEN TOGGLE)
     const fsBtn = document.getElementById('dhp-fullscreen-btn');
     if (fsBtn) {
       fsBtn.onclick = () => {
@@ -408,14 +407,12 @@
       }
     });
 
-    // 🌸 2. SỰ KIỆN Ô NHẬP NHẢY NHANH SỐ KỆ (ENTER ĐỂ BAY TỚI KỆ ĐÓ)
     const jumpInput = document.getElementById('dhp-jump-input');
     if (jumpInput) {
       jumpInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
           const val = parseInt(jumpInput.value, 10);
           if (!isNaN(val) && val >= 1 && val <= 423) {
-            // Tìm trang bài kệ có số kệ tương ứng
             const targetIdx = pages.findIndex(p => p.type === 'verse' && parseInt(p.data.verse_no, 10) === val);
             if (targetIdx !== -1) {
               currentIndex = targetIdx;
@@ -428,7 +425,6 @@
       });
     }
 
-    // Toggle Audio Dock trên Header
     const dockBtn = document.getElementById('dhp-dock-toggle');
     if (dockBtn) {
       dockBtn.onclick = () => {
@@ -580,7 +576,6 @@
     const page = pages[currentIndex];
     if (!page || !paperBox) return;
 
-    // 🌸 3. HIỆU ỨNG CHUYỂN TRANG MỜ NHẸ (MICRO FADE-IN 0.15S)
     paperBox.classList.add('dhp-page-fading');
     setTimeout(() => {
       paperBox.classList.remove('dhp-page-fading');
@@ -592,7 +587,6 @@
     document.getElementById('dhp-slider').value = currentIndex;
     document.getElementById('dhp-slider').max = pages.length - 1;
 
-    // Đồng bộ mục lục Dropdown
     const sel = document.getElementById('dhp-chapter-select');
     if (sel) {
       if (page.type === 'main_cover') {
@@ -622,15 +616,17 @@
               “Tâm dẫn đầu mọi pháp, Tâm làm chủ, tâm tạo;<br/>Nếu với tâm thanh tịnh, Nói lên hay hành động,<br/>An lạc bước theo sau, Như bóng không rời hình.”
             </div>
 
-            <!-- 🎧 TRÌNH PHÁT AUDIO LỜI TỰA BÌA CHÍNH -->
+            <!-- 🎧 TRÌNH PHÁT AUDIO LỜI TỰA BÌA CHÍNH (TIỂU CHUẨN 2 TẦNG SPOTIFY) -->
             <div class="dhp-audio-box no-print">
               <button class="dhp-audio-btn" id="dhp-btn-main-audio" title="Nghe Lời Tựa">
                 <span class="dhp-audio-icon">${isAudioPlaying && currentAudioUrl === LOI_TUA_AUDIO ? "⏸" : "▶"}</span>
               </button>
               <div class="dhp-audio-track">
-                <span style="font-size: 11.5px; font-weight: bold; color: #78350f;">🎧 Nghe Lời Tựa</span>
+                <div class="dhp-audio-meta">
+                  <span class="dhp-audio-title">🎧 Nghe Lời Tựa</span>
+                  <span class="dhp-audio-time">00:00 / 00:00</span>
+                </div>
                 <input type="range" class="dhp-audio-slider" min="0" max="0" value="0" />
-                <span class="dhp-audio-time">00:00 / 00:00</span>
               </div>
             </div>
           </div>
@@ -670,20 +666,22 @@
             </div>
           </div>
 
-          <div style="padding: 0 20px; max-width: 580px; font-size: 15px; line-height: 1.7; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; margin-top: 10px;">
+          <div style="padding: 0 20px; max-width: 580px; font-size: 15px; line-height: 1.7; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; margin-top: 6px;">
             “${cleanText(c.intro_vi)}”
           </div>
 
-          <!-- 🎧 TRÌNH PHÁT AUDIO CHO PHẨM NÀY -->
+          <!-- 🎧 TRÌNH PHÁT AUDIO CHO PHẨM NÀY (THIẾT KẾ SPOTIFY 2 TẦNG CHỐNG TRÀN) -->
           ${audioUrl ? `
           <div class="dhp-audio-box no-print">
             <button class="dhp-audio-btn" id="dhp-btn-chap-audio" title="Nghe Tụng Phẩm ${c.chapter_roman}">
               <span class="dhp-audio-icon">${isAudioPlaying && isCurrentPhapAm ? "⏸" : "▶"}</span>
             </button>
             <div class="dhp-audio-track">
-              <span style="font-size: 11.5px; font-weight: bold; color: #78350f;">🎧 Nghe Tụng Phẩm ${c.chapter_roman}</span>
+              <div class="dhp-audio-meta">
+                <span class="dhp-audio-title">🎧 Tụng Phẩm ${c.chapter_roman}</span>
+                <span class="dhp-audio-time">00:00 / 00:00</span>
+              </div>
               <input type="range" class="dhp-audio-slider" min="0" max="0" value="0" />
-              <span class="dhp-audio-time">00:00 / 00:00</span>
             </div>
           </div>` : ''}
 
