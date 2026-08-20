@@ -1,20 +1,93 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V6.1 - A5 LANDSCAPE AUTO-LOCK)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V6.3 - FULLSCREEN & QUICK JUMP & FADE)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
 (function() {
   const CHAPTERS_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/dhammapada_chapters.json";
-  const VERSES_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@a00d585/dhammapada_verses.json";
+  const VERSES_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/dhammapada_verses.json";
+  const LOI_TUA_AUDIO = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/audio/00LoiTua.mp3";
 
   let chapters = [];
   let verses = [];
   let pages = [];
   let currentIndex = 0;
 
+  let globalAudio = new Audio();
+  let currentAudioUrl = "";
+  let isAudioPlaying = false;
+  let activeAudioTitle = "";
+
   function cleanText(str) {
     return (str || '').normalize('NFC').trim();
   }
+
+  function formatTime(seconds) {
+    if (isNaN(seconds)) return "00:00";
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  function toggleAudio(url, title) {
+    if (!url) return;
+
+    if (currentAudioUrl === url) {
+      if (globalAudio.paused) {
+        globalAudio.play();
+        isAudioPlaying = true;
+      } else {
+        globalAudio.pause();
+        isAudioPlaying = false;
+      }
+    } else {
+      globalAudio.src = url;
+      currentAudioUrl = url;
+      activeAudioTitle = title || "Kinh Pháp Cú";
+      globalAudio.play().then(() => {
+        isAudioPlaying = true;
+      }).catch(e => console.log("Audio Play Error:", e));
+    }
+    updateAudioUI();
+  }
+
+  function updateAudioUI() {
+    const playIcons = document.querySelectorAll('.dhp-audio-icon');
+    playIcons.forEach(icon => {
+      icon.textContent = isAudioPlaying ? "⏸" : "▶";
+    });
+
+    const dock = document.getElementById('dhp-header-audio-dock');
+    const dockTitle = document.getElementById('dhp-dock-title');
+    if (dock && dockTitle) {
+      if (currentAudioUrl && isAudioPlaying) {
+        dock.style.display = 'inline-flex';
+        dockTitle.textContent = activeAudioTitle;
+      } else if (!isAudioPlaying) {
+        dock.style.display = 'none';
+      }
+    }
+  }
+
+  globalAudio.addEventListener('timeupdate', () => {
+    const sliders = document.querySelectorAll('.dhp-audio-slider');
+    const timeLabels = document.querySelectorAll('.dhp-audio-time');
+    const cur = globalAudio.currentTime;
+    const dur = globalAudio.duration || 0;
+
+    sliders.forEach(s => {
+      s.max = dur;
+      s.value = cur;
+    });
+
+    timeLabels.forEach(t => {
+      t.textContent = `${formatTime(cur)} / ${formatTime(dur)}`;
+    });
+  });
+
+  globalAudio.addEventListener('play', () => { isAudioPlaying = true; updateAudioUI(); });
+  globalAudio.addEventListener('pause', () => { isAudioPlaying = false; updateAudioUI(); });
+  globalAudio.addEventListener('ended', () => { isAudioPlaying = false; updateAudioUI(); });
 
   async function compressImageForPrint(url, targetWidth = 800, targetHeight = 1060) {
     return new Promise((resolve) => {
@@ -57,7 +130,6 @@
     if (t) t.style.display = 'none';
   }
 
-  // ÉP TRÌNH DUYỆT CHROME CHỌN NGAY KHỔ A5 NGANG KHI BẤM IN
   function forceA5LandscapePrint() {
     try {
       Array.from(document.styleSheets).forEach(sheet => {
@@ -82,7 +154,7 @@
     }
     style.innerHTML = `
       @page {
-        size: 210mm 148.5mm !important;
+        size: a5 landscape !important;
         margin: 0mm !important;
       }
     `;
@@ -115,24 +187,37 @@
     ws.innerHTML = `
       <!-- HEADER CONTROLLER -->
       <div class="dhp-ctrl-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 7px 14px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(217, 119, 6, 0.4); border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); flex-shrink: 0; position: relative;">
-        <!-- CLICK LOGO VỀ BÌA CHÍNH -->
-        <div id="dhp-brand-btn" title="Bấm để về Trang Bìa Sách Chính" style="display: flex; align-items: center; gap: 6px;">
-          <span style="background: #d97706; color: #fff; padding: 2px 7px; border-radius: 6px; font-weight: 900; font-size: 11px;">EDEVX</span>
-          <span class="dhp-hide-mobile" style="font-weight: bold; color: #fde68a; font-size: 12.5px;">KINH PHÁP CÚ</span>
+        <!-- LOGO VỀ BÌA SÁCH CHÍNH -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div id="dhp-brand-btn" title="Bấm để về Trang Bìa Sách Chính" style="display: flex; align-items: center; gap: 6px;">
+            <span style="background: #d97706; color: #fff; padding: 2px 7px; border-radius: 6px; font-weight: 900; font-size: 11px;">EDEVX</span>
+            <span class="dhp-hide-mobile" style="font-weight: bold; color: #fde68a; font-size: 12.5px;">KINH PHÁP CÚ</span>
+          </div>
+
+          <div id="dhp-header-audio-dock">
+            <span id="dhp-dock-title" style="font-weight: bold;">Đang nghe...</span>
+            <button id="dhp-dock-toggle" style="background: #d97706; border: none; color: #fff; border-radius: 50%; width: 20px; height: 20px; font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center;">⏸</button>
+          </div>
         </div>
 
         <div style="display: flex; align-items: center; gap: 8px;">
-          <select id="dhp-chapter-select" style="background: #0f172a; color: #fde68a; border: 1px solid #d97706; border-radius: 8px; padding: 4px 6px; font-size: 11.5px; outline: none; cursor: pointer; max-width: 190px;">
+          <select id="dhp-chapter-select" style="background: #0f172a; color: #fde68a; border: 1px solid #d97706; border-radius: 8px; padding: 4px 6px; font-size: 11.5px; outline: none; cursor: pointer; max-width: 180px;">
             <option>Đang nạp dữ liệu...</option>
           </select>
+
+          <!-- 🌸 1. NÚT TOÀN MÀN HÌNH (FULLSCREEN MODE) -->
+          <button id="dhp-fullscreen-btn" style="background: #1e293b; color: #fde68a; border: 1px solid #475569; padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px;" title="Bật/Tắt Toàn Màn Hình">
+            ⛶ <span class="dhp-hide-mobile">Toàn màn</span>
+          </button>
           
+          <!-- MENU IN SÁCH -->
           <div id="dhp-print-menu-container" style="position: relative;">
             <button id="dhp-print-menu-btn" style="background: linear-gradient(135deg, #d97706, #b45309); color: #fff; font-weight: bold; border: none; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; white-space: nowrap; display: flex; align-items: center; gap: 4px;">
               🖨️ <span>IN SÁCH A5</span> <span style="font-size: 9px;">▼</span>
             </button>
             <div id="dhp-print-dropdown" class="dhp-dropdown-menu hidden">
-              <div id="dhp-print-current-btn" class="dhp-dropdown-item">📄 In Trang Này </div>
-              <div id="dhp-print-chapter-btn" class="dhp-dropdown-item" style="color: #6ee7b7;">⚡ In Phẩm Này ⭐</div>
+              <div id="dhp-print-current-btn" class="dhp-dropdown-item">📄 In Trang Này (Siêu nhẹ < 200KB)</div>
+              <div id="dhp-print-chapter-btn" class="dhp-dropdown-item" style="color: #6ee7b7;">⚡ In Phẩm Này (~2MB - Nhanh &amp; Nét ⭐)</div>
               <div id="dhp-print-all-btn" class="dhp-dropdown-item">📚 In Toàn Bộ Sách (450 trang)</div>
             </div>
           </div>
@@ -153,10 +238,17 @@
         <button id="dhp-prev-btn" style="background: #0f172a; color: #fde68a; border: 1px solid #475569; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 11.5px; white-space: nowrap;">
           ⬅ <span class="dhp-hide-mobile">Trước</span>
         </button>
-        <div style="display: flex; align-items: center; gap: 8px; flex-grow: 1; max-width: 380px; margin: 0 10px;">
+
+        <div style="display: flex; align-items: center; gap: 8px; flex-grow: 1; max-width: 440px; margin: 0 10px;">
           <input type="range" id="dhp-slider" min="0" max="449" value="0" style="width: 100%; accent-color: #d97706; cursor: pointer;" />
           <span id="dhp-page-num" style="font-family: monospace; font-weight: bold; color: #fde68a; min-width: 55px; text-align: right; font-size: 12px;">1/450</span>
+          
+          <!-- 🌸 2. Ô NHẬP NHẢY ĐẾN SỐ KỆ NHANH (QUICK JUMP INPUT) -->
+          <div style="display: flex; align-items: center; gap: 4px; border-left: 1px solid #475569; padding-left: 8px;">
+            <input type="number" id="dhp-jump-input" placeholder="Kệ..." min="1" max="423" style="width: 50px; background: #0f172a; border: 1px solid #d97706; color: #fde68a; border-radius: 6px; padding: 3px 4px; font-size: 11px; text-align: center; outline: none;" title="Gõ số Kệ (1 - 423) rồi bấm Enter" />
+          </div>
         </div>
+
         <button id="dhp-next-btn" style="background: #0f172a; color: #fde68a; border: 1px solid #475569; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 11.5px; white-space: nowrap;">
           <span class="dhp-hide-mobile">Sau</span> ➡
         </button>
@@ -288,11 +380,63 @@
     document.getElementById('dhp-next-btn').onclick = next;
     document.getElementById('dhp-slider').oninput = (e) => { currentIndex = parseInt(e.target.value, 10); renderPage(); };
     
+    // CLICK LOGO VỀ BÌA SÁCH CHÍNH
     const brandBtn = document.getElementById('dhp-brand-btn');
     if (brandBtn) {
       brandBtn.onclick = () => {
         currentIndex = 0;
         renderPage();
+      };
+    }
+
+    // 🌸 1. SỰ KIỆN NÚT TOÀN MÀN HÌNH (FULLSCREEN TOGGLE)
+    const fsBtn = document.getElementById('dhp-fullscreen-btn');
+    if (fsBtn) {
+      fsBtn.onclick = () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(err => console.log(err));
+        } else {
+          if (document.exitFullscreen) document.exitFullscreen();
+        }
+      };
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+      const btn = document.getElementById('dhp-fullscreen-btn');
+      if (btn) {
+        btn.innerHTML = document.fullscreenElement ? '🗗 <span class="dhp-hide-mobile">Thu nhỏ</span>' : '⛶ <span class="dhp-hide-mobile">Toàn màn</span>';
+      }
+    });
+
+    // 🌸 2. SỰ KIỆN Ô NHẬP NHẢY NHANH SỐ KỆ (ENTER ĐỂ BAY TỚI KỆ ĐÓ)
+    const jumpInput = document.getElementById('dhp-jump-input');
+    if (jumpInput) {
+      jumpInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const val = parseInt(jumpInput.value, 10);
+          if (!isNaN(val) && val >= 1 && val <= 423) {
+            // Tìm trang bài kệ có số kệ tương ứng
+            const targetIdx = pages.findIndex(p => p.type === 'verse' && parseInt(p.data.verse_no, 10) === val);
+            if (targetIdx !== -1) {
+              currentIndex = targetIdx;
+              renderPage();
+              jumpInput.value = '';
+              jumpInput.blur();
+            }
+          }
+        }
+      });
+    }
+
+    // Toggle Audio Dock trên Header
+    const dockBtn = document.getElementById('dhp-dock-toggle');
+    if (dockBtn) {
+      dockBtn.onclick = () => {
+        if (isAudioPlaying) {
+          globalAudio.pause();
+        } else if (currentAudioUrl) {
+          globalAudio.play();
+        }
       };
     }
 
@@ -436,12 +580,19 @@
     const page = pages[currentIndex];
     if (!page || !paperBox) return;
 
+    // 🌸 3. HIỆU ỨNG CHUYỂN TRANG MỜ NHẸ (MICRO FADE-IN 0.15S)
+    paperBox.classList.add('dhp-page-fading');
+    setTimeout(() => {
+      paperBox.classList.remove('dhp-page-fading');
+    }, 50);
+
     if (scrollContainer) scrollContainer.scrollTop = 0;
 
     document.getElementById('dhp-page-num').textContent = `${currentIndex + 1}/${pages.length}`;
     document.getElementById('dhp-slider').value = currentIndex;
     document.getElementById('dhp-slider').max = pages.length - 1;
 
+    // Đồng bộ mục lục Dropdown
     const sel = document.getElementById('dhp-chapter-select');
     if (sel) {
       if (page.type === 'main_cover') {
@@ -470,6 +621,18 @@
             <div style="font-size: 12.5px; line-height: 1.65; color: #334155; font-style: italic; max-width: 520px; margin: 0 auto;">
               “Tâm dẫn đầu mọi pháp, Tâm làm chủ, tâm tạo;<br/>Nếu với tâm thanh tịnh, Nói lên hay hành động,<br/>An lạc bước theo sau, Như bóng không rời hình.”
             </div>
+
+            <!-- 🎧 TRÌNH PHÁT AUDIO LỜI TỰA BÌA CHÍNH -->
+            <div class="dhp-audio-box no-print">
+              <button class="dhp-audio-btn" id="dhp-btn-main-audio" title="Nghe Lời Tựa">
+                <span class="dhp-audio-icon">${isAudioPlaying && currentAudioUrl === LOI_TUA_AUDIO ? "⏸" : "▶"}</span>
+              </button>
+              <div class="dhp-audio-track">
+                <span style="font-size: 11.5px; font-weight: bold; color: #78350f;">🎧 Nghe Lời Tựa</span>
+                <input type="range" class="dhp-audio-slider" min="0" max="0" value="0" />
+                <span class="dhp-audio-time">00:00 / 00:00</span>
+              </div>
+            </div>
           </div>
 
           <div style="width: 100%; display: flex; justify-content: space-around; align-items: center; border-top: 1.5px dashed rgba(217, 119, 6, 0.4); padding-top: 10px; font-family: system-ui, sans-serif;">
@@ -485,22 +648,45 @@
           </div>
         </div>
       `;
+
+      document.getElementById('dhp-btn-main-audio').onclick = () => {
+        toggleAudio(LOI_TUA_AUDIO, "Lời Tựa - Kinh Pháp Cú");
+      };
+
     } else if (page.type === 'cover') {
       const c = page.data;
+      const audioUrl = c.audio_url || "";
+      const isCurrentPhapAm = currentAudioUrl === audioUrl;
+
       paperBox.innerHTML = `
         <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center;">
-          <div style="padding-top: 18px;">
-            <div style="font-size: 13px; letter-spacing: 5px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 6px;">${cleanText(c.chapter_pali)}</div>
+          <div style="padding-top: 15px;">
+            <div style="font-size: 13px; letter-spacing: 5px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 4px;">${cleanText(c.chapter_pali)}</div>
             <div style="font-size: 26px; font-weight: bold; color: #0f172a; text-transform: uppercase; letter-spacing: 1.5px;">${cleanText(c.chapter_roman)}. ${cleanText(c.chapter_vi)}</div>
-            <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 8px 0;">
               <div style="height: 1.5px; width: 60px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
               <span style="color: #d97706; font-size: 18px;">☸</span>
               <div style="height: 1.5px; width: 60px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
             </div>
           </div>
-          <div style="padding: 0 20px; max-width: 580px; font-size: 15px; line-height: 1.7; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; margin-top: 15px;">
+
+          <div style="padding: 0 20px; max-width: 580px; font-size: 15px; line-height: 1.7; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; margin-top: 10px;">
             “${cleanText(c.intro_vi)}”
           </div>
+
+          <!-- 🎧 TRÌNH PHÁT AUDIO CHO PHẨM NÀY -->
+          ${audioUrl ? `
+          <div class="dhp-audio-box no-print">
+            <button class="dhp-audio-btn" id="dhp-btn-chap-audio" title="Nghe Tụng Phẩm ${c.chapter_roman}">
+              <span class="dhp-audio-icon">${isAudioPlaying && isCurrentPhapAm ? "⏸" : "▶"}</span>
+            </button>
+            <div class="dhp-audio-track">
+              <span style="font-size: 11.5px; font-weight: bold; color: #78350f;">🎧 Nghe Tụng Phẩm ${c.chapter_roman}</span>
+              <input type="range" class="dhp-audio-slider" min="0" max="0" value="0" />
+              <span class="dhp-audio-time">00:00 / 00:00</span>
+            </div>
+          </div>` : ''}
+
           <div style="padding-bottom: 4px; width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(217, 119, 6, 0.3); padding-top: 8px; font-family: system-ui, sans-serif; font-size: 11px; color: #64748b;">
             <span>🌸 <i>Kinh Pháp Cú</i></span>
             <span style="background: #fffbeb; color: #92400e; border: 1px solid #fde68a; font-weight: bold; padding: 2px 10px; border-radius: 99px; font-size: 11.5px;">
@@ -510,6 +696,13 @@
           </div>
         </div>
       `;
+
+      if (audioUrl) {
+        document.getElementById('dhp-btn-chap-audio').onclick = () => {
+          toggleAudio(audioUrl, `Phẩm ${c.chapter_roman}: ${cleanText(c.chapter_vi)}`);
+        };
+      }
+
     } else {
       const v = page.data;
       const chap = page.chapter;
@@ -531,17 +724,17 @@
                   <span style="font-size: 11.5px; color: #64748b; font-style: italic; font-weight: 600;">${cleanText(chap.chapter_vi)}</span>
                 </div>
 
-                <!-- THƠ LỤC BÁT -->
+                <!-- THƠ LỤC BÁT (CHUẨN 15PX) -->
                 <div style="font-size: 15px; line-height: 1.38; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 4px;">${cleanText(v.verse_vi)}</div>
 
-                <!-- HỘP PĀLI -->
+                <!-- HỘP PĀLI (CHUẨN 12.5PX) -->
                 <div class="dhp-pali-box" style="margin-bottom: 4px;">
                   <div style="font-size: 12.5px; line-height: 1.34; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
                 </div>
               </div>
 
               <div>
-                <!-- DỊCH NGHĨA -->
+                <!-- DỊCH NGHĨA (CHUẨN 13.2PX) -->
                 <div style="font-size: 13.2px; line-height: 1.4; color: #0f172a; text-align: justify; border-top: 1.2px dashed #cbd5e1; padding-top: 5px;">
                   <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                 </div>
@@ -557,6 +750,15 @@
         </div>
       `;
     }
+
+    updateAudioUI();
+
+    const activeSliders = document.querySelectorAll('.dhp-audio-slider');
+    activeSliders.forEach(slider => {
+      slider.oninput = (e) => {
+        globalAudio.currentTime = e.target.value;
+      };
+    });
   }
 
   document.addEventListener("DOMContentLoaded", function() {
