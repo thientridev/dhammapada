@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V4.5 - UNIFIED GOLDEN TYPOGRAPHY)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V4.6 - AUTO-VIEWPORT SCALE & CREDITS)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -22,12 +22,12 @@ html.dhp-active, body.dhp-active {
   flex-direction: column !important;
   align-items: center !important;
   justify-content: space-between !important;
-  padding: 8px 10px 12px 10px !important;
+  padding: 6px 12px 10px 12px !important;
   box-sizing: border-box !important;
   font-family: 'Times New Roman', Times, serif !important;
 }
 
-/* 2. KHỔ GIẤY A5 TRÊN MÀN HÌNH MÁY TÍNH */
+/* 2. KHUNG CHỨA TỜ GIẤY TỰ ĐỘNG PHÓNG TO */
 #dhp-canvas-container {
   display: flex !important;
   justify-content: center !important;
@@ -35,6 +35,7 @@ html.dhp-active, body.dhp-active {
   width: 100% !important;
   flex-grow: 1 !important;
   overflow: hidden !important;
+  position: relative !important;
 }
 
 #dhp-master-workspace .dhp-paper-a5 {
@@ -47,13 +48,16 @@ html.dhp-active, body.dhp-active {
   background-color: #fdfbf7 !important;
   background: #fdfbf7 !important;
   border-radius: 8px !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(217, 119, 6, 0.15) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(217, 119, 6, 0.2) !important;
   padding: 12px !important;
   box-sizing: border-box !important;
   position: relative !important;
   overflow: hidden !important;
   display: block !important;
   user-select: none !important;
+  transform-origin: center center !important;
+  transition: transform 0.2s ease-out !important;
+  will-change: transform !important;
 }
 
 #dhp-master-workspace .dhp-inner-card {
@@ -71,6 +75,12 @@ html.dhp-active, body.dhp-active {
   position: relative !important;
 }
 
+/* THANH ĐIỀU KHIỂN CO GIÃN THEO MÀN HÌNH RỘNG */
+.dhp-ctrl-bar {
+  width: min(92vw, 1100px) !important;
+  max-width: 100% !important;
+}
+
 /* ==========================================================================
    🌸 BỘ WATERMARK NGHỆ THUẬT (MULTIPLY BLENDING LỌC NỀN TRẮNG)
    ========================================================================== */
@@ -80,16 +90,16 @@ html.dhp-active, body.dhp-active {
 .dhp-bg-cover-lotus::before {
   content: "" !important;
   position: absolute !important;
-  bottom: 12px !important;
+  bottom: 8px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
   width: 380px !important;
-  height: 280px !important;
+  height: 260px !important;
   background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
   background-position: bottom center !important;
   background-repeat: no-repeat !important;
   background-size: contain !important;
-  opacity: 0.18 !important;
+  opacity: 0.16 !important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 0 !important;
@@ -280,6 +290,7 @@ html.dhp-active, body.dhp-active {
     border-radius: 10px !important;
     overflow: visible !important;
     margin: 0 auto !important;
+    transform: none !important; /* Tắt scale trên mobile */
   }
 
   #dhp-master-workspace .dhp-inner-card {
@@ -409,6 +420,7 @@ html.dhp-active, body.dhp-active {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     font-family: 'Times New Roman', Times, serif !important;
+    transform: none !important;
   }
 
   .dhp-print-page:last-child {
