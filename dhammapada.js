@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V5.6 - ZERO OVERLAP & NO WHITE BAR)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V5.7 - EXACT 21-PAGE PERFECT PRINT)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -16,7 +16,6 @@
     return (str || '').normalize('NFC').trim();
   }
 
-  // Động cơ nén Canvas siêu nhẹ
   async function compressImageForPrint(url, targetWidth = 800, targetHeight = 1060) {
     return new Promise((resolve) => {
       if (!url) return resolve('');
@@ -115,7 +114,7 @@
     ws.innerHTML = `
       <!-- HEADER CONTROLLER -->
       <div class="dhp-ctrl-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 7px 14px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(217, 119, 6, 0.4); border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); flex-shrink: 0; position: relative;">
-        <!-- CLICK VỀ BÌA SÁCH CHÍNH -->
+        <!-- CLICK LOGO VỀ BÌA CHÍNH -->
         <div id="dhp-brand-btn" title="Bấm để về Trang Bìa Sách Chính" style="display: flex; align-items: center; gap: 6px;">
           <span style="background: #d97706; color: #fff; padding: 2px 7px; border-radius: 6px; font-weight: 900; font-size: 11px;">EDEVX</span>
           <span class="dhp-hide-mobile" style="font-weight: bold; color: #fde68a; font-size: 12.5px;">KINH PHÁP CÚ</span>
@@ -131,8 +130,8 @@
               🖨️ <span>IN SÁCH A5</span> <span style="font-size: 9px;">▼</span>
             </button>
             <div id="dhp-print-dropdown" class="dhp-dropdown-menu hidden">
-              <div id="dhp-print-current-btn" class="dhp-dropdown-item">📄 In Trang Này (Siêu nhẹ < 200KB)</div>
-              <div id="dhp-print-chapter-btn" class="dhp-dropdown-item" style="color: #6ee7b7;">⚡ In Phẩm Này (~2MB - Nhanh &amp; Nét ⭐)</div>
+              <div id="dhp-print-current-btn" class="dhp-dropdown-item">📄 In Trang Này (1 trang A5)</div>
+              <div id="dhp-print-chapter-btn" class="dhp-dropdown-item" style="color: #6ee7b7;">⚡ In Phẩm Này (~2MB Siêu Nhẹ ⭐)</div>
               <div id="dhp-print-all-btn" class="dhp-dropdown-item">📚 In Toàn Bộ Sách (450 trang)</div>
             </div>
           </div>
@@ -170,8 +169,8 @@
     if (p.type === 'main_cover') {
       return `
         <div class="dhp-print-page">
-          <div class="dhp-inner-card dhp-bg-cover-lotus" style="align-items: center; text-align: center; justify-content: space-between; padding: 6mm 10mm;">
-            <div style="width: 100%; padding-top: 2mm;">
+          <div class="dhp-inner-card dhp-bg-cover-lotus" style="align-items: center; text-align: center; justify-content: space-between;">
+            <div style="width: 100%; padding-top: 2mm; z-index: 10; position: relative;">
               <div style="font-size: 12px; letter-spacing: 6px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 2mm;">DHAMMAPADA</div>
               <div style="font-size: 32px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2mm;">KINH PHÁP CÚ</div>
               <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin: 3mm 0;">
@@ -186,7 +185,7 @@
                 “Tâm dẫn đầu mọi pháp, Tâm làm chủ, tâm tạo;<br/>Nếu với tâm thanh tịnh, Nói lên hay hành động,<br/>An lạc bước theo sau, Như bóng không rời hình.”
               </div>
             </div>
-            <div style="width: 100%; display: flex; justify-content: space-around; align-items: center; border-top: 1px dashed rgba(217, 119, 6, 0.4); padding-top: 3mm; font-family: system-ui, sans-serif;">
+            <div style="width: 100%; display: flex; justify-content: space-around; align-items: center; border-top: 1px dashed rgba(217, 119, 6, 0.4); padding-top: 2.5mm; font-family: system-ui, sans-serif; z-index: 10; position: relative;">
               <div style="text-align: center;">
                 <span style="font-size: 8.5px; text-transform: uppercase; color: #b45309; font-weight: bold; display: block;">Việt Dịch</span>
                 <b style="font-size: 11px; color: #0f172a;">HT. Thích Minh Châu</b>
@@ -202,12 +201,12 @@
       `;
     } else if (p.type === 'cover') {
       const c = p.data;
-      // 🌸 CÂN BẰNG TÂM TRANG VÀ CÁCH ĐÁY AN TOÀN KHÔNG ĐÈ LÊN VIỀN
+      // 🌸 BỐ CỤC KHÓA CHUẨN 136MM - CĂN TÂM TRANG VÀ AN TOÀN ĐÁY
       return `
         <div class="dhp-print-page">
           <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center; justify-content: space-between;">
             <!-- TIÊU ĐỀ PHẨM -->
-            <div style="flex-shrink: 0; padding-top: 1mm;">
+            <div style="flex-shrink: 0; padding-top: 1mm; z-index: 10; position: relative;">
               <div style="font-size: 11px; letter-spacing: 4px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 2mm;">${cleanText(c.chapter_pali)}</div>
               <div style="font-size: 22px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 1px;">${cleanText(c.chapter_roman)}. ${cleanText(c.chapter_vi)}</div>
               <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin: 2mm 0;">
@@ -217,15 +216,15 @@
               </div>
             </div>
 
-            <!-- ĐOẠN TRÍCH CĂN CHÍNH GIỮA TÂM TRANG TRÊN HÌNH PHẬT -->
-            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 0 10mm;">
+            <!-- ĐOẠN TRÍCH TỰ CĂN TÂM TRANG TRÊN NỀN PHẬT MỜ -->
+            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 0 10mm; background: transparent; z-index: 10; position: relative;">
               <div style="font-size: 13.5px; line-height: 1.75; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; max-width: 150mm; background: transparent;">
                 “${cleanText(c.intro_vi)}”
               </div>
             </div>
 
-            <!-- CHÂN TRANG CÁCH ĐÁY 4MM AN TOÀN -->
-            <div style="flex-shrink: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 0.8px solid rgba(217, 119, 6, 0.4); padding-top: 2.5mm; font-family: system-ui, sans-serif; font-size: 10px; color: #64748b;">
+            <!-- CHÂN TRANG CÁCH ĐÁY AN TOÀN -->
+            <div style="flex-shrink: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 0.8px solid rgba(217, 119, 6, 0.4); padding-top: 2mm; font-family: system-ui, sans-serif; font-size: 10px; color: #64748b; z-index: 10; position: relative;">
               <span>🌸 <i>Kinh Pháp Cú Tranh Minh Họa</i></span>
               <span style="border: 1px solid #d97706; color: #92400e; font-weight: bold; padding: 1.5px 8px; border-radius: 99px; background: transparent;">
                 ${c.verse_count} Bài Kệ: Kệ ${c.verse_range}
@@ -248,7 +247,7 @@
                 <img src="${imgSrc}" alt="Kệ ${v.verse_no}" />
               </div>
               <div class="dhp-text-col">
-                <div>
+                <div style="z-index: 10; position: relative;">
                   <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 1.5mm; margin-bottom: 1.5mm; font-family: system-ui, sans-serif;">
                     <span style="font-size: 13px; font-weight: 900; color: #b45309;">KỆ SỐ ${cleanText(v.verse_no)}</span>
                     <span style="font-size: 10px; color: #64748b; font-style: italic; font-weight: bold;">${cleanText(chap.chapter_vi)}</span>
@@ -258,7 +257,7 @@
                     <div style="font-size: 10.5px; line-height: 1.34; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
                   </div>
                 </div>
-                <div>
+                <div style="z-index: 10; position: relative;">
                   <div style="font-size: 10.8px; line-height: 1.4; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 1.5mm;">
                     <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                   </div>
@@ -330,7 +329,7 @@
       setTimeout(() => window.print(), 50);
     };
 
-    // 2. In Phẩm Hiện Tại (~2MB)
+    // 2. In Phẩm Hiện Tại (Chuẩn 21 trang - Siêu nhẹ ~2MB)
     document.getElementById('dhp-print-chapter-btn').onclick = async () => {
       forceA5LandscapePrint();
       const cur = pages[currentIndex];
@@ -438,7 +437,6 @@
     document.getElementById('dhp-slider').value = currentIndex;
     document.getElementById('dhp-slider').max = pages.length - 1;
 
-    // Đồng bộ mục lục Dropdown
     const sel = document.getElementById('dhp-chapter-select');
     if (sel) {
       if (page.type === 'main_cover') {

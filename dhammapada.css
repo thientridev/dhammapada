@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.6 - ZERO OVERLAP & NO WHITE BAR)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.7 - EXACT 21-PAGE PERFECT PRINT)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -87,7 +87,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🌸 BỘ WATERMARK NGHỆ THUẬT (MULTIPLY BLENDING LỌC SẠCH NỀN TRẮNG)
+   🌸 BỘ WATERMARK NGHỆ THUẬT (TRÊN MÀN HÌNH DÙNG MULTIPLY)
    ========================================================================== */
 .dhp-bg-cover-lotus {
   position: relative !important;
@@ -374,7 +374,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🖨️ 5. ĐỘNG CƠ IN ẤN CHUẨN XUẤT BẢN A5 (KHÓA CHẾT 210mm x 148.5mm TỰ NHIÊN)
+   🖨️ 5. ĐỘNG CƠ IN ẤN CHUẨN XUẤT BẢN A5 (147MM AN TOÀN - TRIỆT TIÊU TRANG TRẮNG)
    ========================================================================== */
 #dhp-print-mount {
   display: none;
@@ -410,7 +410,7 @@ html.dhp-active, body.dhp-active {
     margin: 0 !important;
     padding: 0 !important;
     width: 210mm !important;
-    height: 148.5mm !important;
+    height: 147mm !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
@@ -428,15 +428,15 @@ html.dhp-active, body.dhp-active {
     background: #ffffff !important;
   }
 
-  /* TỜ IN A5 CHUẨN TỪNG MM */
+  /* ⚡ KHÓA CHIỀU CAO 147MM ĐỂ TRIỆT TIÊU 100% HIỆN TƯỢNG ĐẺ THÊM TRANG TRẮNG */
   .dhp-print-page {
     display: block !important;
     width: 210mm !important;
-    height: 148.5mm !important;
-    max-height: 148.5mm !important;
-    min-height: 148.5mm !important;
+    height: 147mm !important;
+    max-height: 147mm !important;
+    min-height: 147mm !important;
     margin: 0 !important;
-    padding: 6mm 8mm !important;
+    padding: 5mm 6mm !important;
     box-sizing: border-box !important;
     page-break-after: always !important;
     break-after: page !important;
@@ -456,15 +456,15 @@ html.dhp-active, body.dhp-active {
     break-after: auto !important;
   }
 
-  /* KHUNG VIỀN IN KHÓA CỨNG 136.5MM - CÁCH ĐÁY AN TOÀN TUYỆT ĐỐI */
+  /* KHUNG VIỀN IN KHÓA 136MM - CÁCH ĐÁY AN TOÀN */
   .dhp-print-page .dhp-inner-card {
     border: 1.2px solid #d97706 !important;
     border-radius: 4px !important;
-    width: 194mm !important;
-    height: 136.5mm !important;
-    max-height: 136.5mm !important;
-    min-height: 136.5mm !important;
-    padding: 5mm 8mm !important;
+    width: 198mm !important;
+    height: 136mm !important;
+    max-height: 136mm !important;
+    min-height: 136mm !important;
+    padding: 4mm 6mm !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
@@ -505,7 +505,7 @@ html.dhp-active, body.dhp-active {
   }
 
   .dhp-print-page .dhp-text-col {
-    width: 92mm !important;
+    width: 96mm !important;
     height: 124mm !important;
     display: flex !important;
     flex-direction: column !important;
@@ -515,7 +515,7 @@ html.dhp-active, body.dhp-active {
     flex-shrink: 0 !important;
   }
 
-  /* 🌸 BẬT LẠI MULTIPLY TRÊN BẢN IN ĐỂ LỌC NỀN TRẮNG TRIỆT ĐỂ */
+  /* 🌸 WATERMARK TRANG IN MỜ TỰ NHIÊN (LỌC NỀN HOÀN TOÀN) */
   .dhp-print-page .dhp-bg-buddha::before {
     display: block !important;
     content: "" !important;
@@ -523,8 +523,8 @@ html.dhp-active, body.dhp-active {
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
-    width: 110mm !important;
-    height: 110mm !important;
+    width: 135mm !important;
+    height: 135mm !important;
     background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen01.webp") !important; 
     background-position: center !important;
     background-repeat: no-repeat !important;
@@ -542,8 +542,8 @@ html.dhp-active, body.dhp-active {
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
-    width: 75mm !important;
-    height: 75mm !important;
+    width: 85mm !important;
+    height: 85mm !important;
     background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
     background-position: center !important;
     background-repeat: no-repeat !important;
@@ -561,8 +561,8 @@ html.dhp-active, body.dhp-active {
     bottom: 4mm !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: 90mm !important;
-    height: 60mm !important;
+    width: 100mm !important;
+    height: 70mm !important;
     background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
     background-position: bottom center !important;
     background-repeat: no-repeat !important;
