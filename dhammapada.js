@@ -169,8 +169,8 @@
     if (p.type === 'main_cover') {
       return `
         <div class="dhp-print-page">
-          <div class="dhp-inner-card dhp-bg-cover-lotus" style="align-items: center; text-align: center; justify-content: space-between;">
-            <div style="width: 100%; padding-top: 2mm; z-index: 10; position: relative;">
+          <div class="dhp-inner-card dhp-bg-cover-lotus" style="align-items: center; text-align: center; justify-content: space-between; padding: 6mm 10mm;">
+            <div style="width: 100%; padding-top: 2mm;">
               <div style="font-size: 12px; letter-spacing: 6px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 2mm;">DHAMMAPADA</div>
               <div style="font-size: 32px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2mm;">KINH PHÁP CÚ</div>
               <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin: 3mm 0;">
@@ -181,11 +181,11 @@
               <div style="font-size: 12px; font-weight: bold; color: #78350f; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4mm;">
                 TUYỂN TẬP 423 BÀI KỆ TRANH MINH HỌA MÀU
               </div>
-              <div style="font-size: 11.5px; line-height: 1.6; color: #334155; font-style: italic; max-width: 140mm; margin: 0 auto;">
+              <div style="font-size: 11.5px; line-height: 1.6; color: #334155; font-style: italic; max-width: 140mm; margin: 0 auto; background: transparent;">
                 “Tâm dẫn đầu mọi pháp, Tâm làm chủ, tâm tạo;<br/>Nếu với tâm thanh tịnh, Nói lên hay hành động,<br/>An lạc bước theo sau, Như bóng không rời hình.”
               </div>
             </div>
-            <div style="width: 100%; display: flex; justify-content: space-around; align-items: center; border-top: 1px dashed rgba(217, 119, 6, 0.4); padding-top: 2.5mm; font-family: system-ui, sans-serif; z-index: 10; position: relative;">
+            <div style="width: 100%; display: flex; justify-content: space-around; align-items: center; border-top: 1px dashed rgba(217, 119, 6, 0.4); padding-top: 3mm; font-family: system-ui, sans-serif;">
               <div style="text-align: center;">
                 <span style="font-size: 8.5px; text-transform: uppercase; color: #b45309; font-weight: bold; display: block;">Việt Dịch</span>
                 <b style="font-size: 11px; color: #0f172a;">HT. Thích Minh Châu</b>
@@ -201,12 +201,11 @@
       `;
     } else if (p.type === 'cover') {
       const c = p.data;
-      // 🌸 TRIỆT TIÊU HOÀN TOÀN MỌI KHỐI NỀN ĐÈ LÊN HÌNH PHẬT
       return `
         <div class="dhp-print-page">
-          <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center; justify-content: space-between;">
+          <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center; justify-content: space-between; padding: 5mm 8mm;">
             <!-- TIÊU ĐỀ PHẨM -->
-            <div style="flex-shrink: 0; padding-top: 1mm; z-index: 10; position: relative;">
+            <div style="flex-shrink: 0; padding-top: 1mm;">
               <div style="font-size: 11px; letter-spacing: 4px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 2mm;">${cleanText(c.chapter_pali)}</div>
               <div style="font-size: 22px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 1px;">${cleanText(c.chapter_roman)}. ${cleanText(c.chapter_vi)}</div>
               <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin: 2mm 0;">
@@ -216,17 +215,17 @@
               </div>
             </div>
 
-            <!-- ĐOẠN TRÍCH TỰ CĂN CHÍNH GIỮA TÂM TRANG (KHÔNG CÓ BACKGROUND TRẮNG ĐÈ LÊN) -->
-            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 0 10mm; z-index: 10; position: relative;">
-              <div style="font-size: 13.5px; line-height: 1.75; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; max-width: 150mm;">
+            <!-- ĐOẠN TRÍCH TỰ CĂN CHÍNH GIỮA TÂM TRANG TRÊN NỀN PHẬT MỜ -->
+            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 0 10mm; background: transparent;">
+              <div style="font-size: 13.5px; line-height: 1.75; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; max-width: 150mm; background: transparent;">
                 “${cleanText(c.intro_vi)}”
               </div>
             </div>
 
-            <!-- CHÂN TRANG CÁCH ĐÁY 4MM AN TOÀN -->
-            <div style="flex-shrink: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 0.8px solid rgba(217, 119, 6, 0.4); padding-top: 2.5mm; font-family: system-ui, sans-serif; font-size: 10px; color: #64748b; z-index: 10; position: relative;">
+            <!-- CHÂN TRANG CÁCH ĐÁY AN TOÀN -->
+            <div style="flex-shrink: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 0.8px solid rgba(217, 119, 6, 0.4); padding-top: 2.5mm; font-family: system-ui, sans-serif; font-size: 10px; color: #64748b;">
               <span>🌸 <i>Kinh Pháp Cú Tranh Minh Họa</i></span>
-              <span style="border: 1px solid #d97706; color: #92400e; font-weight: bold; padding: 1.5px 8px; border-radius: 99px;">
+              <span style="border: 1px solid #d97706; color: #92400e; font-weight: bold; padding: 1.5px 8px; border-radius: 99px; background: transparent;">
                 ${c.verse_count} Bài Kệ: Kệ ${c.verse_range}
               </span>
               <span>Trang Bìa Phẩm ${c.chapter_roman}</span>
@@ -282,6 +281,7 @@
     document.getElementById('dhp-next-btn').onclick = next;
     document.getElementById('dhp-slider').oninput = (e) => { currentIndex = parseInt(e.target.value, 10); renderPage(); };
     
+    // CLICK LOGO VỀ BÌA SÁCH CHÍNH
     const brandBtn = document.getElementById('dhp-brand-btn');
     if (brandBtn) {
       brandBtn.onclick = () => {
@@ -328,7 +328,7 @@
       setTimeout(() => window.print(), 50);
     };
 
-    // 2. In Phẩm Hiện Tại (~2MB - Nhanh & Nét)
+    // 2. In Phẩm Hiện Tại (Chuẩn 21 trang - Siêu nhẹ ~2MB)
     document.getElementById('dhp-print-chapter-btn').onclick = async () => {
       forceA5LandscapePrint();
       const cur = pages[currentIndex];
@@ -436,6 +436,7 @@
     document.getElementById('dhp-slider').value = currentIndex;
     document.getElementById('dhp-slider').max = pages.length - 1;
 
+    // Đồng bộ mục lục Dropdown
     const sel = document.getElementById('dhp-chapter-select');
     if (sel) {
       if (page.type === 'main_cover') {
@@ -508,6 +509,7 @@
       const v = page.data;
       const chap = page.chapter;
 
+      // 🌸 KHÓA CHUẨN ĐỒNG BỘ 100% CẢ 423 BÀI KỆ (ĐẦY ĐẶN - VỪA KHÍT 450PX)
       paperBox.innerHTML = `
         <div class="dhp-inner-card">
           <div class="dhp-grid-container">
@@ -525,17 +527,17 @@
                   <span style="font-size: 11.5px; color: #64748b; font-style: italic; font-weight: 600;">${cleanText(chap.chapter_vi)}</span>
                 </div>
 
-                <!-- THƠ LỤC BÁT (CHUẨN 15PX) -->
+                <!-- THƠ LỤC BÁT (CHUẨN 15PX - GIÃN DÒNG 1.38) -->
                 <div style="font-size: 15px; line-height: 1.38; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 4px;">${cleanText(v.verse_vi)}</div>
 
-                <!-- HỘP PĀLI (CHUẨN 12.5PX) -->
+                <!-- HỘP PĀLI (CHUẨN 12.5PX - GIÃN DÒNG 1.34) -->
                 <div class="dhp-pali-box" style="margin-bottom: 4px;">
                   <div style="font-size: 12.5px; line-height: 1.34; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
                 </div>
               </div>
 
               <div>
-                <!-- DỊCH NGHĨA (CHUẨN 13.2PX) -->
+                <!-- DỊCH NGHĨA (CHUẨN 13.2PX - GIÃN DÒNG 1.4) -->
                 <div style="font-size: 13.2px; line-height: 1.4; color: #0f172a; text-align: justify; border-top: 1.2px dashed #cbd5e1; padding-top: 5px;">
                   <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                 </div>

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.8 - MASTER FIX NO WHITE RECTANGLE)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.9 - WHITE BOX ANNIHILATOR)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -87,7 +87,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🌸 BỘ WATERMARK NGHỆ THUẬT (MÀN HÌNH ONLINE DÙNG MULTIPLY)
+   🌸 BỘ WATERMARK NGHỆ THUẬT (TRÊN MÀN HÌNH DÙNG MULTIPLY)
    ========================================================================== */
 .dhp-bg-cover-lotus {
   position: relative !important;
@@ -374,7 +374,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🖨️ 5. ĐỘNG CƠ IN ẤN CHUẨN XUẤT BẢN A5 (TRIỆT TIÊU 100% LỖI HỘP TRẮNG)
+   🖨️ 5. ĐỘNG CƠ IN ẤN VECTOR SIÊU NHẸ (KHỬ SẠCH VỆT TRẮNG)
    ========================================================================== */
 #dhp-print-mount {
   display: none;
@@ -389,11 +389,6 @@ html.dhp-active, body.dhp-active {
   @page {
     size: a5 landscape !important;
     margin: 0mm !important;
-  }
-
-  /* ⚡ TRIỆT TIÊU TOÀN BỘ MIX-BLEND-MODE TRÊN BẢN IN ĐỂ CHỐNG LỖI HỘP TRẮNG */
-  * {
-    mix-blend-mode: normal !important;
   }
 
   header, footer, aside, nav, .sidebar, #header, #footer,
@@ -433,7 +428,7 @@ html.dhp-active, body.dhp-active {
     background: #ffffff !important;
   }
 
-  /* TỜ IN A5 147MM KHÔNG BAO GIỜ BỊ ĐẺ TRANG TRẮNG */
+  /* ⚡ ĐƯA MÀU NỀN TRANG IN VỀ TRẮNG TINH KHIẾT (#FFFFFF) ĐỂ HÒA LÀM MỘT VỚI ẢNH PHẬT */
   .dhp-print-page {
     display: block !important;
     width: 210mm !important;
@@ -447,8 +442,8 @@ html.dhp-active, body.dhp-active {
     break-after: page !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-    background-color: #fdfbf7 !important;
-    background: #fdfbf7 !important;
+    background-color: #ffffff !important; 
+    background: #ffffff !important;
     position: relative !important;
     overflow: hidden !important;
     -webkit-print-color-adjust: exact !important;
@@ -461,21 +456,21 @@ html.dhp-active, body.dhp-active {
     break-after: auto !important;
   }
 
-  /* KHUNG VIỀN IN KHÓA 135MM - CÁCH ĐÁY 4MM AN TOÀN */
+  /* KHUNG VIỀN IN KHÓA 136MM - NỀN TRẮNG TINH KHIẾT */
   .dhp-print-page .dhp-inner-card {
     border: 1.2px solid #d97706 !important;
     border-radius: 4px !important;
     width: 198mm !important;
-    height: 135mm !important;
-    max-height: 135mm !important;
-    min-height: 135mm !important;
+    height: 136mm !important;
+    max-height: 136mm !important;
+    min-height: 136mm !important;
     padding: 4mm 6mm 4mm 6mm !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
-    background-color: #fdfbf7 !important;
-    background: #fdfbf7 !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
     position: relative !important;
     overflow: hidden !important;
   }
@@ -492,7 +487,7 @@ html.dhp-active, body.dhp-active {
 
   .dhp-print-page .dhp-image-col {
     width: 88mm !important;
-    height: 123mm !important;
+    height: 124mm !important;
     border: 1.2px solid #d97706 !important;
     border-radius: 3px !important;
     padding: 1.5mm !important;
@@ -511,7 +506,7 @@ html.dhp-active, body.dhp-active {
 
   .dhp-print-page .dhp-text-col {
     width: 96mm !important;
-    height: 123mm !important;
+    height: 124mm !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
@@ -520,7 +515,7 @@ html.dhp-active, body.dhp-active {
     flex-shrink: 0 !important;
   }
 
-  /* 🌸 WATERMARK TRANG IN DÙNG OPACITY NATIVE (KHÔNG SHADER -> KHÔNG CẮT VỆT TRẮNG) */
+  /* 🌸 WATERMARK TRANG IN DÙNG OPACITY NATIVE (ĐÃ HÒA TAN VÀO NỀN TRẮNG KHÔNG TÌ VẾT) */
   .dhp-print-page .dhp-bg-buddha::before {
     display: block !important;
     content: "" !important;
@@ -528,8 +523,8 @@ html.dhp-active, body.dhp-active {
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
-    width: 130mm !important;
-    height: 130mm !important;
+    width: 135mm !important;
+    height: 135mm !important;
     background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen01.webp") !important; 
     background-position: center !important;
     background-repeat: no-repeat !important;
@@ -547,13 +542,13 @@ html.dhp-active, body.dhp-active {
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
-    width: 80mm !important;
-    height: 80mm !important;
+    width: 85mm !important;
+    height: 85mm !important;
     background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
     background-position: center !important;
     background-repeat: no-repeat !important;
     background-size: contain !important;
-    opacity: 0.12 !important;
+    opacity: 0.14 !important;
     mix-blend-mode: normal !important;
     pointer-events: none !important;
     z-index: 0 !important;
@@ -563,16 +558,16 @@ html.dhp-active, body.dhp-active {
     display: block !important;
     content: "" !important;
     position: absolute !important;
-    bottom: 2mm !important;
+    bottom: 4mm !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: 95mm !important;
-    height: 65mm !important;
+    width: 100mm !important;
+    height: 70mm !important;
     background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
     background-position: bottom center !important;
     background-repeat: no-repeat !important;
     background-size: contain !important;
-    opacity: 0.13 !important;
+    opacity: 0.15 !important;
     mix-blend-mode: normal !important;
     pointer-events: none !important;
     z-index: 0 !important;
