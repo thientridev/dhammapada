@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V4.7 - NATIVE VECTOR CRISP HD)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V4.9 - 110% GOLDEN RATIO STANDARD)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -71,19 +71,19 @@
     });
 
     ws.innerHTML = `
-      <!-- HEADER CONTROLLER -->
-      <div class="dhp-ctrl-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(217, 119, 6, 0.4); border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12.5px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); flex-shrink: 0; position: relative;">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <span style="background: #d97706; color: #fff; padding: 3px 8px; border-radius: 6px; font-weight: 900; font-size: 11px;">EDEVX</span>
-          <span class="dhp-hide-mobile" style="font-weight: bold; color: #fde68a; font-size: 13.5px;">KINH PHÁP CÚ</span>
+      <!-- HEADER CONTROLLER (KHÓA CHUẨN 110%) -->
+      <div class="dhp-ctrl-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 7px 14px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(217, 119, 6, 0.4); border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); flex-shrink: 0; position: relative;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <span style="background: #d97706; color: #fff; padding: 2px 7px; border-radius: 6px; font-weight: 900; font-size: 11px;">EDEVX</span>
+          <span class="dhp-hide-mobile" style="font-weight: bold; color: #fde68a; font-size: 12.5px;">KINH PHÁP CÚ</span>
         </div>
         <div style="display: flex; align-items: center; gap: 8px;">
-          <select id="dhp-chapter-select" style="background: #0f172a; color: #fde68a; border: 1px solid #d97706; border-radius: 8px; padding: 5px 8px; font-size: 12px; outline: none; cursor: pointer; max-width: 210px;">
+          <select id="dhp-chapter-select" style="background: #0f172a; color: #fde68a; border: 1px solid #d97706; border-radius: 8px; padding: 4px 6px; font-size: 11.5px; outline: none; cursor: pointer; max-width: 190px;">
             <option>Đang nạp dữ liệu...</option>
           </select>
           
           <div id="dhp-print-menu-container" style="position: relative;">
-            <button id="dhp-print-menu-btn" style="background: linear-gradient(135deg, #d97706, #b45309); color: #fff; font-weight: bold; border: none; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 11.5px; white-space: nowrap; display: flex; align-items: center; gap: 4px;">
+            <button id="dhp-print-menu-btn" style="background: linear-gradient(135deg, #d97706, #b45309); color: #fff; font-weight: bold; border: none; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; white-space: nowrap; display: flex; align-items: center; gap: 4px;">
               🖨️ <span>IN SÁCH A5</span> <span style="font-size: 9px;">▼</span>
             </button>
             <div id="dhp-print-dropdown" class="dhp-dropdown-menu hidden">
@@ -105,21 +105,67 @@
       </div>
 
       <!-- FOOTER PAGINATION -->
-      <div class="dhp-ctrl-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: rgba(30, 41, 59, 0.95); border: 1px solid #334155; border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12.5px; flex-shrink: 0;">
-        <button id="dhp-prev-btn" style="background: #0f172a; color: #fde68a; border: 1px solid #475569; padding: 5px 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px; white-space: nowrap;">
+      <div class="dhp-ctrl-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 7px 14px; background: rgba(30, 41, 59, 0.95); border: 1px solid #334155; border-radius: 12px; color: #fff; font-family: system-ui, sans-serif; font-size: 12px; flex-shrink: 0;">
+        <button id="dhp-prev-btn" style="background: #0f172a; color: #fde68a; border: 1px solid #475569; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 11.5px; white-space: nowrap;">
           ⬅ <span class="dhp-hide-mobile">Trước</span>
         </button>
-        <div style="display: flex; align-items: center; gap: 10px; flex-grow: 1; max-width: 420px; margin: 0 12px;">
+        <div style="display: flex; align-items: center; gap: 8px; flex-grow: 1; max-width: 380px; margin: 0 10px;">
           <input type="range" id="dhp-slider" min="0" max="449" value="0" style="width: 100%; accent-color: #d97706; cursor: pointer;" />
-          <span id="dhp-page-num" style="font-family: monospace; font-weight: bold; color: #fde68a; min-width: 60px; text-align: right; font-size: 13px;">1/450</span>
+          <span id="dhp-page-num" style="font-family: monospace; font-weight: bold; color: #fde68a; min-width: 55px; text-align: right; font-size: 12px;">1/450</span>
         </div>
-        <button id="dhp-next-btn" style="background: #0f172a; color: #fde68a; border: 1px solid #475569; padding: 5px 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px; white-space: nowrap;">
+        <button id="dhp-next-btn" style="background: #0f172a; color: #fde68a; border: 1px solid #475569; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 11.5px; white-space: nowrap;">
           <span class="dhp-hide-mobile">Sau</span> ➡
         </button>
       </div>
     `;
 
     bindEvents();
+  }
+
+  // Thuật toán đếm dòng thông minh ở chuẩn 110%
+  function getSafeTypography(v) {
+    const linesVi = (v.verse_vi || '').split('\n').length;
+    const linesPali = (v.verse_pali || '').split('\n').length;
+    const meaningChars = (v.meaning_vi || '').length;
+    const totalLines = linesVi + linesPali + Math.ceil(meaningChars / 45);
+
+    if (totalLines >= 15 || linesVi >= 6) {
+      return {
+        verseSize: '14px',
+        verseLine: '1.38',
+        verseMargin: '4px',
+        paliSize: '12px',
+        paliLine: '1.32',
+        paliMargin: '4px',
+        meaningSize: '13px',
+        meaningLine: '1.38',
+        meaningPadding: '4px',
+        pVerseSize: '11.5px',
+        pVerseLine: '1.32',
+        pPaliSize: '9.8px',
+        pPaliLine: '1.28',
+        pMeaningSize: '10.2px',
+        pMeaningLine: '1.32'
+      };
+    } else {
+      return {
+        verseSize: '15.5px',
+        verseLine: '1.5',
+        verseMargin: '6px',
+        paliSize: '13.5px',
+        paliLine: '1.45',
+        paliMargin: '6px',
+        meaningSize: '14px',
+        meaningLine: '1.5',
+        meaningPadding: '6px',
+        pVerseSize: '13px',
+        pVerseLine: '1.45',
+        pPaliSize: '11.5px',
+        pPaliLine: '1.4',
+        pMeaningSize: '11.5px',
+        pMeaningLine: '1.45'
+      };
+    }
   }
 
   function buildPrintPageHtml(p) {
@@ -186,6 +232,7 @@
     } else {
       const v = p.data;
       const chap = p.chapter;
+      const t = getSafeTypography(v);
 
       return `
         <div class="dhp-print-page">
@@ -197,16 +244,16 @@
               <div class="dhp-text-col">
                 <div>
                   <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 1.5mm; margin-bottom: 1.5mm; font-family: system-ui, sans-serif;">
-                    <span style="font-size: 13.5px; font-weight: 900; color: #b45309;">KỆ SỐ ${cleanText(v.verse_no)}</span>
+                    <span style="font-size: 13px; font-weight: 900; color: #b45309;">KỆ SỐ ${cleanText(v.verse_no)}</span>
                     <span style="font-size: 10px; color: #64748b; font-style: italic; font-weight: bold;">${cleanText(chap.chapter_vi)}</span>
                   </div>
-                  <div style="font-size: 13px; line-height: 1.45; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 2mm;">${cleanText(v.verse_vi)}</div>
-                  <div class="dhp-pali-box" style="margin-bottom: 2mm;">
-                    <div style="font-size: 11.5px; line-height: 1.4; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
+                  <div style="font-size: ${t.pVerseSize}; line-height: ${t.pVerseLine}; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 1.5mm;">${cleanText(v.verse_vi)}</div>
+                  <div class="dhp-pali-box" style="margin-bottom: 1.5mm;">
+                    <div style="font-size: ${t.pPaliSize}; line-height: ${t.pPaliLine}; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
                   </div>
                 </div>
                 <div>
-                  <div style="font-size: 11.5px; line-height: 1.45; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 1.5mm;">
+                  <div style="font-size: ${t.pMeaningSize}; line-height: ${t.pMeaningLine}; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 1.5mm;">
                     <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                   </div>
                   <div style="display: flex; justify-content: space-between; align-items: center; font-size: 8.5px; font-family: system-ui, sans-serif; border-top: 0.8px solid #e2e8f0; padding-top: 1mm; margin-top: 1.5mm; color: #94a3b8;">
@@ -261,7 +308,7 @@
       setTimeout(() => window.print(), 100);
     };
 
-    // 2. In Phẩm Hiện Tại
+    // 2. In Phẩm Hiện Tại (Siêu nhẹ & Nét)
     document.getElementById('dhp-print-chapter-btn').onclick = () => {
       forceA5LandscapePrint();
       const cur = pages[currentIndex];
@@ -363,34 +410,33 @@
     }
 
     if (page.type === 'main_cover') {
-      // 🌸 BÌA CHÍNH SÁCH VECTOR HD
       paperBox.innerHTML = `
-        <div class="dhp-inner-card dhp-bg-cover-lotus" style="align-items: center; text-align: center; justify-content: space-between; padding: 25px 35px;">
-          <div style="width: 100%; padding-top: 15px;">
-            <div style="font-size: 15px; letter-spacing: 7px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 10px;">DHAMMAPADA</div>
-            <div style="font-size: 42px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 12px;">KINH PHÁP CÚ</div>
-            <div style="display: flex; align-items: center; justify-content: center; gap: 14px; margin: 14px 0;">
-              <div style="height: 1.8px; width: 80px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
-              <span style="color: #d97706; font-size: 22px;">☸</span>
-              <div style="height: 1.8px; width: 80px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
+        <div class="dhp-inner-card dhp-bg-cover-lotus" style="align-items: center; text-align: center; justify-content: space-between; padding: 22px 30px;">
+          <div style="width: 100%; padding-top: 10px;">
+            <div style="font-size: 14px; letter-spacing: 6px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 8px;">DHAMMAPADA</div>
+            <div style="font-size: 38px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">KINH PHÁP CÚ</div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0;">
+              <div style="height: 1.5px; width: 70px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
+              <span style="color: #d97706; font-size: 20px;">☸</span>
+              <div style="height: 1.5px; width: 70px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
             </div>
-            <div style="font-size: 16px; font-weight: bold; color: #78350f; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">
+            <div style="font-size: 14.5px; font-weight: bold; color: #78350f; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px;">
               TUYỂN TẬP 423 BÀI KỆ TRANH MINH HỌA MÀU
             </div>
-            <div style="font-size: 15.5px; line-height: 1.75; color: #334155; font-style: italic; max-width: 620px; margin: 0 auto;">
+            <div style="font-size: 13.5px; line-height: 1.7; color: #334155; font-style: italic; max-width: 560px; margin: 0 auto;">
               “Tâm dẫn đầu mọi pháp, Tâm làm chủ, tâm tạo;<br/>Nếu với tâm thanh tịnh, Nói lên hay hành động,<br/>An lạc bước theo sau, Như bóng không rời hình.”
             </div>
           </div>
 
-          <div style="width: 100%; display: flex; justify-content: space-around; align-items: center; border-top: 1.5px dashed rgba(217, 119, 6, 0.4); padding-top: 14px; font-family: system-ui, sans-serif;">
+          <div style="width: 100%; display: flex; justify-content: space-around; align-items: center; border-top: 1.5px dashed rgba(217, 119, 6, 0.4); padding-top: 12px; font-family: system-ui, sans-serif;">
             <div style="text-align: center;">
-              <span style="font-size: 11.5px; text-transform: uppercase; color: #b45309; font-weight: bold; letter-spacing: 1px; display: block; margin-bottom: 3px;">Việt Dịch</span>
-              <b style="font-size: 15.5px; color: #0f172a;">Trưởng lão HT. Thích Minh Châu</b>
+              <span style="font-size: 10.5px; text-transform: uppercase; color: #b45309; font-weight: bold; letter-spacing: 1px; display: block; margin-bottom: 2px;">Việt Dịch</span>
+              <b style="font-size: 14px; color: #0f172a;">Trưởng lão HT. Thích Minh Châu</b>
             </div>
-            <div style="height: 30px; width: 1px; background: rgba(217, 119, 6, 0.3);"></div>
+            <div style="height: 25px; width: 1px; background: rgba(217, 119, 6, 0.3);"></div>
             <div style="text-align: center;">
-              <span style="font-size: 11.5px; text-transform: uppercase; color: #b45309; font-weight: bold; letter-spacing: 1px; display: block; margin-bottom: 3px;">Tranh Minh Họa</span>
-              <b style="font-size: 15.5px; color: #0f172a;">Họa sĩ Piyadhasa Wickramanayake</b>
+              <span style="font-size: 10.5px; text-transform: uppercase; color: #b45309; font-weight: bold; letter-spacing: 1px; display: block; margin-bottom: 2px;">Tranh Minh Họa</span>
+              <b style="font-size: 14px; color: #0f172a;">Họa sĩ Piyadhasa Wickramanayake</b>
             </div>
           </div>
         </div>
@@ -399,21 +445,21 @@
       const c = page.data;
       paperBox.innerHTML = `
         <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center;">
-          <div style="padding-top: 20px;">
-            <div style="font-size: 15px; letter-spacing: 5px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 8px;">${cleanText(c.chapter_pali)}</div>
-            <div style="font-size: 32px; font-weight: bold; color: #0f172a; text-transform: uppercase; letter-spacing: 1.5px;">${cleanText(c.chapter_roman)}. ${cleanText(c.chapter_vi)}</div>
+          <div style="padding-top: 18px;">
+            <div style="font-size: 14px; letter-spacing: 5px; color: #b45309; font-weight: bold; text-transform: uppercase; margin-bottom: 6px;">${cleanText(c.chapter_pali)}</div>
+            <div style="font-size: 28px; font-weight: bold; color: #0f172a; text-transform: uppercase; letter-spacing: 1.5px;">${cleanText(c.chapter_roman)}. ${cleanText(c.chapter_vi)}</div>
             <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0;">
-              <div style="height: 1.8px; width: 60px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
+              <div style="height: 1.5px; width: 60px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
               <span style="color: #d97706; font-size: 18px;">☸</span>
-              <div style="height: 1.8px; width: 60px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
+              <div style="height: 1.5px; width: 60px; background: linear-gradient(to right, transparent, #b45309, transparent);"></div>
             </div>
           </div>
-          <div style="padding: 0 25px; max-width: 680px; font-size: 18px; line-height: 1.8; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; margin-top: 20px;">
+          <div style="padding: 0 20px; max-width: 620px; font-size: 16px; line-height: 1.75; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; margin-top: 18px;">
             “${cleanText(c.intro_vi)}”
           </div>
-          <div style="padding-bottom: 6px; width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(217, 119, 6, 0.3); padding-top: 10px; font-family: system-ui, sans-serif; font-size: 12px; color: #64748b;">
+          <div style="padding-bottom: 6px; width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(217, 119, 6, 0.3); padding-top: 8px; font-family: system-ui, sans-serif; font-size: 11.5px; color: #64748b;">
             <span>🌸 <i>Kinh Pháp Cú</i></span>
-            <span style="background: #fffbeb; color: #92400e; border: 1px solid #fde68a; font-weight: bold; padding: 3px 12px; border-radius: 99px; font-size: 13px;">
+            <span style="background: #fffbeb; color: #92400e; border: 1px solid #fde68a; font-weight: bold; padding: 2px 12px; border-radius: 99px; font-size: 12px;">
               ${c.verse_count} Bài Kệ: Kệ ${c.verse_range}
             </span>
             <span>Phẩm ${c.chapter_roman}</span>
@@ -423,42 +469,43 @@
     } else {
       const v = page.data;
       const chap = page.chapter;
+      const t = getSafeTypography(v);
 
-      // 🌸 NATIVE VECTOR CRISP HD CHO TOÀN BỘ 423 BÀI KỆ
+      // 🌸 GIAO DIỆN CHUẨN 110% VÀNG CỐ ĐỊNH NÉT CĂNG
       paperBox.innerHTML = `
         <div class="dhp-inner-card">
           <div class="dhp-grid-container">
-            <!-- TRANH MINH HỌA GỐC HD -->
+            <!-- TRANH MINH HỌA -->
             <div class="dhp-image-col">
               <img src="${v.image_url}" alt="Kệ ${v.verse_no}" loading="lazy" />
             </div>
 
-            <!-- VĂN BẢN ĐỘ PHÂN GIẢI GỐC CỰC KỲ SẮC NÉT -->
+            <!-- VĂN BẢN VỪA KHÍT 100% -->
             <div class="dhp-text-col">
               <div>
-                <!-- TIÊU ĐỀ KỆ SỐ (19PX) -->
-                <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1.5px solid #fed7aa; padding-bottom: 4px; margin-bottom: 8px; font-family: system-ui, sans-serif;">
-                  <span style="font-size: 19px; font-weight: 900; color: #b45309; letter-spacing: 0.5px;">KỆ SỐ ${cleanText(v.verse_no)}</span>
-                  <span style="font-size: 14px; color: #64748b; font-style: italic; font-weight: 600;">${cleanText(chap.chapter_vi)}</span>
+                <!-- TIÊU ĐỀ KỆ SỐ -->
+                <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1.5px solid #fed7aa; padding-bottom: 3px; margin-bottom: ${t.verseMargin}; font-family: system-ui, sans-serif;">
+                  <span style="font-size: 16.5px; font-weight: 900; color: #b45309; letter-spacing: 0.5px;">KỆ SỐ ${cleanText(v.verse_no)}</span>
+                  <span style="font-size: 12px; color: #64748b; font-style: italic; font-weight: 600;">${cleanText(chap.chapter_vi)}</span>
                 </div>
 
-                <!-- THƠ LỤC BÁT (18PX NÉT CĂNG) -->
-                <div style="font-size: 18px; line-height: 1.55; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 8px;">${cleanText(v.verse_vi)}</div>
+                <!-- THƠ LỤC BÁT -->
+                <div style="font-size: ${t.verseSize}; line-height: ${t.verseLine}; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: ${t.verseMargin};">${cleanText(v.verse_vi)}</div>
 
-                <!-- HỘP PĀLI (15PX) -->
-                <div class="dhp-pali-box" style="margin-bottom: 8px;">
-                  <div style="font-size: 15px; line-height: 1.5; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
+                <!-- HỘP PĀLI -->
+                <div class="dhp-pali-box" style="margin-bottom: ${t.paliMargin};">
+                  <div style="font-size: ${t.paliSize}; line-height: ${t.paliLine}; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
                 </div>
               </div>
 
               <div>
-                <!-- DỊCH NGHĨA (16PX) -->
-                <div style="font-size: 16px; line-height: 1.55; color: #0f172a; text-align: justify; border-top: 1.2px dashed #cbd5e1; padding-top: 8px;">
+                <!-- DỊCH NGHĨA -->
+                <div style="font-size: ${t.meaningSize}; line-height: ${t.meaningLine}; color: #0f172a; text-align: justify; border-top: 1.2px dashed #cbd5e1; padding-top: ${t.meaningPadding};">
                   <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                 </div>
 
                 <!-- FOOTER CARD -->
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-family: system-ui, sans-serif; border-top: 1px solid #e2e8f0; padding-top: 5px; margin-top: 6px; color: #94a3b8;">
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-family: system-ui, sans-serif; border-top: 1px solid #e2e8f0; padding-top: 4px; margin-top: 4px; color: #94a3b8;">
                   <span>Dhammapada Verse ${cleanText(v.verse_no)}</span>
                   <span>${cleanText(chap.chapter_vi)}</span>
                 </div>

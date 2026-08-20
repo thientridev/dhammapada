@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V4.7 - NATIVE VECTOR CRISP HD)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V4.9 - 110% GOLDEN RATIO STANDARD)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -22,12 +22,12 @@ html.dhp-active, body.dhp-active {
   flex-direction: column !important;
   align-items: center !important;
   justify-content: space-between !important;
-  padding: 6px 12px 10px 12px !important;
+  padding: 8px 10px 12px 10px !important;
   box-sizing: border-box !important;
   font-family: 'Times New Roman', Times, serif !important;
 }
 
-/* 2. KHỔ GIẤY A5 GỐC ĐỘ PHÂN GIẢI CAO (NATIVE HD - NÉT CĂNG TẠI ZOOM 100%) */
+/* 2. KHỔ GIẤY A5 CHUẨN 110% TRÊN MÁY TÍNH (874px x 605px - THON GỌN, KHÔNG BÈ NGANG) */
 #dhp-canvas-container {
   display: flex !important;
   justify-content: center !important;
@@ -38,14 +38,17 @@ html.dhp-active, body.dhp-active {
 }
 
 #dhp-master-workspace .dhp-paper-a5 {
-  width: min(92vw, 1020px) !important;
-  height: min(78vh, 706px) !important;
-  aspect-ratio: 794 / 550 !important;
+  width: 874px !important;
+  min-width: 874px !important;
+  max-width: 874px !important;
+  height: 605px !important;
+  min-height: 605px !important;
+  max-height: 605px !important;
   background-color: #fdfbf7 !important;
   background: #fdfbf7 !important;
-  border-radius: 10px !important;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(217, 119, 6, 0.2) !important;
-  padding: 14px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.9), 0 0 30px rgba(217, 119, 6, 0.18) !important;
+  padding: 12px !important;
   box-sizing: border-box !important;
   position: relative !important;
   overflow: hidden !important;
@@ -54,11 +57,11 @@ html.dhp-active, body.dhp-active {
 }
 
 #dhp-master-workspace .dhp-inner-card {
-  border: 1.8px solid #d97706 !important;
+  border: 1.5px solid #d97706 !important;
   border-radius: 6px !important;
-  height: 100% !important;
-  width: 100% !important;
-  padding: 16px 22px !important;
+  height: 581px !important;
+  width: 850px !important;
+  padding: 12px 18px !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
@@ -66,16 +69,17 @@ html.dhp-active, body.dhp-active {
   background: #fdfbf7 !important;
   box-sizing: border-box !important;
   position: relative !important;
+  overflow: hidden !important;
 }
 
-/* THANH ĐIỀU KHIỂN RỘNG RÃI */
+/* THANH ĐIỀU KHIỂN CĂN THẲNG THEO KHỔ GIẤY 110% */
 .dhp-ctrl-bar {
-  width: min(92vw, 1020px) !important;
+  width: 874px !important;
   max-width: 100% !important;
 }
 
 /* ==========================================================================
-   🌸 BỘ WATERMARK NGHỆ THUẬT (MULTIPLY BLENDING)
+   🌸 BỘ WATERMARK NGHỆ THUẬT (MULTIPLY BLENDING LỌC NỀN TRẮNG)
    ========================================================================== */
 .dhp-bg-cover-lotus {
   position: relative !important;
@@ -86,8 +90,8 @@ html.dhp-active, body.dhp-active {
   bottom: 12px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  width: 480px !important;
-  height: 340px !important;
+  width: 420px !important;
+  height: 300px !important;
   background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
   background-position: bottom center !important;
   background-repeat: no-repeat !important;
@@ -107,8 +111,8 @@ html.dhp-active, body.dhp-active {
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
-  width: 540px !important;
-  height: 540px !important;
+  width: 480px !important;
+  height: 480px !important;
   background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen01.webp") !important; 
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -128,8 +132,8 @@ html.dhp-active, body.dhp-active {
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
-  width: 400px !important;
-  height: 400px !important;
+  width: 340px !important;
+  height: 340px !important;
   background-image: url("https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/images/hinhnen02.webp") !important; 
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -146,7 +150,7 @@ html.dhp-active, body.dhp-active {
   z-index: 10 !important;
 }
 
-/* 3. BỐ CỤC CỘT DESKTOP */
+/* 3. BỐ CỤC CỘT DESKTOP 110% */
 #dhp-master-workspace .dhp-grid-container {
   display: flex !important;
   flex-direction: row !important;
@@ -154,15 +158,19 @@ html.dhp-active, body.dhp-active {
   align-items: center !important;
   width: 100% !important;
   height: 100% !important;
-  gap: 22px !important;
+  gap: 18px !important;
 }
 
 #dhp-master-workspace .dhp-image-col {
-  width: 44% !important;
-  height: 100% !important;
-  border: 1.6px solid #d97706 !important;
+  width: 374px !important;
+  min-width: 374px !important;
+  max-width: 374px !important;
+  height: 495px !important;
+  min-height: 495px !important;
+  max-height: 495px !important;
+  border: 1.5px solid #d97706 !important;
   border-radius: 4px !important;
-  padding: 5px !important;
+  padding: 4px !important;
   background: #ffffff !important;
   box-shadow: 0 4px 15px rgba(180, 83, 9, 0.15) !important;
   box-sizing: border-box !important;
@@ -179,22 +187,26 @@ html.dhp-active, body.dhp-active {
 }
 
 #dhp-master-workspace .dhp-text-col {
-  width: 53% !important;
-  height: 100% !important;
+  width: 418px !important;
+  min-width: 418px !important;
+  max-width: 418px !important;
+  height: 495px !important;
+  min-height: 495px !important;
+  max-height: 495px !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
-  padding: 2px 0 !important;
+  padding: 0 2px !important;
   box-sizing: border-box !important;
   flex-shrink: 0 !important;
+  overflow: hidden !important;
 }
 
 .dhp-pali-box {
   background: transparent !important;
   background-color: transparent !important;
-  border-left: 4px solid #d97706 !important;
-  padding: 4px 0 4px 12px !important;
-  margin-bottom: 8px !important;
+  border-left: 3.5px solid #d97706 !important;
+  padding: 3px 0 3px 10px !important;
 }
 .dhp-pali-box * {
   color: #92400e !important;
