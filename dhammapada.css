@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V6.4 - REFINED MOBILE AUDIO UI)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V6.5 - ELEVATED AUDIO DOCK)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -92,21 +92,21 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🎧 3. TRÌNH PHÁT AUDIO PHẬT HỌC THIẾT KẾ MỚI (CHỐNG LỆCH TRÊN MOBILE)
+   🎧 3. TRÌNH PHÁT AUDIO PHẬT HỌC THIẾT KẾ MỚI (NÂNG CAO CÂN ĐỐI)
    ========================================================================== */
 .dhp-audio-box {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(254, 243, 199, 0.92);
+  background: rgba(254, 243, 199, 0.94);
   border: 1.2px solid #d97706;
-  padding: 6px 14px;
+  padding: 5px 14px;
   border-radius: 99px;
   box-shadow: 0 4px 15px rgba(217, 119, 6, 0.15);
   z-index: 20;
   position: relative;
-  margin: 10px auto 4px auto;
-  max-width: 360px;
+  margin: 6px auto 0 auto;
+  max-width: 350px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -115,14 +115,14 @@ html.dhp-active, body.dhp-active {
   background: linear-gradient(135deg, #d97706, #b45309);
   color: #ffffff;
   border: none;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 11px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
   transition: all 0.2s;
   flex-shrink: 0;
@@ -134,7 +134,7 @@ html.dhp-active, body.dhp-active {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  gap: 3px;
+  gap: 2px;
 }
 
 .dhp-audio-meta {
@@ -156,7 +156,7 @@ html.dhp-active, body.dhp-active {
 
 .dhp-audio-time {
   font-family: monospace;
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: bold;
   color: #92400e;
 }
@@ -373,7 +373,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   📱 5. ĐỘNG CƠ MOBILE (< 820px) - TỐI ƯU GỌN GÀNG KHÔNG LỆCH CHỮ
+   📱 5. ĐỘNG CƠ MOBILE (< 820px)
    ========================================================================== */
 @media screen and (max-width: 820px) {
   #dhp-print-menu-container, .dhp-hide-mobile {
@@ -393,13 +393,12 @@ html.dhp-active, body.dhp-active {
     flex-shrink: 0 !important;
   }
 
-  /* 🌟 TỐI ƯU HEADER DOCK TRÊN MOBILE: ẨN CHỮ DÀI, CHỈ HIỆN BIỂU TƯỢNG PHÁT SÁNG */
   #dhp-header-audio-dock {
     padding: 2px 6px !important;
     gap: 4px !important;
   }
   #dhp-dock-title {
-    display: none !important; /* Ẩn chữ dài chống nhảy dòng */
+    display: none !important;
   }
 
   #dhp-canvas-container {
@@ -475,11 +474,10 @@ html.dhp-active, body.dhp-active {
     gap: 10px !important;
   }
 
-  /* 🌟 TỐI ƯU THANH AUDIO BÌA PHẨM TRÊN MOBILE: THON GỌN, CHUẨN VIÊN THUỐC */
   .dhp-audio-box {
     max-width: 300px !important;
     padding: 5px 12px !important;
-    margin: 8px auto !important;
+    margin: 6px auto !important;
     gap: 8px !important;
   }
   .dhp-audio-title {
@@ -495,7 +493,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🖨️ 6. ĐỘNG CƠ IN VECTOR SIÊU NHẸ (ẨN SẠCH AUDIO TRONG BẢN IN)
+   🖨️ 6. ĐỘNG CƠ IN VECTOR SIÊU NHẸ (ẨN AUDIO KHI IN)
    ========================================================================== */
 #dhp-print-mount {
   display: none;

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V6.4 - REFINED MOBILE AUDIO UI)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V6.5 - ELEVATED AUDIO DOCK)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -194,7 +194,6 @@
             <span class="dhp-hide-mobile" style="font-weight: bold; color: #fde68a; font-size: 12.5px;">KINH PHÁP CÚ</span>
           </div>
 
-          <!-- 🌟 HUY HIỆU AUDIO MINI (TỰ ẨN CHỮ DÀI TRÊN MOBILE) -->
           <div id="dhp-header-audio-dock" title="Đang phát audio">
             <span style="font-size: 11px;">🎧</span>
             <span id="dhp-dock-title" style="font-weight: bold;">Đang nghe...</span>
@@ -207,12 +206,10 @@
             <option>Đang nạp dữ liệu...</option>
           </select>
 
-          <!-- NÚT TOÀN MÀN HÌNH -->
           <button id="dhp-fullscreen-btn" style="background: #1e293b; color: #fde68a; border: 1px solid #475569; padding: 5px 8px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px;" title="Bật/Tắt Toàn Màn Hình">
             ⛶ <span class="dhp-hide-mobile">Toàn màn</span>
           </button>
           
-          <!-- MENU IN SÁCH -->
           <div id="dhp-print-menu-container" style="position: relative;">
             <button id="dhp-print-menu-btn" style="background: linear-gradient(135deg, #d97706, #b45309); color: #fff; font-weight: bold; border: none; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; white-space: nowrap; display: flex; align-items: center; gap: 4px;">
               🖨️ <span>IN SÁCH A5</span> <span style="font-size: 9px;">▼</span>
@@ -587,6 +584,7 @@
     document.getElementById('dhp-slider').value = currentIndex;
     document.getElementById('dhp-slider').max = pages.length - 1;
 
+    // Đồng bộ mục lục Dropdown
     const sel = document.getElementById('dhp-chapter-select');
     if (sel) {
       if (page.type === 'main_cover') {
@@ -616,7 +614,7 @@
               “Tâm dẫn đầu mọi pháp, Tâm làm chủ, tâm tạo;<br/>Nếu với tâm thanh tịnh, Nói lên hay hành động,<br/>An lạc bước theo sau, Như bóng không rời hình.”
             </div>
 
-            <!-- 🎧 TRÌNH PHÁT AUDIO LỜI TỰA BÌA CHÍNH (TIỂU CHUẨN 2 TẦNG SPOTIFY) -->
+            <!-- 🎧 TRÌNH PHÁT AUDIO LỜI TỰA BÌA CHÍNH (NÂNG LÊN GỌN GÀNG) -->
             <div class="dhp-audio-box no-print">
               <button class="dhp-audio-btn" id="dhp-btn-main-audio" title="Nghe Lời Tựa">
                 <span class="dhp-audio-icon">${isAudioPlaying && currentAudioUrl === LOI_TUA_AUDIO ? "⏸" : "▶"}</span>
@@ -654,6 +652,7 @@
       const audioUrl = c.audio_url || "";
       const isCurrentPhapAm = currentAudioUrl === audioUrl;
 
+      // 🌸 NHÓM ĐOẠN TRÍCH VÀ THANH AUDIO THÀNH MỘT KHỐI ĐỂ TỰ ĐỘNG NÂNG LÊN CAO
       paperBox.innerHTML = `
         <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center;">
           <div style="padding-top: 15px;">
@@ -666,24 +665,27 @@
             </div>
           </div>
 
-          <div style="padding: 0 20px; max-width: 580px; font-size: 15px; line-height: 1.7; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; margin-top: 6px;">
-            “${cleanText(c.intro_vi)}”
-          </div>
-
-          <!-- 🎧 TRÌNH PHÁT AUDIO CHO PHẨM NÀY (THIẾT KẾ SPOTIFY 2 TẦNG CHỐNG TRÀN) -->
-          ${audioUrl ? `
-          <div class="dhp-audio-box no-print">
-            <button class="dhp-audio-btn" id="dhp-btn-chap-audio" title="Nghe Tụng Phẩm ${c.chapter_roman}">
-              <span class="dhp-audio-icon">${isAudioPlaying && isCurrentPhapAm ? "⏸" : "▶"}</span>
-            </button>
-            <div class="dhp-audio-track">
-              <div class="dhp-audio-meta">
-                <span class="dhp-audio-title">🎧 Tụng Phẩm ${c.chapter_roman}</span>
-                <span class="dhp-audio-time">00:00 / 00:00</span>
-              </div>
-              <input type="range" class="dhp-audio-slider" min="0" max="0" value="0" />
+          <!-- KHỐI TÂM TRANG: ĐOẠN TRÍCH + THANH AUDIO NẰM LIỀN NHAU -->
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; margin: auto 0; position: relative; z-index: 10; width: 100%;">
+            <div style="padding: 0 20px; max-width: 580px; font-size: 15px; line-height: 1.7; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center;">
+              “${cleanText(c.intro_vi)}”
             </div>
-          </div>` : ''}
+
+            <!-- 🎧 TRÌNH PHÁT AUDIO CHO PHẨM NÀY (ĐÃ ĐƯỢC NÂNG LÊN CAO CÂN XỨNG) -->
+            ${audioUrl ? `
+            <div class="dhp-audio-box no-print">
+              <button class="dhp-audio-btn" id="dhp-btn-chap-audio" title="Nghe Tụng Phẩm ${c.chapter_roman}">
+                <span class="dhp-audio-icon">${isAudioPlaying && isCurrentPhapAm ? "⏸" : "▶"}</span>
+              </button>
+              <div class="dhp-audio-track">
+                <div class="dhp-audio-meta">
+                  <span class="dhp-audio-title">🎧 Tụng Phẩm ${c.chapter_roman}</span>
+                  <span class="dhp-audio-time">00:00 / 00:00</span>
+                </div>
+                <input type="range" class="dhp-audio-slider" min="0" max="0" value="0" />
+              </div>
+            </div>` : ''}
+          </div>
 
           <div style="padding-bottom: 4px; width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(217, 119, 6, 0.3); padding-top: 8px; font-family: system-ui, sans-serif; font-size: 11px; color: #64748b;">
             <span>🌸 <i>Kinh Pháp Cú</i></span>
@@ -705,6 +707,7 @@
       const v = page.data;
       const chap = page.chapter;
 
+      // 🌸 KHÓA CHUẨN ĐỒNG BỘ 100% CẢ 423 BÀI KỆ
       paperBox.innerHTML = `
         <div class="dhp-inner-card">
           <div class="dhp-grid-container">
