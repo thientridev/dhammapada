@@ -22,7 +22,7 @@ Dự án này là một nền tảng **Sách Điện Tử Tương Tác & Động
 * 🖼️ **Tranh minh họa gốc HD**: 423 bức họa sơn dầu Phật giáo quý giá của họa sĩ người Sri Lanka **Mr. Piyadhasa Wickramanayake**.
 * 📖 **Đa tầng nội dung**: Mỗi bài kệ gồm Tiêu đề, Thơ Lục Bát Việt dịch, Khung Pāli nguyên tác, và Phần Dịch Nghĩa tường minh.
 * 🎧 **Trình phát Audio Phật học (Multi-track Audio Engine)**:
-  - Tích hợp sẵn giọng tụng/đọc của **Trưởng lão HT. Thích Minh Châu** cho Lời Tựa và 26 Phẩm (Phẩm 26 tự động nối bài liên tục A ➔ B).
+  - Tích hợp sẵn file audio mp3 cho Lời Tựa và 26 Phẩm (Phẩm 26 tự động nối bài liên tục A ➔ B).
   - Hỗ trợ **Phát nhạc nền (Background Playback)**: Vừa nghe tụng vừa thoải mái lật xem từng bài kệ.
 * 🖨️ **Động cơ In ấn PDF Siêu Nhẹ (Canvas Turbo Compressor)**:
   - Xuất bản file PDF chuẩn A5 Landscape tràn viền 100%, không khoảng trắng thừa.
