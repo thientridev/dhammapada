@@ -1,11 +1,11 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V4.2 - PERFECT TYPOGRAPHY & SPACING)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V4.3 - DYNAMIC AUTO-FIT ENGINE)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
 (function() {
   const CHAPTERS_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/dhammapada_chapters.json";
-  const VERSES_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@a00d585/dhammapada_verses.json";
+  const VERSES_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@f78ec8c/dhammapada_verses.json";
 
   let chapters = [];
   let verses = [];
@@ -82,7 +82,6 @@
             <option>Đang nạp dữ liệu...</option>
           </select>
           
-          <!-- MENU IN THÔNG MINH (ẨN TRÊN MOBILE) -->
           <div id="dhp-print-menu-container" style="position: relative;">
             <button id="dhp-print-menu-btn" style="background: linear-gradient(135deg, #d97706, #b45309); color: #fff; font-weight: bold; border: none; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; white-space: nowrap; display: flex; align-items: center; gap: 4px;">
               🖨️ <span>IN SÁCH A5</span> <span style="font-size: 9px;">▼</span>
@@ -123,6 +122,72 @@
     bindEvents();
   }
 
+  // Thuật toán đo lường và cấp thông số kích thước chữ thích ứng (Auto-Fit)
+  function getAutoFitTypography(v) {
+    const totalChars = (v.verse_vi || '').length + (v.verse_pali || '').length + (v.meaning_vi || '').length;
+    const lineCountVi = (v.verse_vi || '').split('\n').length;
+
+    // Phân loại: Siêu dài (như Kệ 154) | Dài vừa | Bình thường
+    if (totalChars > 450 || lineCountVi >= 6) {
+      return {
+        verseSize: '13.8px',
+        verseLine: '1.4',
+        verseMargin: '4px',
+        paliSize: '12px',
+        paliLine: '1.35',
+        paliMargin: '4px',
+        meaningSize: '12.8px',
+        meaningLine: '1.42',
+        meaningPadding: '4px',
+        // Thông số bản in (mm)
+        pVerseSize: '12px',
+        pVerseLine: '1.35',
+        pPaliSize: '10.5px',
+        pPaliLine: '1.3',
+        pMeaningSize: '10.5px',
+        pMeaningLine: '1.35'
+      };
+    } else if (totalChars > 320) {
+      return {
+        verseSize: '15px',
+        verseLine: '1.48',
+        verseMargin: '6px',
+        paliSize: '13px',
+        paliLine: '1.42',
+        paliMargin: '5px',
+        meaningSize: '13.8px',
+        meaningLine: '1.5',
+        meaningPadding: '6px',
+        // Thông số bản in (mm)
+        pVerseSize: '13px',
+        pVerseLine: '1.42',
+        pPaliSize: '11.5px',
+        pPaliLine: '1.35',
+        pMeaningSize: '11.5px',
+        pMeaningLine: '1.4'
+      };
+    } else {
+      return {
+        verseSize: '16.5px',
+        verseLine: '1.55',
+        verseMargin: '8px',
+        paliSize: '14px',
+        paliLine: '1.5',
+        paliMargin: '6px',
+        meaningSize: '14.8px',
+        meaningLine: '1.58',
+        meaningPadding: '8px',
+        // Thông số bản in (mm)
+        pVerseSize: '14px',
+        pVerseLine: '1.5',
+        pPaliSize: '12.5px',
+        pPaliLine: '1.45',
+        pMeaningSize: '12.5px',
+        pMeaningLine: '1.5'
+      };
+    }
+  }
+
   function buildPrintPageHtml(p) {
     if (p.type === 'main_cover') {
       return `
@@ -139,7 +204,7 @@
               <div style="font-size: 12.5px; font-weight: bold; color: #78350f; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6mm;">
                 TUYỂN TẬP 423 BÀI KỆ TRANH MINH HỌA MÀU
               </div>
-              <div style="font-size: 12.5px; line-height: 1.65; color: #334155; font-style: italic; max-width: 140mm; margin: 0 auto;">
+              <div style="font-size: 12px; line-height: 1.65; color: #334155; font-style: italic; max-width: 140mm; margin: 0 auto;">
                 “Tâm dẫn đầu mọi pháp, Tâm làm chủ, tâm tạo;<br/>Nếu với tâm thanh tịnh, Nói lên hay hành động,<br/>An lạc bước theo sau, Như bóng không rời hình.”
               </div>
             </div>
@@ -160,8 +225,7 @@
                 <div style="height: 1px; width: 40px; background: #b45309;"></div>
               </div>
             </div>
-            <!-- CHỮ GIỚI THIỆU PHẨM TRÊN BẢN IN ĐƯỢC TĂNG SIZE & ĐẨY LÙI XUỐNG -->
-            <div style="padding: 0 10mm; max-width: 150mm; font-size: 13.5px; line-height: 1.7; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; margin-top: 4mm;">
+            <div style="padding: 0 10mm; max-width: 150mm; font-size: 13px; line-height: 1.65; color: #1e293b; font-style: italic; text-align: justify; text-align-last: center; margin-top: 3mm;">
               “${cleanText(c.intro_vi)}”
             </div>
             <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 0.8px solid rgba(217, 119, 6, 0.4); padding-top: 2mm; font-family: system-ui, sans-serif; font-size: 10px; color: #64748b;">
@@ -177,6 +241,8 @@
     } else {
       const v = p.data;
       const chap = p.chapter;
+      const t = getAutoFitTypography(v);
+
       return `
         <div class="dhp-print-page">
           <div class="dhp-inner-card">
@@ -186,20 +252,20 @@
               </div>
               <div class="dhp-text-col">
                 <div>
-                  <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 2mm; margin-bottom: 2mm; font-family: system-ui, sans-serif;">
-                    <span style="font-size: 14px; font-weight: 900; color: #b45309;">KỆ SỐ ${cleanText(v.verse_no)}</span>
-                    <span style="font-size: 10.5px; color: #64748b; font-style: italic; font-weight: bold;">${cleanText(chap.chapter_vi)}</span>
+                  <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 1.5mm; margin-bottom: 1.5mm; font-family: system-ui, sans-serif;">
+                    <span style="font-size: 13.5px; font-weight: 900; color: #b45309;">KỆ SỐ ${cleanText(v.verse_no)}</span>
+                    <span style="font-size: 10px; color: #64748b; font-style: italic; font-weight: bold;">${cleanText(chap.chapter_vi)}</span>
                   </div>
-                  <div style="font-size: 14px; line-height: 1.5; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 2.5mm;">${cleanText(v.verse_vi)}</div>
-                  <div class="dhp-pali-box">
-                    <div style="font-size: 12.5px; line-height: 1.45; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
+                  <div style="font-size: ${t.pVerseSize}; line-height: ${t.pVerseLine}; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 2mm;">${cleanText(v.verse_vi)}</div>
+                  <div class="dhp-pali-box" style="margin-bottom: 2mm;">
+                    <div style="font-size: ${t.pPaliSize}; line-height: ${t.pPaliLine}; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
                   </div>
                 </div>
                 <div>
-                  <div style="font-size: 12.5px; line-height: 1.5; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 2mm;">
+                  <div style="font-size: ${t.pMeaningSize}; line-height: ${t.pMeaningLine}; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 1.5mm;">
                     <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                   </div>
-                  <div style="display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-family: system-ui, sans-serif; border-top: 0.8px solid #e2e8f0; padding-top: 1.5mm; margin-top: 2mm; color: #94a3b8;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; font-size: 8.5px; font-family: system-ui, sans-serif; border-top: 0.8px solid #e2e8f0; padding-top: 1mm; margin-top: 1.5mm; color: #94a3b8;">
                     <span>Dhammapada Verse ${cleanText(v.verse_no)}</span>
                     <span>${cleanText(chap.chapter_vi)}</span>
                   </div>
@@ -362,7 +428,6 @@
       `;
     } else if (page.type === 'cover') {
       const c = page.data;
-      // 🌸 TĂNG SIZE CHỮ GIỚI THIỆU PHẨM LÊN 16PX & ĐẨY LÙI XUỐNG DƯỚI (MARGIN-TOP 18PX)
       paperBox.innerHTML = `
         <div class="dhp-inner-card dhp-bg-buddha" style="align-items: center; text-align: center;">
           <div style="padding-top: 15px;">
@@ -389,7 +454,9 @@
     } else {
       const v = page.data;
       const chap = page.chapter;
-      // 🌸 NÂNG CẤP CHỮ PĀLI (14.5PX) & DỊCH NGHĨA (15.5PX) RÕ NÉT CỰC KỲ DỄ ĐỌC
+      // 🌸 GỌI ĐỘNG CƠ TỰ ĐỘNG CÂN CHỈNH KÍCH THƯỚC CHỮ THEO DUNG LƯỢNG
+      const t = getAutoFitTypography(v);
+
       paperBox.innerHTML = `
         <div class="dhp-inner-card">
           <div class="dhp-grid-container">
@@ -397,23 +464,33 @@
             <div class="dhp-image-col">
               <img src="${v.image_url}" alt="Kệ ${v.verse_no}" loading="lazy" />
             </div>
-            <!-- VĂN BẢN & HOA SEN WATERMARK -->
+
+            <!-- VĂN BẢN (AUTO-FIT 100% VỪA KHÍT KHUNG) -->
             <div class="dhp-text-col">
               <div>
-                <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 4px; margin-bottom: 6px; font-family: system-ui, sans-serif;">
-                  <span style="font-size: 16.5px; font-weight: 900; color: #b45309; letter-spacing: 0.5px;">KỆ SỐ ${cleanText(v.verse_no)}</span>
-                  <span style="font-size: 12px; color: #64748b; font-style: italic; font-weight: 600;">${cleanText(chap.chapter_vi)}</span>
+                <!-- TIÊU ĐỀ KỆ SỐ -->
+                <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #fed7aa; padding-bottom: 3px; margin-bottom: 4px; font-family: system-ui, sans-serif;">
+                  <span style="font-size: 16px; font-weight: 900; color: #b45309; letter-spacing: 0.5px;">KỆ SỐ ${cleanText(v.verse_no)}</span>
+                  <span style="font-size: 11.5px; color: #64748b; font-style: italic; font-weight: 600;">${cleanText(chap.chapter_vi)}</span>
                 </div>
-                <div style="font-size: 16.5px; line-height: 1.55; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: 8px;">${cleanText(v.verse_vi)}</div>
-                <div class="dhp-pali-box">
-                  <div style="font-size: 14.5px; line-height: 1.55; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
+
+                <!-- THƠ LỤC BÁT -->
+                <div style="font-size: ${t.verseSize}; line-height: ${t.verseLine}; font-weight: bold; color: #0f172a; white-space: pre-line; margin-bottom: ${t.verseMargin};">${cleanText(v.verse_vi)}</div>
+
+                <!-- HỘP PĀLI -->
+                <div class="dhp-pali-box" style="margin-bottom: ${t.paliMargin};">
+                  <div style="font-size: ${t.paliSize}; line-height: ${t.paliLine}; font-style: italic; white-space: pre-line; font-weight: 600;">${cleanText(v.verse_pali)}</div>
                 </div>
               </div>
+
               <div>
-                <div style="font-size: 15.5px; line-height: 1.6; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: 8px;">
+                <!-- DỊCH NGHĨA -->
+                <div style="font-size: ${t.meaningSize}; line-height: ${t.meaningLine}; color: #0f172a; text-align: justify; border-top: 1px dashed #cbd5e1; padding-top: ${t.meaningPadding};">
                   <b style="color: #92400e;">Dịch nghĩa:</b> ${cleanText(v.meaning_vi)}
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-family: system-ui, sans-serif; border-top: 1px solid #e2e8f0; padding-top: 4px; margin-top: 6px; color: #94a3b8;">
+
+                <!-- FOOTER CARD -->
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 9.5px; font-family: system-ui, sans-serif; border-top: 1px solid #e2e8f0; padding-top: 3px; margin-top: 4px; color: #94a3b8;">
                   <span>Dhammapada Verse ${cleanText(v.verse_no)}</span>
                   <span>${cleanText(chap.chapter_vi)}</span>
                 </div>
