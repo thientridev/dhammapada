@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V4.3 - DYNAMIC AUTO-FIT ENGINE)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V4.4 - AUTO-SYNC & LIGHTWEIGHT PRINT)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -210,7 +210,7 @@ html.dhp-active, body.dhp-active {
   box-shadow: 0 10px 25px rgba(0,0,0,0.5);
   display: flex;
   flex-direction: column;
-  min-width: 220px;
+  min-width: 230px;
   z-index: 99999;
   overflow: hidden;
 }
@@ -334,7 +334,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🖨️ 5. ĐỘNG CƠ IN ẤN CHUẨN XUẤT BẢN W3C A5 LANDSCAPE (TRIỆT TIÊU KHOẢNG TRẮNG)
+   🖨️ 5. ĐỘNG CƠ IN ẤN CHUẨN XUẤT BẢN W3C A5 LANDSCAPE (TỐI ƯU NHẸ & NÉT)
    ========================================================================== */
 #dhp-print-mount {
   display: none;

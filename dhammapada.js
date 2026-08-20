@@ -1,11 +1,11 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V4.3 - DYNAMIC AUTO-FIT ENGINE)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (JS V4.4 - AUTO-SYNC & LIGHTWEIGHT PRINT)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
 (function() {
   const CHAPTERS_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@main/dhammapada_chapters.json";
-  const VERSES_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@f78ec8c/dhammapada_verses.json";
+  const VERSES_URL = "https://cdn.jsdelivr.net/gh/thientridev/dhammapada@a00d585/dhammapada_verses.json";
 
   let chapters = [];
   let verses = [];
@@ -78,17 +78,19 @@
           <span class="dhp-hide-mobile" style="font-weight: bold; color: #fde68a; font-size: 12.5px;">KINH PHÁP CÚ</span>
         </div>
         <div style="display: flex; align-items: center; gap: 8px;">
-          <select id="dhp-chapter-select" style="background: #0f172a; color: #fde68a; border: 1px solid #d97706; border-radius: 8px; padding: 4px 6px; font-size: 11.5px; outline: none; cursor: pointer; max-width: 180px;">
+          <!-- DROPDOWN TỰ ĐỘNG NHẢY THEO PHẨM -->
+          <select id="dhp-chapter-select" style="background: #0f172a; color: #fde68a; border: 1px solid #d97706; border-radius: 8px; padding: 4px 6px; font-size: 11.5px; outline: none; cursor: pointer; max-width: 185px;">
             <option>Đang nạp dữ liệu...</option>
           </select>
           
+          <!-- MENU IN THÔNG MINH -->
           <div id="dhp-print-menu-container" style="position: relative;">
             <button id="dhp-print-menu-btn" style="background: linear-gradient(135deg, #d97706, #b45309); color: #fff; font-weight: bold; border: none; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; white-space: nowrap; display: flex; align-items: center; gap: 4px;">
               🖨️ <span>IN SÁCH A5</span> <span style="font-size: 9px;">▼</span>
             </button>
             <div id="dhp-print-dropdown" class="dhp-dropdown-menu hidden">
-              <div id="dhp-print-current-btn" class="dhp-dropdown-item">📄 In Trang Hiện Tại (1 trang)</div>
-              <div id="dhp-print-chapter-btn" class="dhp-dropdown-item">📑 In Phẩm Này (Nhanh &amp; Nhẹ)</div>
+              <div id="dhp-print-current-btn" class="dhp-dropdown-item">📄 In Trang Này (1 trang A5)</div>
+              <div id="dhp-print-chapter-btn" class="dhp-dropdown-item" style="color: #6ee7b7;">⚡ In Phẩm Này (Siêu nhẹ &amp; Nét ⭐)</div>
               <div id="dhp-print-all-btn" class="dhp-dropdown-item">📚 In Toàn Bộ Sách (450 trang)</div>
             </div>
           </div>
@@ -122,12 +124,10 @@
     bindEvents();
   }
 
-  // Thuật toán đo lường và cấp thông số kích thước chữ thích ứng (Auto-Fit)
   function getAutoFitTypography(v) {
     const totalChars = (v.verse_vi || '').length + (v.verse_pali || '').length + (v.meaning_vi || '').length;
     const lineCountVi = (v.verse_vi || '').split('\n').length;
 
-    // Phân loại: Siêu dài (như Kệ 154) | Dài vừa | Bình thường
     if (totalChars > 450 || lineCountVi >= 6) {
       return {
         verseSize: '13.8px',
@@ -139,7 +139,6 @@
         meaningSize: '12.8px',
         meaningLine: '1.42',
         meaningPadding: '4px',
-        // Thông số bản in (mm)
         pVerseSize: '12px',
         pVerseLine: '1.35',
         pPaliSize: '10.5px',
@@ -158,7 +157,6 @@
         meaningSize: '13.8px',
         meaningLine: '1.5',
         meaningPadding: '6px',
-        // Thông số bản in (mm)
         pVerseSize: '13px',
         pVerseLine: '1.42',
         pPaliSize: '11.5px',
@@ -177,7 +175,6 @@
         meaningSize: '14.8px',
         meaningLine: '1.58',
         meaningPadding: '8px',
-        // Thông số bản in (mm)
         pVerseSize: '14px',
         pVerseLine: '1.5',
         pPaliSize: '12.5px',
@@ -317,7 +314,7 @@
       setTimeout(() => window.print(), 100);
     };
 
-    // 2. In Phẩm Hiện Tại
+    // 2. In Phẩm Hiện Tại (Siêu nhẹ & Nét)
     document.getElementById('dhp-print-chapter-btn').onclick = () => {
       forceA5LandscapePrint();
       const cur = pages[currentIndex];
@@ -335,7 +332,7 @@
     document.getElementById('dhp-print-all-btn').onclick = () => {
       forceA5LandscapePrint();
       const pm = document.getElementById('dhp-print-mount');
-      pm.innerHTML = `<div style="text-align:center; padding: 20px; font-weight:bold; color:#d97706; font-size:16px;">Đang kết xuất 450 trang in A5...</div>`;
+      pm.innerHTML = `<div style="text-align:center; padding: 20px; font-weight:bold; color:#d97706; font-size:16px;">Đang chuẩn bị 450 trang in A5...</div>`;
       
       setTimeout(() => {
         pm.innerHTML = pages.map(p => buildPrintPageHtml(p)).join('');
@@ -406,6 +403,18 @@
     document.getElementById('dhp-slider').value = currentIndex;
     document.getElementById('dhp-slider').max = pages.length - 1;
 
+    // 🌸 ĐỒNG BỘ TỰ ĐỘNG MỤC LỤC DROPDOWN THEO PHẨM ĐANG XEM
+    const sel = document.getElementById('dhp-chapter-select');
+    if (sel) {
+      if (page.type === 'main_cover') {
+        sel.value = 'main_cover';
+      } else if (page.type === 'cover') {
+        sel.value = page.data.chapter_id.toString();
+      } else if (page.type === 'verse') {
+        sel.value = page.chapter.chapter_id.toString();
+      }
+    }
+
     if (page.type === 'main_cover') {
       paperBox.innerHTML = `
         <div class="dhp-inner-card dhp-bg-cover-lotus" style="align-items: center; text-align: center; justify-content: center;">
@@ -454,7 +463,6 @@
     } else {
       const v = page.data;
       const chap = page.chapter;
-      // 🌸 GỌI ĐỘNG CƠ TỰ ĐỘNG CÂN CHỈNH KÍCH THƯỚC CHỮ THEO DUNG LƯỢNG
       const t = getAutoFitTypography(v);
 
       paperBox.innerHTML = `
@@ -465,7 +473,7 @@
               <img src="${v.image_url}" alt="Kệ ${v.verse_no}" loading="lazy" />
             </div>
 
-            <!-- VĂN BẢN (AUTO-FIT 100% VỪA KHÍT KHUNG) -->
+            <!-- VĂN BẢN (AUTO-FIT VỪA KHÍT 100%) -->
             <div class="dhp-text-col">
               <div>
                 <!-- TIÊU ĐỀ KỆ SỐ -->
