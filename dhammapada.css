@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.2 - ULTRA LIGHTWEIGHT VECTOR PDF)
+   🌸 DHAMMAPADA EBOOK & PRINT ENGINE (CSS V5.3 - ULTRA COMPACT 3MB PDF)
    REPOSITORY: thientridev/dhammapada
    ========================================================================== */
 
@@ -27,7 +27,7 @@ html.dhp-active, body.dhp-active {
   font-family: 'Times New Roman', Times, serif !important;
 }
 
-/* 2. KHỔ GIẤY A5 CHUẨN 100% NGUYÊN BẢN (794px x 550px) */
+/* 2. KHỔ GIẤY A5 TRÊN MÀN HÌNH (794px x 550px) */
 #dhp-canvas-container {
   display: flex !important;
   justify-content: center !important;
@@ -78,7 +78,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🌸 BỘ WATERMARK NGHỆ THUẬT (TRÊN MÀN HÌNH DÙNG MULTIPLY)
+   🌸 BỘ WATERMARK NGHỆ THUẬT (HIỂN THỊ TRÊN MÀN HÌNH)
    ========================================================================== */
 .dhp-bg-cover-lotus {
   position: relative !important;
@@ -149,7 +149,7 @@ html.dhp-active, body.dhp-active {
   z-index: 10 !important;
 }
 
-/* 3. BỐ CỤC CỘT DESKTOP */
+/* 3. BỐ CỤC CỘT TRÊN DESKTOP */
 #dhp-master-workspace .dhp-grid-container {
   display: flex !important;
   flex-direction: row !important;
@@ -345,7 +345,7 @@ html.dhp-active, body.dhp-active {
 }
 
 /* ==========================================================================
-   🖨️ 5. ĐỘNG CƠ IN VECTOR SIÊU NHẸ (TRIỆT TIÊU MIX-BLEND-MODE -> GIẢM 90% DUNG LƯỢNG)
+   🖨️ 5. ĐỘNG CƠ IN ẤN VECTOR SIÊU NHẸ (GIẢM 90% DUNG LƯỢNG PDF)
    ========================================================================== */
 #dhp-print-mount {
   display: none;
@@ -426,10 +426,12 @@ html.dhp-active, body.dhp-active {
     break-after: auto !important;
   }
 
+  /* KHUNG VIỀN IN CHUẨN XÁC CHIỀU CAO (KHÔNG ĐÈ NÉN ĐÁY) */
   .dhp-print-page .dhp-inner-card {
     border: 1.2px solid #d97706 !important;
     border-radius: 4px !important;
-    height: 100% !important;
+    height: calc(100vh - 10mm) !important;
+    max-height: calc(100vh - 10mm) !important;
     width: 100% !important;
     padding: 5mm 8mm !important;
     box-sizing: border-box !important;
@@ -439,6 +441,7 @@ html.dhp-active, body.dhp-active {
     background-color: #fdfbf7 !important;
     background: #fdfbf7 !important;
     position: relative !important;
+    overflow: hidden !important;
   }
 
   .dhp-print-page .dhp-grid-container {
@@ -481,26 +484,10 @@ html.dhp-active, body.dhp-active {
     flex-shrink: 0 !important;
   }
 
-  /* ⚡ TRIỆT TIÊU HOÀN TOÀN MIX-BLEND-MODE TRÊN BẢN IN ĐỂ GIỮ FILE PDF NHẸ & VECTOR SẮC NÉT */
-  .dhp-print-page .dhp-bg-buddha::before {
-    width: 110mm !important;
-    height: 110mm !important;
-    opacity: 0.12 !important;
-    mix-blend-mode: normal !important;
-  }
-
-  .dhp-print-page .dhp-text-col::before {
-    width: 75mm !important;
-    height: 75mm !important;
-    opacity: 0.12 !important;
-    mix-blend-mode: normal !important;
-  }
-
+  /* ⚡ TẮT HOÀN TOÀN WATERMARK RASTER TRÊN BẢN IN ĐỂ GIẢM TỪ 47MB XUỐNG 3MB */
+  .dhp-print-page .dhp-bg-buddha::before,
+  .dhp-print-page .dhp-text-col::before,
   .dhp-print-page .dhp-bg-cover-lotus::before {
-    width: 90mm !important;
-    height: 65mm !important;
-    opacity: 0.14 !important;
-    bottom: 5mm !important;
-    mix-blend-mode: normal !important;
+    display: none !important;
   }
 }
